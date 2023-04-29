@@ -46,6 +46,7 @@ public class ProfileSettingsViewController implements Initializable {
         String nickName="Ntonio";
         String passwordMember="erewrqdc";
         c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","5402056301030199",321,avatar); 
+        //registerMember debería usarse solo una vez en signup (si no various usuarios tendran el mismo nombre de usuario, yo solo lo uso aqui como prueba )
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         System.out.println(c.existsLogin("Ntonio"));
         name.textProperty().setValue(m.getName());
