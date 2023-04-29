@@ -34,9 +34,9 @@
    <bottom>
       <HBox prefHeight="81.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Go Back">
+            <Button mnemonicParsing="false" prefWidth="118.0" text="Go Back">
                <HBox.margin>
-                  <Insets left="95.0" />
+                  <Insets left="30.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" text="Change Profile Info">
@@ -175,9 +175,9 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image" fitHeight="100.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
-                        <Insets left="32.0" />
+                        <Insets left="40.0" />
                      </VBox.margin>
                   </ImageView>
                   <Button mnemonicParsing="false" text="Change Profile Picture">

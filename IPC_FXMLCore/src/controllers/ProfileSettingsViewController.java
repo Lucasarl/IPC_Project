@@ -5,12 +5,15 @@
 package controllers;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.*;
 
 /**
@@ -32,6 +35,8 @@ public class ProfileSettingsViewController implements Initializable {
     private Label cardNumber;
     @FXML
     private Label svc;
+    @FXML
+    private ImageView image;
 
     /**
      * Initializes the controller class.
@@ -39,13 +44,15 @@ public class ProfileSettingsViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         // TODO2
-        Image avatar=null;
         try {
         Club c=Club.getInstance();
         c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
         String nickName="Ntonio";
         String passwordMember="erewrqdc";
-        c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","5402056301030199",321,avatar); 
+        String urlImage = "src/images/men.PNG";
+        Image avatar=new Image(new FileInputStream(urlImage));
+        // Si usamos, Image avatar=null, muestra default.png;
+        c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","5402056301030199",321,avatar);
         //registerMember debería usarse solo una vez en signup (si no various usuarios tendran el mismo nombre de usuario, yo solo lo uso aqui como prueba )
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         System.out.println(c.existsLogin("Ntonio"));
@@ -56,6 +63,7 @@ public class ProfileSettingsViewController implements Initializable {
         cardNumber.textProperty().setValue(m.getCreditCard());
         String stringSvc=Integer.toString(m.getSvc());
         svc.textProperty().setValue(stringSvc);
+        image.imageProperty().setValue(m.getImage());
         
         }
         
