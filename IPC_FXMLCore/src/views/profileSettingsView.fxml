@@ -36,7 +36,7 @@
          <children>
             <Button mnemonicParsing="false" text="Go Back">
                <HBox.margin>
-                  <Insets left="50.0" />
+                  <Insets left="95.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" text="Change Profile Info">
