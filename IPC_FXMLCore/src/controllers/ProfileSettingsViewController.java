@@ -138,6 +138,7 @@ public class ProfileSettingsViewController implements Initializable  {
 
     @FXML
     private void goBack(ActionEvent event) {
+        //back to main screen
     }
 
     @FXML
