@@ -9,18 +9,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileSettingsViewController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileSettingsViewController">
    <top>
-      <HBox prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: #29a61ed1;" BorderPane.alignment="CENTER">
+      <HBox minHeight="86.0" style="-fx-background-color: #29a61ed1;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Greenball" textFill="#fffefe">
+            <Label text="Greenball" textFill="#fffefe" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Segoe UI Black" size="40.0" />
                </font>
                <HBox.margin>
                   <Insets left="40.0" top="12.0" />
-               </HBox.margin></Label>
-            <Label text="My Profile">
+               </HBox.margin>
+            </Label>
+            <Label text="My Profile" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Segoe UI Black" size="40.0" />
                </font>
@@ -32,26 +33,26 @@
       </HBox>
    </top>
    <bottom>
-      <HBox prefHeight="81.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox minHeight="81.0" minWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefWidth="118.0" text="Go Back">
+            <Button minWidth="118.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Change Profile Info">
+            <Button minWidth="118.0" mnemonicParsing="false" onAction="#changeProfileInfo" text="Change Profile Info" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="30.0" />
+                  <Insets left="45.0" />
                </HBox.margin>
             </Button>
          </children></HBox>
    </bottom>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="hBox" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="200.0" prefWidth="400.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Name">
                            <HBox.margin>
@@ -71,7 +72,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Familiy Name">
                            <HBox.margin>
@@ -91,7 +92,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Password">
                            <HBox.margin>
@@ -111,7 +112,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Nickname">
                            <font>
@@ -131,7 +132,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Card Number">
                            <HBox.margin>
@@ -151,7 +152,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="SVC">
                            <HBox.margin>
@@ -173,14 +174,14 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="200.0">
+            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="image" fitHeight="100.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>
-                        <Insets left="40.0" />
+                        <Insets left="46.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button mnemonicParsing="false" text="Change Profile Picture">
+                  <Button fx:id="changeProf" minWidth="118.0" mnemonicParsing="false" onAction="#changeProfilePicture" text="Change Profile Picture">
                      <VBox.margin>
                         <Insets left="30.0" top="15.0" />
                      </VBox.margin>

@@ -11,6 +11,11 @@ import javafx.stage.Stage;
 
 public class IPC_FXMLCore extends Application {
     
+private static Scene scene;
+    
+    public static void setRoot(Parent root) {
+        scene.setRoot(root);
+    }
     @Override
     public void start(Stage stage) throws Exception {
         //======================================================================
@@ -19,13 +24,16 @@ public class IPC_FXMLCore extends Application {
         Parent root = loader.load();
         //======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         //======================================================================
         // 3- asiganación de la escena al Stage que recibe el metodo 
         //     - configuracion del stage
         //     - se muestra el stage de manera no modal mediante el metodo show()
         stage.setScene(scene);
+        stage.setMinWidth(600); //Hacer todas las escenas de este tamaño
+        stage.setMinHeight(500);
         stage.setTitle("profileSettingsView");
+        //stage.setResizable(false);
         stage.show();
     }
     
