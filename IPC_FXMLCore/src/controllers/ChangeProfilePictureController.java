@@ -141,6 +141,7 @@ public class ChangeProfilePictureController implements Initializable {
        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(def.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -151,6 +152,7 @@ public class ChangeProfilePictureController implements Initializable {
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         ps.changeImage(men1.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     }
 
@@ -159,6 +161,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(men2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -168,6 +171,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(men3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -177,6 +181,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(men4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -186,6 +191,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(men5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -195,6 +201,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(woman1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -204,6 +211,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(woman2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -213,6 +221,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(woman3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -222,6 +231,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(woman4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -231,6 +241,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(woman5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -240,6 +251,7 @@ public class ChangeProfilePictureController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(woman6.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
     }
@@ -251,7 +263,10 @@ public class ChangeProfilePictureController implements Initializable {
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);
+        
+    
     }
 }

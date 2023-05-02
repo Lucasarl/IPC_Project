@@ -54,7 +54,7 @@
                <children>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Name">
+                        <Label text="Name" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="110.0" top="20.0" />
                            </HBox.margin>
@@ -62,7 +62,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="name">
+                        <Label fx:id="name" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="60.0" top="20.0" />
                            </HBox.margin>
@@ -74,7 +74,7 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Familiy Name">
+                        <Label text="Familiy Name" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="60.0" top="20.0" />
                            </HBox.margin>
@@ -82,7 +82,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="familyName">
+                        <Label fx:id="familyName" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="60.0" top="20.0" />
                            </HBox.margin>
@@ -94,7 +94,7 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Password">
+                        <Label text="Password" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="86.0" top="20.0" />
                            </HBox.margin>
@@ -102,7 +102,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="password">
+                        <Label fx:id="password" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="60.0" top="20.0" />
                            </HBox.margin>
@@ -114,7 +114,7 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Nickname">
+                        <Label text="Nickname" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -134,7 +134,7 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Card Number">
+                        <Label text="Card Number" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="58.0" top="20.0" />
                            </HBox.margin>
@@ -154,7 +154,7 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="SVC">
+                        <Label text="SVC" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="120.0" top="20.0" />
                            </HBox.margin>
@@ -174,7 +174,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" HBox.hgrow="ALWAYS">
+            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" HBox.hgrow="NEVER">
                <children>
                   <ImageView fx:id="image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>

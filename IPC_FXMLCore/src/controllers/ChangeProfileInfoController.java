@@ -10,11 +10,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.*;
 
@@ -28,7 +34,10 @@ public class ChangeProfileInfoController implements Initializable {
     /**
      * Initializes the controller class.
      */
-   
+    private BooleanProperty validPassword;
+    private BooleanProperty validCreditCard;
+    private BooleanProperty validSvc;  
+    
     @FXML
     private TextField name;
     @FXML
@@ -41,6 +50,14 @@ public class ChangeProfileInfoController implements Initializable {
     private TextField svc;
 
     public Member m;
+    @FXML
+    private Label errorPassword;
+    @FXML
+    private Label errorCardNumber;
+    @FXML
+    private Label errorSvc;
+    @FXML
+    private Button update;
     
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
@@ -54,9 +71,59 @@ public class ChangeProfileInfoController implements Initializable {
         svc.textProperty().setValue(svcString);
     }
     
+    private void manageError(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.FALSE);
+        showErrorMessage(errorLabel,textField);
+        textField.requestFocus();
+    }
+    
+    private void manageCorrect(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.TRUE);
+        hideErrorMessage(errorLabel,textField);
+    }
+    
+    private void showErrorMessage(Label errorLabel,TextField textField)
+    {
+        errorLabel.visibleProperty().set(true);
+        textField.styleProperty().setValue("-fx-background-color: #FCE5E0");    
+    }
+    
+    private void hideErrorMessage(Label errorLabel,TextField textField)
+    {
+        errorLabel.visibleProperty().set(false);
+        textField.styleProperty().setValue("");
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
+        validPassword = new SimpleBooleanProperty();
+        validCreditCard = new SimpleBooleanProperty();   
+        validSvc = new SimpleBooleanProperty();
+        
+        validPassword.setValue(Boolean.TRUE);
+        validCreditCard.setValue(Boolean.TRUE);
+        validSvc.setValue(Boolean.TRUE);
+        
+        BooleanBinding validFields = Bindings.and(validPassword, validCreditCard)
+                 .and(validSvc);
+         update.disableProperty().bind(Bindings.not(validFields));
+         
+        password.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkPassword();
+        }});
+        
+        cardNumber.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkCreditCard();
+        }});
+        
+        svc.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkSvc();
+        }});
     }    
+    
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
@@ -71,6 +138,7 @@ public class ChangeProfileInfoController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
+        
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
@@ -79,6 +147,37 @@ public class ChangeProfileInfoController implements Initializable {
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);
+    }
+    
+    
+    
+    private void checkPassword(){
+        if(password.textProperty().getValue().length()<6) {
+            manageError(errorPassword, password, validPassword);
+        }
+        
+        else {
+            manageCorrect(errorPassword, password, validPassword);
+        }
+    }
+    
+    private void checkCreditCard ()  {
+        if(cardNumber.textProperty().getValue().length()!=16) {
+            manageError(errorCardNumber, cardNumber, validCreditCard);
+        }
+        
+        else {
+            manageCorrect(errorCardNumber, cardNumber, validCreditCard);
+        }
+    }
+    
+     private void checkSvc(){
+        if(svc.textProperty().getValue().length()!=3) {
+            manageError(errorSvc,svc,validSvc);}
+           
+        else {
+            manageCorrect(errorSvc,svc,validSvc);
+        }
     }
     
 }

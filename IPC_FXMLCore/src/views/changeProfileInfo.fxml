@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangeProfileInfoController">
    <top>
       <HBox minHeight="58.0" prefHeight="76.0" prefWidth="600.0" style="-fx-background-color: #29a61ed1;" BorderPane.alignment="CENTER">
@@ -80,6 +79,11 @@
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="errorPassword" text="Password must have at least 6 characters." textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -97,7 +101,15 @@
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="errorCardNumber" text="The card number must have 16 characters." textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -114,6 +126,11 @@
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="errorSvc" text="SVC must be 3 characters long." textFill="#f20101" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
          </children>
@@ -127,7 +144,7 @@
                   <Insets left="30.0" />
                </HBox.margin>
             </Button>
-            <Button minWidth="118.0" mnemonicParsing="false" onAction="#updateInfo" text="Update Info">
+            <Button fx:id="update" minWidth="118.0" mnemonicParsing="false" onAction="#updateInfo" text="Update Info">
                <HBox.margin>
                   <Insets left="60.0" />
                </HBox.margin>

@@ -24,9 +24,11 @@ import controllers.ChangeProfilePictureController;
 import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.IOException;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
@@ -71,6 +73,7 @@ public class ProfileSettingsViewController implements Initializable  {
         m.setImage(i);
         image.imageProperty().setValue(m.getImage());
     }
+    
     
     //METODO PARA ACTUALIZAR DATOS
     public void changeInfo(String newName, String newFamilyName,String newPassword, String newCreditCard, String newSvc){
