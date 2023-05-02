@@ -104,9 +104,10 @@ public class ChangeProfileInfoController implements Initializable {
         validCreditCard.setValue(Boolean.TRUE);
         validSvc.setValue(Boolean.TRUE);
         
-        BooleanBinding validFields = Bindings.and(validPassword, validCreditCard)
+        /*BooleanBinding validFields = Bindings.and(validPassword, validCreditCard)
                  .and(validSvc);
-         update.disableProperty().bind(Bindings.not(validFields));
+         update.disableProperty().bind(Bindings.not(validFields));*/
+        
          
         password.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
         if(!newVal){
@@ -138,7 +139,7 @@ public class ChangeProfileInfoController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
-        
+        if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible())){
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
@@ -146,7 +147,7 @@ public class ChangeProfileInfoController implements Initializable {
         ps.changeImage(m.getImage());
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
-        IPC_FXMLCore.setRoot(root);
+        IPC_FXMLCore.setRoot(root);}
     }
     
     
