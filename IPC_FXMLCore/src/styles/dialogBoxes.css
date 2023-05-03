@@ -1,0 +1,41 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 3 may. 2023, 20:49:28
+    Author     : USER
+*/
+
+.myAlert{
+-fx-background-color: white;
+}
+.myAlert:header .header-panel{
+-fx-background-color: darkgreen;
+}
+.myAlert:header .header-panel .label{
+-fx-font-size: 14px;
+-fx-font-weight: bold;
+-fx-text-fill: white;}
+.myAlert .label.content{
+-fx-font-size: 12px;
+-fx-font-weight: bold;}
+.myAlert .button-bar .container{
+-fx-background-color:white;
+}
+
+.myAlert .button{
+-fx-background-color:darkgreen;
+-fx-text-fill: white;
+-fx-font-family:Helvetica,Arial,sans-serif;
+-fx-font-size: 10pt;
+-fx-background-radius: 15px;
+-fx-pref-width:150px;
+-fx-pref-height:30px;
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.myAlert .button:hover {
+    -fx-background-color: green,
+     white, green;
+    -fx-text-fill: black;
+}

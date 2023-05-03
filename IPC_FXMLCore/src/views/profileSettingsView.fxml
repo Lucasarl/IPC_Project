@@ -40,7 +40,7 @@
                   <Insets left="30.0" />
                </HBox.margin>
             </Button>
-            <Button minWidth="118.0" mnemonicParsing="false" onAction="#changeProfileInfo" text="Change Profile Info" HBox.hgrow="ALWAYS">
+            <Button fx:id="changeProf" minWidth="118.0" mnemonicParsing="false" onAction="#changeProfileInfo" text="Change Profile Info" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="45.0" />
                </HBox.margin>
@@ -174,14 +174,14 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" HBox.hgrow="NEVER">
+            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fx:id="image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets left="46.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button fx:id="changeProf" minWidth="118.0" mnemonicParsing="false" onAction="#changeProfilePicture" text="Change Profile Picture">
+                  <Button minWidth="118.0" mnemonicParsing="false" onAction="#changeProfilePicture" text="Change Profile Picture">
                      <VBox.margin>
                         <Insets left="30.0" top="15.0" />
                      </VBox.margin>

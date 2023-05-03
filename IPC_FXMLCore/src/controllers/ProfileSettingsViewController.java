@@ -23,12 +23,21 @@ import model.*;
 import controllers.ChangeProfilePictureController;
 import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 /**
  * FXML Controller class
  *
@@ -130,6 +139,8 @@ public class ProfileSettingsViewController implements Initializable  {
         String stringSvc=Integer.toString(m.getSvc());
         svc.textProperty().setValue(stringSvc);
         image.imageProperty().setValue(m.getImage());
+        
+        
         }
         catch(Exception e) {
             
@@ -143,6 +154,7 @@ public class ProfileSettingsViewController implements Initializable  {
 
     @FXML
     private void changeProfileInfo(ActionEvent event) throws IOException, ClubDAOException {
+        
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/changeProfileInfo.fxml"));
         Parent root=myLoader.load();
         ChangeProfileInfoController cpi=myLoader.getController();
@@ -152,15 +164,55 @@ public class ProfileSettingsViewController implements Initializable  {
 
     @FXML
     private void changeProfilePicture(ActionEvent event) throws IOException {
-        //Cambiamos de escena 
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        //Cambia el icono por uno propio
+        //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        alert.setTitle("Change profile picture");
+        alert.setHeaderText("Would you like to browse for a profile picture on your computer or use one of our custom images?");
+        alert.setContentText("Choose an option");
+        ButtonType buttonTypeBrowse = new ButtonType("Browse");
+        ButtonType buttonTypeSelect = new ButtonType("Custom images");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeBrowse, buttonTypeSelect, buttonTypeCancel);
+       Optional<ButtonType> result = alert.showAndWait();
+       if (result.isPresent()) {
+       if (result.get() == buttonTypeBrowse){
+           FileChooser fileChooser = new FileChooser();
+           fileChooser.setTitle("Open resource");
+           fileChooser.getExtensionFilters().addAll(
+           new ExtensionFilter("Images", "*.png"));
+           File selectedFile = fileChooser.showOpenDialog(
+     ((Node)event.getSource()).getScene().getWindow());
+           if (selectedFile != null) {
+                String url = selectedFile.getPath();
+                Image avatar = new Image(new FileInputStream(url));
+                image.imageProperty().setValue(avatar); 
+                Member m=c.getMemberByCredentials(nickName,passwordMember);
+                m.setImage(avatar);
+            } 
+          
+       }
+       else if (result.get() == buttonTypeSelect){
+            //Cambiamos de escena 
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/changeProfilePicture.fxml"));
         Parent root=myLoader.load();
         ChangeProfilePictureController cp=myLoader.getController();
         cp.initMember(nickName,passwordMember);
         IPC_FXMLCore.setRoot(root);
         
+       }
+       else
+       System.out.println("Cancel");
+}
     }
     
+
     private void makeResizable() {
        
         
