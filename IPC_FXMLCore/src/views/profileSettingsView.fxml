@@ -3,13 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileSettingsViewController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileSettingsViewController">
    <top>
       <HBox minHeight="86.0" style="-fx-background-color: #29a61ed1;" BorderPane.alignment="CENTER">
          <children>
@@ -26,7 +27,7 @@
                   <Font name="Segoe UI Black" size="40.0" />
                </font>
                <HBox.margin>
-                  <Insets left="130.0" top="12.0" />
+                  <Insets left="230.0" top="12.0" />
                </HBox.margin>
             </Label>
          </children>
@@ -50,9 +51,9 @@
    <center>
       <HBox fx:id="hBox" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="200.0" prefWidth="400.0">
+            <VBox prefHeight="200.0" prefWidth="500.0">
                <children>
-                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
+                  <HBox minHeight="55.0" prefHeight="56.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Name" HBox.hgrow="ALWAYS">
                            <HBox.margin>
@@ -94,26 +95,6 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Password" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="86.0" top="20.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="password" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="60.0" top="20.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
-                     <children>
                         <Label text="Nickname" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -134,6 +115,34 @@
                   </HBox>
                   <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
                      <children>
+                        <Label text="Password" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="86.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="maskedPassword">
+                           <HBox.margin>
+                              <Insets left="60.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="password" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox minHeight="55.0" VBox.vgrow="ALWAYS">
+                     <children>
                         <Label text="Card Number" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="58.0" top="20.0" />
@@ -142,9 +151,17 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="cardNumber">
+                        <Label fx:id="maskedCardNumber">
                            <HBox.margin>
                               <Insets left="60.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="cardNumber">
+                           <HBox.margin>
+                              <Insets top="20.0" />
                            </HBox.margin>
                            <font>
                               <Font size="14.0" />
@@ -162,9 +179,17 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="svc">
+                        <Label fx:id="maskedSvc">
                            <HBox.margin>
                               <Insets left="60.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="svc">
+                           <HBox.margin>
+                              <Insets top="20.0" />
                            </HBox.margin>
                            <font>
                               <Font size="14.0" />
@@ -174,7 +199,50 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" HBox.hgrow="ALWAYS">
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="eyePassword" fitHeight="52.0" fitWidth="47.0" onMouseClicked="#visibilityPassword" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/eye1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="eyeCardNumber" fitHeight="52.0" fitWidth="47.0" onMouseClicked="#visibilityCardNumber" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/eye1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="eyeSvc" fitHeight="52.0" fitWidth="47.0" onMouseClicked="#visibilitySvc" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/eye1.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="vBox" minHeight="200.0" minWidth="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fx:id="image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>

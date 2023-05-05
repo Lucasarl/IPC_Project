@@ -19,9 +19,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import model.*;
 
 /**
@@ -140,6 +145,19 @@ public class ChangeProfileInfoController implements Initializable {
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
         if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible())){
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+        alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
+        alert.setHeaderText(null);
+        ButtonType buttonTypeOne = new ButtonType("OK");
+        alert.getButtonTypes().setAll(buttonTypeOne);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        // ó null si no queremos cabecera
+        alert.setContentText("Your profile has been updated");
+        alert.showAndWait();
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();

@@ -14,11 +14,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 -fx-background-color: darkgreen;
 }
 .myAlert:header .header-panel .label{
--fx-font-size: 14px;
+-fx-font-size: 16px;
 -fx-font-weight: bold;
 -fx-text-fill: white;}
 .myAlert .label.content{
--fx-font-size: 12px;
+-fx-font-size: 14px;
 -fx-font-weight: bold;}
 .myAlert .button-bar .container{
 -fx-background-color:white;
@@ -28,14 +28,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 -fx-background-color:darkgreen;
 -fx-text-fill: white;
 -fx-font-family:Helvetica,Arial,sans-serif;
--fx-font-size: 10pt;
+-fx-font-size: 11pt;
 -fx-background-radius: 15px;
 -fx-pref-width:150px;
 -fx-pref-height:30px;
 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .myAlert .button:hover {
-    -fx-background-color: green,
-     white, green;
+    -fx-background-color: green, white, green;
     -fx-text-fill: black;
 }

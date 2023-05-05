@@ -22,9 +22,11 @@ import javafx.scene.layout.VBox;
 import model.*;
 import controllers.ChangeProfilePictureController;
 import ipc_fxmlcore.IPC_FXMLCore;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -36,6 +38,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 /**
@@ -71,7 +74,22 @@ public class ProfileSettingsViewController implements Initializable  {
     private VBox vBox;
     @FXML
     private HBox hBox;
-
+    
+    private boolean passwordHidden;
+    private boolean cardHidden;
+    private boolean svcHidden;
+    @FXML
+    private ImageView eyePassword;
+    @FXML
+    private ImageView eyeCardNumber;
+    @FXML
+    private ImageView eyeSvc;
+    @FXML
+    private Label maskedPassword;
+    @FXML
+    private Label maskedCardNumber;
+    @FXML
+    private Label maskedSvc;
     /**
      * Initializes the controller class.
      */
@@ -108,17 +126,72 @@ public class ProfileSettingsViewController implements Initializable  {
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO2
         try {
-       //image.fitWidthProperty().bind(Bindings.divide(borderPane.widthProperty(),6));
-       //image.fitHeightProperty().bind(Bindings.divide(borderPane.heightProperty(),5));
-       //changeProf.prefWidthProperty().bind(Bindings.divide(borderPane.widthProperty(),4.5));
-       /*hBox.widthProperty().addListener((n,oldVal,newVal)-> {
-           hBox.setMargin(vBox,new Insets(10,10,10,borderPane.getWidth()/60));
-       })  ;  */ 
-       
-       
+        
+        //PASSWORD MASKING, CARD MASKING, AND SECURITY NUMBER MASKING
+            
+        password.textProperty().addListener((v,oldVal,newVal)->{
+            String s="";
+            for(int i=0;i<newVal.length();i++){
+                s+="*";
+            }
+            maskedPassword.textProperty().setValue(s);
+        });
+        
+        password.visibleProperty().addListener((v,oldVal,newVal)->{
+            if(password.isVisible()) {
+                maskedPassword.textProperty().setValue("");
+            } else {
+                String s="";
+                for(int i=0;i<password.textProperty().getValue().length();i++){
+                      s+="*";
+            }
+            maskedPassword.textProperty().setValue(s);
+            }
+        });
+        
+         cardNumber.textProperty().addListener((v,oldVal,newVal)->{
+            String s=newVal.substring(0, 4);
+            for(int i=4;i<newVal.length();i++){
+                s+="*";
+            }
+            maskedCardNumber.textProperty().setValue(s);
+        });
+         
+         cardNumber.visibleProperty().addListener((v,oldVal,newVal)->{
+            if(cardNumber.isVisible()) {
+                maskedCardNumber.textProperty().setValue("");
+            } else {
+                String s=cardNumber.textProperty().getValue().substring(0, 4);
+                for(int i=4;i<cardNumber.textProperty().getValue().length();i++){
+                      s+="*";
+            }
+            maskedCardNumber.textProperty().setValue(s);
+            }
+        });
+        
+         svc.textProperty().addListener((v,oldVal,newVal)->{
+            String s="";
+            for(int i=0;i<newVal.length();i++){
+                s+="*";
+            }
+            maskedSvc.textProperty().setValue(s);
+        });
+        
+        svc.visibleProperty().addListener((v,oldVal,newVal)->{
+            if(svc.isVisible()) {
+                maskedSvc.textProperty().setValue("");
+            } else {
+                String s="";
+                for(int i=0;i<svc.textProperty().getValue().length();i++){
+                      s+="*";
+            }
+            maskedSvc.textProperty().setValue(s);
+            }
+        });
+        
         makeResizable();
         c=Club.getInstance();
         c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
@@ -140,6 +213,14 @@ public class ProfileSettingsViewController implements Initializable  {
         svc.textProperty().setValue(stringSvc);
         image.imageProperty().setValue(m.getImage());
         
+        //PASSWORD MASKING
+        
+        password.setVisible(false);
+        cardNumber.setVisible(false);
+        svc.setVisible(false);
+        
+        
+        
         
         }
         catch(Exception e) {
@@ -154,7 +235,6 @@ public class ProfileSettingsViewController implements Initializable  {
 
     @FXML
     private void changeProfileInfo(ActionEvent event) throws IOException, ClubDAOException {
-        
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/changeProfileInfo.fxml"));
         Parent root=myLoader.load();
         ChangeProfileInfoController cpi=myLoader.getController();
@@ -216,5 +296,57 @@ public class ProfileSettingsViewController implements Initializable  {
     private void makeResizable() {
        
         
+    }
+
+    @FXML
+    private void visibilityPassword(MouseEvent event) throws FileNotFoundException {
+        if(!password.isVisible()) {
+            String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+            maskedPassword.setVisible(false);
+            password.setVisible(true);
+        } else {
+            String hiddenEyeURL = "src/images/eye1.png"; 
+            Image hiddenEye=new Image(new FileInputStream(hiddenEyeURL));
+            eyePassword.imageProperty().setValue(hiddenEye);
+            maskedPassword.setVisible(true);
+            password.setVisible(false);
+        }
+        
+    }
+
+    @FXML
+    private void visibilityCardNumber(MouseEvent event) throws FileNotFoundException {
+        if(!cardNumber.isVisible()) {
+            String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyeCardNumber.imageProperty().setValue(showEye);
+            maskedCardNumber.setVisible(false);
+            cardNumber.setVisible(true);
+        } else {
+            String hiddenEyeURL = "src/images/eye1.png"; 
+            Image hiddenEye=new Image(new FileInputStream(hiddenEyeURL));
+            eyeCardNumber.imageProperty().setValue(hiddenEye);
+            maskedCardNumber.setVisible(true);
+            cardNumber.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void visibilitySvc(MouseEvent event) throws FileNotFoundException {
+        if(!svc.isVisible()) {
+            String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyeSvc.imageProperty().setValue(showEye);
+            maskedSvc.setVisible(false);
+            svc.setVisible(true);
+        } else {
+            String hiddenEyeURL = "src/images/eye1.png"; 
+            Image hiddenEye=new Image(new FileInputStream(hiddenEyeURL));
+            eyeSvc.imageProperty().setValue(hiddenEye);
+            maskedSvc.setVisible(true);
+            svc.setVisible(false);
+        }
     }
 }
