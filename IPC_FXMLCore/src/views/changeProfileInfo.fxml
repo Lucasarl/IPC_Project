@@ -37,28 +37,38 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="name">
+                  <TextField fx:id="name" prefWidth="200.0">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="nameRequired" text="This field is required." textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Family Name">
                      <HBox.margin>
-                        <Insets left="60.0" top="20.0" />
+                        <Insets left="62.0" top="20.0" />
                      </HBox.margin>
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="familyName">
+                  <TextField fx:id="familyName" prefWidth="200.0">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="surnameRequired" text="This field is required." textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets />
@@ -68,13 +78,13 @@
                <children>
                   <Label text="Password">
                      <HBox.margin>
-                        <Insets left="86.0" top="20.0" />
+                        <Insets left="84.0" top="20.0" />
                      </HBox.margin>
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="password">
+                  <TextField fx:id="password" prefWidth="200.0">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -96,7 +106,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cardNumber">
+                  <TextField fx:id="cardNumber" prefHeight="25.0" prefWidth="125.0">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -121,7 +131,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="svc">
+                  <TextField fx:id="svc" prefHeight="25.0" prefWidth="40.0">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>

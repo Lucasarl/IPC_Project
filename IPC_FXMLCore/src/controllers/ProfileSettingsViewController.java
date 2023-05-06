@@ -34,6 +34,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
@@ -260,6 +261,19 @@ public class ProfileSettingsViewController implements Initializable  {
         ButtonType buttonTypeSelect = new ButtonType("Custom images");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(buttonTypeBrowse, buttonTypeSelect, buttonTypeCancel);
+        alert.getDialogPane().getChildren().forEach(node -> {
+    if (node instanceof ButtonBar) {
+        ButtonBar buttonBar = (ButtonBar) node;
+        buttonBar.getButtons().forEach(possibleButtons -> {
+            if (possibleButtons instanceof Button) {
+                Button b = (Button) possibleButtons;
+                if (b.getText().equals("Cancel")) {
+                    b.getStyleClass().add("cancel");
+                }
+            }
+        });
+    }
+});
        Optional<ButtonType> result = alert.showAndWait();
        if (result.isPresent()) {
        if (result.get() == buttonTypeBrowse){

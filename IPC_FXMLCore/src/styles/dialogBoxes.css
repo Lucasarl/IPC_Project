@@ -35,6 +35,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .myAlert .button:hover {
-    -fx-background-color: green, white, green;
+    -fx-background-color: darkgreen, white, darkgreen;
+    -fx-text-fill: black;
+}
+
+.myAlert .cancel {
+    -fx-background-color: #dd0000;
+    -fx-text-fill: white;
+    -fx-font-family:Helvetica,Arial,sans-serif;
+    -fx-font-size: 11pt;
+    -fx-background-radius: 15px;
+    -fx-pref-width:150px;
+    -fx-pref-height:30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.myAlert .cancel:hover {
+    -fx-background-color: #dd0000, white, #dd0000;
     -fx-text-fill: black;
 }

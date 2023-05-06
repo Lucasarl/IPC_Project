@@ -42,6 +42,8 @@ public class ChangeProfileInfoController implements Initializable {
     private BooleanProperty validPassword;
     private BooleanProperty validCreditCard;
     private BooleanProperty validSvc;  
+    private BooleanProperty validName;
+    private BooleanProperty validSurname;
     
     @FXML
     private TextField name;
@@ -63,6 +65,10 @@ public class ChangeProfileInfoController implements Initializable {
     private Label errorSvc;
     @FXML
     private Button update;
+    @FXML
+    private Label nameRequired;
+    @FXML
+    private Label surnameRequired;
     
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
@@ -104,10 +110,14 @@ public class ChangeProfileInfoController implements Initializable {
         validPassword = new SimpleBooleanProperty();
         validCreditCard = new SimpleBooleanProperty();   
         validSvc = new SimpleBooleanProperty();
+        validName= new SimpleBooleanProperty();
+        validSurname=new SimpleBooleanProperty();
         
         validPassword.setValue(Boolean.TRUE);
         validCreditCard.setValue(Boolean.TRUE);
         validSvc.setValue(Boolean.TRUE);
+        validName.setValue(Boolean.TRUE);
+        validSurname.setValue(Boolean.TRUE);
         
         /*BooleanBinding validFields = Bindings.and(validPassword, validCreditCard)
                  .and(validSvc);
@@ -128,6 +138,18 @@ public class ChangeProfileInfoController implements Initializable {
         if(!newVal){
             checkSvc();
         }});
+        
+        name.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkName();
+        }});
+        
+        familyName.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkSurname();
+        }});
+
+
     }    
     
 
@@ -144,7 +166,7 @@ public class ChangeProfileInfoController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
-        if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible())){
+        if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible())){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
         alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
@@ -196,6 +218,26 @@ public class ChangeProfileInfoController implements Initializable {
            
         else {
             manageCorrect(errorSvc,svc,validSvc);
+        }
+    }
+     
+    private void checkName(){
+        if(name.textProperty().getValue().length()==0) {
+            manageError(nameRequired, name, validName);
+        }
+        
+        else {
+            manageCorrect(nameRequired, name, validName);
+        }
+    }
+    
+    private void checkSurname ()  {
+        if(familyName.textProperty().getValue().length()==0) {
+            manageError(surnameRequired, familyName, validSurname);
+        }
+        
+        else {
+            manageCorrect(surnameRequired, familyName, validSurname);
         }
     }
     
