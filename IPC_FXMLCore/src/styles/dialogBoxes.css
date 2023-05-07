@@ -28,22 +28,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 -fx-background-color:darkgreen;
 -fx-text-fill: white;
 -fx-font-family:Helvetica,Arial,sans-serif;
--fx-font-size: 11pt;
+-fx-font-size: 10pt;
 -fx-background-radius: 15px;
--fx-pref-width:150px;
--fx-pref-height:30px;
+-fx-pref-width:125px;
+-fx-pref-height:20px;
 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .myAlert .button:hover {
     -fx-background-color: darkgreen, white, darkgreen;
-    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
 }
 
 .myAlert .cancel {
     -fx-background-color: #dd0000;
     -fx-text-fill: white;
     -fx-font-family:Helvetica,Arial,sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 10pt;
     -fx-background-radius: 15px;
     -fx-pref-width:150px;
     -fx-pref-height:30px;
@@ -52,5 +53,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .myAlert .cancel:hover {
     -fx-background-color: #dd0000, white, #dd0000;
-    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
 }

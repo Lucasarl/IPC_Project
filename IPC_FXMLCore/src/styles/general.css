@@ -1,0 +1,41 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 7 may. 2023, 9:31:18
+    Author     : USER
+*/
+
+.button{
+-fx-background-color:darkgreen;
+-fx-text-fill: white;
+-fx-font-family:Helvetica,Arial,sans-serif;
+-fx-font-size: 10pt;
+-fx-background-radius: 15px;
+-fx-pref-width:150px;
+-fx-pref-height:30px;
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: darkgreen, white, darkgreen;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
+}
+
+.text-field{
+    -fx-background-radius: 15px;
+    -fx-background-color: #ebe8e8;
+    -fx-border-color: green;
+    -fx-border-radius:15px;
+    -fx-highlight-fill:dodgerblue;
+    -fx-display-caret:true;
+   
+   
+}
+
+.text-field:focused{
+    -fx-border-color: blue;
+    -fx-border-radius:15px;
+}

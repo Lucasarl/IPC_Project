@@ -9,90 +9,90 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangeProfilePictureController">
+<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangeProfilePictureController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
          <children>
-            <HBox layoutX="10.0" layoutY="544.0" prefHeight="110.0" prefWidth="200.0" style="-fx-background-color: #29a61ed1;">
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="544.0" prefHeight="110.0" prefWidth="200.0" style="-fx-background-color: #29a61ed1;">
                <children>
                   <Label text="Choose a Picture">
                      <HBox.margin>
-                        <Insets left="40.0" top="10.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                      <font>
                         <Font name="Segoe UI Black" size="40.0" />
                      </font>
                   </Label>
                </children></HBox>
-            <HBox prefHeight="200.0" prefWidth="200.0">
+            <HBox prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;">
                <children>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="def" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#defaultSelected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="men1" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#men1Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="men2" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#men2Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="men3" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#men3Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="men4" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#men4Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="men5" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#men5Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="woman1" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#woman1Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="woman2" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#woman2Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="woman3" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#woman3Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="woman4" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#woman4Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox layoutX="460.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox layoutX="460.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="woman5" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#woman5Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
-                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
                      <children>
                         <ImageView fx:id="woman6" fitHeight="120.0" fitWidth="116.66" onMouseClicked="#woman6Selected" pickOnBounds="true" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;">
                <children>
                   <Button minWidth="118.0" mnemonicParsing="false" onAction="#goBack" text="Go Back">
                      <HBox.margin>

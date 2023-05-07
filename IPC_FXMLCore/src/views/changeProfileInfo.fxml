@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangeProfileInfoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangeProfileInfoController">
    <top>
-      <HBox minHeight="58.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: #29a61ed1;" BorderPane.alignment="CENTER">
+      <HBox minHeight="58.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: #29a61ed1;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
          <children>
             <Label text="Update your profile info">
                <HBox.margin>
@@ -25,9 +25,9 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Name">
                      <HBox.margin>
@@ -37,7 +37,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="name" prefWidth="200.0">
+                  <TextField fx:id="name" prefWidth="200.0" stylesheets="@../styles/general.css">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -49,7 +49,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Family Name">
                      <HBox.margin>
@@ -59,7 +59,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="familyName" prefWidth="200.0">
+                  <TextField fx:id="familyName" prefWidth="200.0" stylesheets="@../styles/general.css">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -74,7 +74,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Password">
                      <HBox.margin>
@@ -84,7 +84,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="password" prefWidth="200.0">
+                  <TextField fx:id="password" prefWidth="200.0" stylesheets="@../styles/general.css">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -96,7 +96,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Card Number">
                      <HBox.margin>
@@ -106,7 +106,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cardNumber" prefHeight="25.0" prefWidth="125.0">
+                  <TextField fx:id="cardNumber" prefHeight="25.0" prefWidth="125.0" stylesheets="@../styles/general.css">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -121,7 +121,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="SVC">
                      <HBox.margin>
@@ -131,7 +131,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="svc" prefHeight="25.0" prefWidth="40.0">
+                  <TextField fx:id="svc" prefHeight="25.0" prefWidth="40.0" stylesheets="@../styles/general.css">
                      <HBox.margin>
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
@@ -147,14 +147,14 @@
       </VBox>
    </center>
    <bottom>
-      <HBox prefHeight="81.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="81.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
          <children>
-            <Button minWidth="118.0" mnemonicParsing="false" onAction="#goBack" text="Go Back">
+            <Button contentDisplay="CENTER" minWidth="118.0" mnemonicParsing="false" onAction="#goBack" stylesheets="@../styles/general.css" text="Go Back">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="update" minWidth="118.0" mnemonicParsing="false" onAction="#updateInfo" text="Update Info">
+            <Button fx:id="update" minWidth="118.0" mnemonicParsing="false" onAction="#updateInfo" stylesheets="@../styles/general.css" text="Update Info">
                <HBox.margin>
                   <Insets left="60.0" />
                </HBox.margin>
