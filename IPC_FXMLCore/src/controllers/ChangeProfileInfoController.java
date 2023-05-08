@@ -5,6 +5,8 @@
 package controllers;
 //#29a61ed1
 import ipc_fxmlcore.IPC_FXMLCore;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,7 +29,16 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.Mnemonic;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.*;
 
 /**
@@ -44,6 +56,11 @@ public class ChangeProfileInfoController implements Initializable {
     private BooleanProperty validSvc;  
     private BooleanProperty validName;
     private BooleanProperty validSurname;
+    
+    private Tooltip tooltipP;
+    private Tooltip tooltipS;
+    private BooleanProperty showPassword;
+    private BooleanProperty showSvc;
     
     @FXML
     private TextField name;
@@ -69,6 +86,10 @@ public class ChangeProfileInfoController implements Initializable {
     private Label nameRequired;
     @FXML
     private Label surnameRequired;
+    @FXML
+    private ImageView eyePassword;
+    @FXML
+    private ImageView eyeSvc;
     
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
@@ -107,6 +128,14 @@ public class ChangeProfileInfoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
+        
+        // sumamos el atajo de update con enter
+        
+        //KeyCombination kc = new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN);
+        //update.setMnemonicParsing(true);
+        //Mnemonic mn=new Mnemonic(update,kc);
+        //update.getScene().addMnemonic(mn);
+        
         validPassword = new SimpleBooleanProperty();
         validCreditCard = new SimpleBooleanProperty();   
         validSvc = new SimpleBooleanProperty();
@@ -149,7 +178,51 @@ public class ChangeProfileInfoController implements Initializable {
             checkSurname();
         }});
 
-
+        showPassword = new SimpleBooleanProperty();
+        showPassword.setValue(Boolean.FALSE);
+        showPassword.addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                showPassword();
+            }else{
+                hidePassword();
+            }
+        });
+        
+        
+        
+        password.setOnKeyTyped(e-> {
+                if(showPassword.get()) {
+                showPassword();
+                }
+                });
+        
+        showSvc= new SimpleBooleanProperty();
+        showSvc.setValue(Boolean.FALSE);
+        showSvc.addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                showSvc();
+            }else{
+                hideSvc();
+            }
+        });
+        
+        
+        
+        svc.setOnKeyTyped(e-> {
+                if(showSvc.get()) {
+                showSvc();
+                }
+                });
+        
+        tooltipP = new Tooltip();
+        tooltipP.setShowDelay(Duration.ZERO);
+        tooltipP.setAutoHide(false);
+        tooltipP.setMinWidth(50);
+        
+        tooltipS = new Tooltip();
+        tooltipS.setShowDelay(Duration.ZERO);
+        tooltipS.setAutoHide(false);
+        tooltipS.setMinWidth(50);
     }    
     
 
@@ -240,6 +313,69 @@ public class ChangeProfileInfoController implements Initializable {
         
         else {
             manageCorrect(surnameRequired, familyName, validSurname);
+        }
+    }
+    
+    private void showPassword() {
+        Point2D p = password.localToScene(password.getBoundsInLocal().getMaxX(), password.getBoundsInLocal().getMaxY());
+            tooltipP.setText(password.getText());
+            tooltipP.show(password,
+                p.getX() + password.getScene().getX() + password.getScene().getWindow().getX(),
+                p.getY() + password.getScene().getY() + password.getScene().getWindow().getY());
+    }
+    
+    private void hidePassword() {
+        tooltipP.setText("");
+        tooltipP.hide();
+    }
+    
+    private void showSvc() {
+        Point2D p = svc.localToScene(svc.getBoundsInLocal().getMaxX(), svc.getBoundsInLocal().getMaxY());
+            tooltipS.setText(svc.getText());
+            tooltipS.show(svc,
+                p.getX() + svc.getScene().getX() + svc.getScene().getWindow().getX(),
+                p.getY() + svc.getScene().getY() + svc.getScene().getWindow().getY());
+    }
+    
+    private void hideSvc() {
+        tooltipS.setText("");
+        tooltipS.hide();
+    }
+
+    @FXML
+    private void visibilityPassword(MouseEvent event) throws FileNotFoundException {
+        if(showPassword.getValue().equals(Boolean.FALSE)) {
+           showPassword.setValue(Boolean.TRUE);
+           String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+            return;
+        }
+        else {
+            String showEyeURL = "src/images/eye1.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+           showPassword.setValue(Boolean.FALSE);
+           
+        }
+        
+    }
+
+    @FXML
+    private void visibilitySvc(MouseEvent event) throws FileNotFoundException {
+        if(showSvc.getValue().equals(Boolean.FALSE)) {
+           showSvc.setValue(Boolean.TRUE);
+           String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyeSvc.imageProperty().setValue(showEye);
+            return;
+        }
+        else {
+            String showEyeURL = "src/images/eye1.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyeSvc.imageProperty().setValue(showEye);
+           showSvc.setValue(Boolean.FALSE);
+           
         }
     }
     

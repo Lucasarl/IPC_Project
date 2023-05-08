@@ -128,7 +128,7 @@ public class ProfileSettingsViewController implements Initializable  {
         passwordMember=newPassword;
     }
     
-    //for getting login info, to later get member by credentials
+    //for getting login info, to later get member by credentials, ALWAYS PASS NICKNAME AND PASSWORD BEFORE RETURNING TO THIS SCENE
     public void loginInfo(String n, String p) {
         nickName=n;
         passwordMember=p;

@@ -5,6 +5,8 @@
 package controllers;
 //#29a61ed1
 import ipc_fxmlcore.IPC_FXMLCore;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,7 +29,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.*;
 
 /**
@@ -41,6 +48,8 @@ public class AddCardController implements Initializable {
      */
     private BooleanProperty validCard;
     private BooleanProperty validSvc;
+    private Tooltip tooltip;
+     private BooleanProperty showSvc;
     
     @FXML
     private TextField cardNumber;
@@ -57,6 +66,8 @@ public class AddCardController implements Initializable {
     private Label errorSvc;
     @FXML
     private Label errorCardNumber;
+    @FXML
+    private ImageView eyeSvc;
     
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
@@ -89,6 +100,25 @@ public class AddCardController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
+        
+        showSvc= new SimpleBooleanProperty();
+        showSvc.setValue(Boolean.FALSE);
+        showSvc.addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                showSvc();
+            }else{
+                hideSvc();
+            }
+        });
+        
+        
+        
+        svc.setOnKeyTyped(e-> {
+                if(showSvc.get()) {
+                showSvc();
+                }
+                });
+        
         validCard = new SimpleBooleanProperty();
         validSvc= new SimpleBooleanProperty();
         
@@ -113,7 +143,10 @@ public class AddCardController implements Initializable {
             checkSvc();
         }});
 
-
+       tooltip = new Tooltip();
+        tooltip.setShowDelay(Duration.ZERO);
+        tooltip.setAutoHide(false);
+        tooltip.setMinWidth(50);
     }    
     
 
@@ -131,7 +164,9 @@ public class AddCardController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
-        if((!errorCardNumber.isVisible() && !errorSvc.isVisible())){
+        if(svc.textProperty().getValue().length()!=3) {
+            manageError(errorSvc,svc,validSvc);}
+        if(validCard.getValue().equals(Boolean.TRUE)&&validSvc.getValue().equals(Boolean.TRUE)) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
         alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
@@ -165,6 +200,8 @@ public class AddCardController implements Initializable {
         else {
             manageCorrect(errorCardNumber, cardNumber, validCard);
         }
+        
+        
     }
     
      private void checkSvc(){
@@ -173,6 +210,37 @@ public class AddCardController implements Initializable {
            
         else {
             manageCorrect(errorSvc,svc,validSvc);
+        }
+    }
+     
+     private void showSvc() {
+        Point2D p = svc.localToScene(svc.getBoundsInLocal().getMaxX(), svc.getBoundsInLocal().getMaxY());
+            tooltip.setText(svc.getText());
+            tooltip.show(svc,
+                p.getX() + svc.getScene().getX() + svc.getScene().getWindow().getX(),
+                p.getY() + svc.getScene().getY() + svc.getScene().getWindow().getY());
+    }
+    
+    private void hideSvc() {
+        tooltip.setText("");
+        tooltip.hide();
+    }
+
+    @FXML
+    private void visibilitySvc(MouseEvent event) throws FileNotFoundException {
+        if(showSvc.getValue().equals(Boolean.FALSE)) {
+           showSvc.setValue(Boolean.TRUE);
+           String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyeSvc.imageProperty().setValue(showEye);
+            return;
+        }
+        else {
+            String showEyeURL = "src/images/eye1.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyeSvc.imageProperty().setValue(showEye);
+           showSvc.setValue(Boolean.FALSE);
+           
         }
     }
 }

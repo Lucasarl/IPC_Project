@@ -5,6 +5,8 @@
 package controllers;
 //#29a61ed1
 import ipc_fxmlcore.IPC_FXMLCore;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,7 +29,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.*;
 
 /**
@@ -43,6 +50,9 @@ public class ChangeProfileInfoNocardController implements Initializable {
     private BooleanProperty validName;
     private BooleanProperty validSurname;
     
+    private Tooltip tooltip;
+    
+    private boolean hidePassword;
     @FXML
     private TextField name;
     @FXML
@@ -51,7 +61,7 @@ public class ChangeProfileInfoNocardController implements Initializable {
     private TextField password;
     private TextField cardNumber;
     private TextField svc;
-
+    private BooleanProperty showPassword;
     public Member m;
     @FXML
     private Label errorPassword;
@@ -61,6 +71,10 @@ public class ChangeProfileInfoNocardController implements Initializable {
     private Label nameRequired;
     @FXML
     private Label surnameRequired;
+    @FXML
+    private ImageView eyePassword;
+    @FXML
+    private Label passwordS;
     
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
@@ -96,6 +110,26 @@ public class ChangeProfileInfoNocardController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
+        
+        showPassword = new SimpleBooleanProperty();
+        showPassword.setValue(Boolean.FALSE);
+        showPassword.addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                showPassword();
+            }else{
+                hidePassword();
+            }
+        });
+        
+        
+        
+        password.setOnKeyTyped(e-> {
+                if(showPassword.get()) {
+                showPassword();
+                }
+                });
+        
+        hidePassword=true;
         validPassword = new SimpleBooleanProperty();
         validName= new SimpleBooleanProperty();
         validSurname=new SimpleBooleanProperty();
@@ -124,8 +158,11 @@ public class ChangeProfileInfoNocardController implements Initializable {
         if(!newVal){
             checkSurname();
         }});
-
-
+        
+        tooltip = new Tooltip();
+        tooltip.setShowDelay(Duration.ZERO);
+        tooltip.setAutoHide(false);
+        tooltip.setMinWidth(50);
     }    
     
 
@@ -201,6 +238,38 @@ public class ChangeProfileInfoNocardController implements Initializable {
             manageCorrect(surnameRequired, familyName, validSurname);
         }
     }
+
+    @FXML
+    private void passwordVisibility(MouseEvent event) throws FileNotFoundException {
+        if(showPassword.getValue().equals(Boolean.FALSE)) {
+           showPassword.setValue(Boolean.TRUE);
+           String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+            return;
+        }
+        else {
+            String showEyeURL = "src/images/eye1.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+           showPassword.setValue(Boolean.FALSE);
+           
+        }
+    }
+    
+    private void showPassword() {
+        Point2D p = password.localToScene(password.getBoundsInLocal().getMaxX(), password.getBoundsInLocal().getMaxY());
+            tooltip.setText(password.getText());
+            tooltip.show(password,
+                p.getX() + password.getScene().getX() + password.getScene().getWindow().getX(),
+                p.getY() + password.getScene().getY() + password.getScene().getWindow().getY());
+    }
+    
+    private void hidePassword() {
+        tooltip.setText("");
+        tooltip.hide();
+    }
+    
     
 }
 
