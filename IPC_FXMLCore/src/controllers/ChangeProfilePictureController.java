@@ -138,135 +138,277 @@ public class ChangeProfilePictureController implements Initializable {
                 }
     @FXML
     private void defaultSelected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null){
        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(def.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
+        } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(def.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void men1Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men1.imageProperty().getValue());
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(men1.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void men2Selected(MouseEvent event) throws IOException {
+       if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men2.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(men2.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void men3Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men3.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
-    }
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(men3.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }    }
 
     @FXML
     private void men4Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men4.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(men4.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void men5Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men5.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(men5.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void woman1Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman1.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(woman1.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void woman2Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman2.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(woman2.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void woman3Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman3.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(woman3.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void woman4Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman4.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(woman4.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void woman5Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman5.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(woman5.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void woman6Selected(MouseEvent event) throws IOException {
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman6.imageProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
+    } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(woman6.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);    
+        }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         //DE MOMENTO IR HACIA ATRAS VUELVE A REGISTRAR EL USUARIO Y LOS CAMBIOS PUEDEN NO GUARDARSE POR ELLO
+        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);
-        
+        } else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        //NECESARIO SOLO DE MOMENTO
+        ps.loginInfo(m.getNickName(), m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeImage(m.getImage());
+        IPC_FXMLCore.setRoot(root);
+        }
     
     }
 }

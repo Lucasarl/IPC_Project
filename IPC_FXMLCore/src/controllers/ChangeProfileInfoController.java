@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package controllers;
-
+//#29a61ed1
 import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.IOException;
 import java.net.URL;
@@ -159,6 +159,7 @@ public class ChangeProfileInfoController implements Initializable {
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
+        ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(m.getImage());
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
@@ -183,10 +184,11 @@ public class ChangeProfileInfoController implements Initializable {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
+        ps.loginInfo(m.getNickName(), m.getPassword());
         //NECESARIO SOLO DE MOMENTO
-        ps.changeImage(m.getImage());
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
+        ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
     

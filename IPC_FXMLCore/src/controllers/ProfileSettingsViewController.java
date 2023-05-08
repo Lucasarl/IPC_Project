@@ -102,9 +102,15 @@ public class ProfileSettingsViewController implements Initializable  {
         image.imageProperty().setValue(m.getImage());
     }
     
-    
+    public void setInvisible() {
+        password.setVisible(false);
+        cardNumber.setVisible(false);
+        svc.setVisible(false);
+        
+    }
     //METODO PARA ACTUALIZAR DATOS
     public void changeInfo(String newName, String newFamilyName,String newPassword, String newCreditCard, String newSvc){
+        //System.out.println(passwordMember);
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         m.setName(newName);
         m.setSurname(newFamilyName);
@@ -114,23 +120,26 @@ public class ProfileSettingsViewController implements Initializable  {
         
         name.textProperty().setValue(m.getName());
         familyName.textProperty().setValue(m.getSurname());
+        nickname.textProperty().setValue(m.getNickName());
         password.textProperty().setValue(m.getPassword());
         cardNumber.textProperty().setValue(m.getCreditCard());
         String stringSvc=Integer.toString(m.getSvc());
         svc.textProperty().setValue(stringSvc);
+        passwordMember=newPassword;
     }
     
     //for getting login info, to later get member by credentials
     public void loginInfo(String n, String p) {
         nickName=n;
         passwordMember=p;
+        setInvisible();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO2
         try {
-        
+        c=Club.getInstance();
         //PASSWORD MASKING, CARD MASKING, AND SECURITY NUMBER MASKING
             
         password.textProperty().addListener((v,oldVal,newVal)->{
@@ -154,14 +163,16 @@ public class ProfileSettingsViewController implements Initializable  {
         });
         
          cardNumber.textProperty().addListener((v,oldVal,newVal)->{
+            if(cardNumber!=null && cardNumber.textProperty().getValue().length()>4){
             String s=newVal.substring(0, 4);
             for(int i=4;i<newVal.length();i++){
                 s+="*";
             }
             maskedCardNumber.textProperty().setValue(s);
-        });
+        }});
          
          cardNumber.visibleProperty().addListener((v,oldVal,newVal)->{
+            if(cardNumber!=null && cardNumber.textProperty().getValue().length()>4){
             if(cardNumber.isVisible()) {
                 maskedCardNumber.textProperty().setValue("");
             } else {
@@ -170,18 +181,20 @@ public class ProfileSettingsViewController implements Initializable  {
                       s+="*";
             }
             maskedCardNumber.textProperty().setValue(s);
-            }
+            }}
         });
         
          svc.textProperty().addListener((v,oldVal,newVal)->{
+             if(svc!=null){
             String s="";
             for(int i=0;i<newVal.length();i++){
                 s+="*";
             }
             maskedSvc.textProperty().setValue(s);
-        });
+        }});
         
         svc.visibleProperty().addListener((v,oldVal,newVal)->{
+            if(svc!=null){
             if(svc.isVisible()) {
                 maskedSvc.textProperty().setValue("");
             } else {
@@ -191,17 +204,17 @@ public class ProfileSettingsViewController implements Initializable  {
             }
             maskedSvc.textProperty().setValue(s);
             }
-        });
+        }});
         
         makeResizable();
-        c=Club.getInstance();
-        c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
-        nickName="Ntonio";
-        passwordMember="erewrqdc";
-        String urlImage = "src/images/men.PNG"; 
-        Image avatar=new Image(new FileInputStream(urlImage));
+        //c=Club.getInstance();
+        //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
+        //nickName="Ntonio";
+        //asswordMember="erewrqdc";
+        //String urlImage = "src/images/men.PNG"; 
+        //Image avatar=new Image(new FileInputStream(urlImage));
         // Si usamos, Image avatar=null, muestra default.png;
-        c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","5402056301030199",321,avatar);
+        //c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","5402123478659807",321,avatar);
         //registerMember debería usarse solo una vez en signup (si no various usuarios tendran el mismo nombre de usuario, yo solo lo uso aqui como prueba )
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         System.out.println(c.existsLogin("Ntonio"));
@@ -239,7 +252,7 @@ public class ProfileSettingsViewController implements Initializable  {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/changeProfileInfo.fxml"));
         Parent root=myLoader.load();
         ChangeProfileInfoController cpi=myLoader.getController();
-        cpi.initMember(nickName,passwordMember);
+        cpi.initMember(nickName,passwordMember); //
         IPC_FXMLCore.setRoot(root);
     }
 
@@ -362,5 +375,50 @@ public class ProfileSettingsViewController implements Initializable  {
             maskedSvc.setVisible(true);
             svc.setVisible(false);
         }
+    }
+
+    @FXML
+    private void removeCard(ActionEvent event) throws IOException {
+        Alert alert = new Alert(AlertType.WARNING);
+        //Cambia el icono por uno propio
+        //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        alert.setTitle("Remove credit card");
+        alert.setHeaderText("Are you sure you want to remove your credit card?");
+        alert.setContentText(null);
+        ButtonType buttonTypeRemove = new ButtonType("Remove Card");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeRemove, buttonTypeCancel);
+        alert.getDialogPane().getChildren().forEach(node -> {
+    if (node instanceof ButtonBar) {
+        ButtonBar buttonBar = (ButtonBar) node;
+        buttonBar.getButtons().forEach(possibleButtons -> {
+            if (possibleButtons instanceof Button) {
+                Button b = (Button) possibleButtons;
+                if (b.getText().equals("Cancel")) {
+                    b.getStyleClass().add("cancel");
+                }
+            }
+        });
+    }
+});
+       Optional<ButtonType> result = alert.showAndWait();
+       if (result.isPresent()) {
+       if (result.get() == buttonTypeRemove){
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(nickName,passwordMember);
+        ps.changeInfo(name.textProperty().getValue(), familyName.textProperty().getValue(), passwordMember );
+        ps.changeImage(image.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+          
+       }
+}
     }
 }

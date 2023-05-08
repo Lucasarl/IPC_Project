@@ -39,3 +39,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color: blue;
     -fx-border-radius:15px;
 }
+
+.addCard{
+-fx-background-color:orange;
+-fx-text-fill: white;
+-fx-font-family:Helvetica,Arial,sans-serif;
+-fx-font-size: 10pt;
+-fx-pref-width:150px;
+-fx-pref-height:30px;
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.addCard:hover {
+    -fx-background-color: orange, white, orange;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
+}
+
+.cancel {
+    -fx-background-color: #dd0000;
+    -fx-text-fill: white;
+    -fx-font-family:Helvetica,Arial,sans-serif;
+    -fx-font-size: 10pt;
+    -fx-background-radius: 15px;
+    -fx-pref-width:150px;
+    -fx-pref-height:30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.cancel:hover {
+    -fx-background-color: #dd0000, white, #dd0000;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
+}

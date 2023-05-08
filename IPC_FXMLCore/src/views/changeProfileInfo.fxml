@@ -11,9 +11,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangeProfileInfoController">
    <top>
-      <HBox minHeight="58.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: #29a61ed1;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
+      <HBox minHeight="58.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: darkgreen;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Update your profile info">
+            <Label text="Update your profile info" textFill="WHITE">
                <HBox.margin>
                   <Insets left="40.0" top="12.0" />
                </HBox.margin>
@@ -156,7 +156,7 @@
             </Button>
             <Button fx:id="update" minWidth="118.0" mnemonicParsing="false" onAction="#updateInfo" stylesheets="@../styles/general.css" text="Update Info">
                <HBox.margin>
-                  <Insets left="60.0" />
+                  <Insets left="45.0" />
                </HBox.margin>
             </Button>
          </children>

@@ -13,9 +13,9 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;">
          <children>
-            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="544.0" prefHeight="110.0" prefWidth="200.0" style="-fx-background-color: #29a61ed1;">
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="544.0" prefHeight="110.0" prefWidth="200.0" style="-fx-background-color: darkgreen;">
                <children>
-                  <Label text="Choose a Picture">
+                  <Label text="Choose a Picture" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="40.0" />
                      </HBox.margin>
@@ -94,7 +94,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;">
                <children>
-                  <Button minWidth="118.0" mnemonicParsing="false" onAction="#goBack" text="Go Back">
+                  <Button minWidth="118.0" mnemonicParsing="false" onAction="#goBack" stylesheets="@../styles/general.css" text="Go Back">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin></Button>

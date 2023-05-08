@@ -20,7 +20,7 @@ private static Scene scene;
     public void start(Stage stage) throws Exception {
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root = loader.load();
         //======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena

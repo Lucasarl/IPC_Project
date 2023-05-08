@@ -12,9 +12,9 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" stylesheets="@../styles/general.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProfileSettingsViewController">
    <top>
-      <HBox minHeight="86.0" style="-fx-background-color: #29a61ed1;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
+      <HBox minHeight="86.0" style="-fx-background-color: darkgreen;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
          <children>
-            <Label stylesheets="@../styles/general.css" text="Greenball" textFill="#fffefe" HBox.hgrow="ALWAYS">
+            <Label stylesheets="@../styles/general.css" text="My Profile" textFill="#fffefe" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Segoe UI Black" size="40.0" />
                </font>
@@ -22,7 +22,7 @@
                   <Insets left="40.0" top="12.0" />
                </HBox.margin>
             </Label>
-            <Label stylesheets="@../styles/general.css" text="My Profile" HBox.hgrow="ALWAYS">
+            <Label stylesheets="@../styles/general.css" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Segoe UI Black" size="40.0" />
                </font>
@@ -254,6 +254,17 @@
                         <Insets left="30.0" top="15.0" />
                      </VBox.margin>
                   </Button>
+                  <HBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS" />
+                  <HBox alignment="CENTER" maxWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#removeCard" styleClass="cancel" stylesheets="@../styles/general.css" text="Remove Card">
+                           <HBox.margin>
+                              <Insets left="5.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="140.0" VBox.vgrow="ALWAYS" />
                </children>
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
