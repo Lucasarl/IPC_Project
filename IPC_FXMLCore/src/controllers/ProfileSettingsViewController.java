@@ -91,6 +91,8 @@ public class ProfileSettingsViewController implements Initializable  {
     private Label maskedCardNumber;
     @FXML
     private Label maskedSvc;
+    @FXML
+    private Label telephoneNumber;
     /**
      * Initializes the controller class.
      */
@@ -109,7 +111,7 @@ public class ProfileSettingsViewController implements Initializable  {
         
     }
     //METODO PARA ACTUALIZAR DATOS
-    public void changeInfo(String newName, String newFamilyName,String newPassword, String newCreditCard, String newSvc){
+    public void changeInfo(String newName, String newFamilyName,String newPassword, String newTelephone, String newCreditCard, String newSvc){
         //System.out.println(passwordMember);
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         m.setName(newName);
@@ -117,11 +119,12 @@ public class ProfileSettingsViewController implements Initializable  {
         m.setPassword(newPassword);
         m.setCreditCard(newCreditCard);
         m.setSvc(Integer.parseInt(newSvc));
-        
+        m.setTelephone(newTelephone);
         name.textProperty().setValue(m.getName());
         familyName.textProperty().setValue(m.getSurname());
         nickname.textProperty().setValue(m.getNickName());
         password.textProperty().setValue(m.getPassword());
+        telephoneNumber.textProperty().setValue(m.getTelephone());
         cardNumber.textProperty().setValue(m.getCreditCard());
         String stringSvc=Integer.toString(m.getSvc());
         svc.textProperty().setValue(stringSvc);
@@ -223,6 +226,7 @@ public class ProfileSettingsViewController implements Initializable  {
         password.textProperty().setValue(m.getPassword());
         nickname.textProperty().setValue(m.getNickName());
         cardNumber.textProperty().setValue(m.getCreditCard());
+        telephoneNumber.textProperty().setValue(m.getTelephone());
         String stringSvc=Integer.toString(m.getSvc());
         svc.textProperty().setValue(stringSvc);
         image.imageProperty().setValue(m.getImage());
@@ -414,7 +418,8 @@ public class ProfileSettingsViewController implements Initializable  {
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(nickName,passwordMember);
-        ps.changeInfo(name.textProperty().getValue(), familyName.textProperty().getValue(), passwordMember );
+        System.out.println(passwordMember);
+        ps.changeInfo(name.textProperty().getValue(), familyName.textProperty().getValue(), passwordMember, telephoneNumber.textProperty().getValue());
         ps.changeImage(image.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
           

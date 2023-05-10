@@ -143,7 +143,7 @@ public class ChangeProfilePictureController implements Initializable {
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(def.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -151,7 +151,7 @@ public class ChangeProfilePictureController implements Initializable {
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(), m.getTelephone());
         ps.changeImage(def.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -165,14 +165,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men1.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -186,14 +186,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men2.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(), m.getTelephone());
         ps.changeImage(men2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -207,14 +207,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men3.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }    }
@@ -227,14 +227,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men4.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -248,14 +248,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(men5.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -269,14 +269,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman1.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -290,14 +290,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman2.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -311,14 +311,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman3.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -332,14 +332,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman4.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -353,14 +353,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman5.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -374,14 +374,14 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(woman6.imageProperty().getValue());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     } else {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman6.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
@@ -396,7 +396,7 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -405,7 +405,7 @@ public class ChangeProfilePictureController implements Initializable {
         ProfileSettingsViewNocardController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
         ps.loginInfo(m.getNickName(), m.getPassword());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);
         }

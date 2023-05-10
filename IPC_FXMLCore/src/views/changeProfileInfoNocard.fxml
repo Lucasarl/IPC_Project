@@ -30,7 +30,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
+            <HBox prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Name">
                      <HBox.margin>
@@ -52,7 +52,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
+            <HBox prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Family Name">
                      <HBox.margin>
@@ -77,7 +77,29 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
+            <HBox prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label text="Telephone">
+                     <HBox.margin>
+                        <Insets left="77.0" top="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="telephone" prefHeight="27.0" prefWidth="200.0" stylesheets="@../styles/general.css">
+                     <HBox.margin>
+                        <Insets left="60.0" top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="telephoneRequired" text="This field is required." textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
                   <Label text="Password">
                      <HBox.margin>

@@ -56,6 +56,7 @@ public class ChangeProfileInfoController implements Initializable {
     private BooleanProperty validSvc;  
     private BooleanProperty validName;
     private BooleanProperty validSurname;
+    private BooleanProperty validTelephone;
     
     private Tooltip tooltipP;
     private Tooltip tooltipS;
@@ -90,6 +91,10 @@ public class ChangeProfileInfoController implements Initializable {
     private ImageView eyePassword;
     @FXML
     private ImageView eyeSvc;
+    @FXML
+    private TextField telephone;
+    @FXML
+    private Label telephoneRequired;
     
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
@@ -101,6 +106,7 @@ public class ChangeProfileInfoController implements Initializable {
         cardNumber.textProperty().setValue(m.getCreditCard());
         String svcString=Integer.toString(m.getSvc());
         svc.textProperty().setValue(svcString);
+        telephone.textProperty().setValue(m.getTelephone());
     }
     
     private void manageError(Label errorLabel,TextField textField, BooleanProperty boolProp ){
@@ -141,13 +147,13 @@ public class ChangeProfileInfoController implements Initializable {
         validSvc = new SimpleBooleanProperty();
         validName= new SimpleBooleanProperty();
         validSurname=new SimpleBooleanProperty();
-        
+        validTelephone=new SimpleBooleanProperty();
         validPassword.setValue(Boolean.TRUE);
         validCreditCard.setValue(Boolean.TRUE);
         validSvc.setValue(Boolean.TRUE);
         validName.setValue(Boolean.TRUE);
         validSurname.setValue(Boolean.TRUE);
-        
+        validTelephone.setValue(Boolean.TRUE);
         /*BooleanBinding validFields = Bindings.and(validPassword, validCreditCard)
                  .and(validSvc);
          update.disableProperty().bind(Bindings.not(validFields));*/
@@ -176,6 +182,11 @@ public class ChangeProfileInfoController implements Initializable {
         familyName.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
         if(!newVal){
             checkSurname();
+        }});
+        
+        telephone.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkTelephone();
         }});
 
         showPassword = new SimpleBooleanProperty();
@@ -234,13 +245,13 @@ public class ChangeProfileInfoController implements Initializable {
         //NECESARIO SOLO DE MOMENTO
         ps.loginInfo(m.getNickName(), m.getPassword());
         ps.changeImage(m.getImage());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
         IPC_FXMLCore.setRoot(root);
     }
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
-        if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible())){
+        if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible()) &&!telephoneRequired.isVisible()){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
         alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
@@ -260,7 +271,7 @@ public class ChangeProfileInfoController implements Initializable {
         ps.loginInfo(m.getNickName(), m.getPassword());
         //NECESARIO SOLO DE MOMENTO
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
-        ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
+        ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),telephone.textProperty().getValue(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
@@ -313,6 +324,16 @@ public class ChangeProfileInfoController implements Initializable {
         
         else {
             manageCorrect(surnameRequired, familyName, validSurname);
+        }
+    }
+    
+    private void checkTelephone(){
+        if(telephone.textProperty().getValue().length()==0) {
+            manageError(telephoneRequired, telephone, validTelephone);
+        }
+        
+        else {
+            manageCorrect(telephoneRequired, telephone, validTelephone);
         }
     }
     

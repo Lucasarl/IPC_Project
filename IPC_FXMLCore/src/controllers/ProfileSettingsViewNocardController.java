@@ -76,6 +76,8 @@ public class ProfileSettingsViewNocardController implements Initializable {
      public Club c;
     String nickName;//PARAMETROS PASADOS DEL LOGIN
     String passwordMember;
+    @FXML
+    private Label telephoneNumber;
 
    //METODO PARA ACTUALIZAR IMAGEN
     public void changeImage(Image i){
@@ -86,16 +88,18 @@ public class ProfileSettingsViewNocardController implements Initializable {
     
     
     //METODO PARA ACTUALIZAR DATOS
-    public void changeInfo(String newName, String newFamilyName,String newPassword){
+    public void changeInfo(String newName, String newFamilyName,String newPassword, String newTelephone){
         //System.out.println(newPassword);
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         m.setName(newName);
         m.setSurname(newFamilyName);
         m.setPassword(newPassword);
+        m.setTelephone(newTelephone);
         
         name.textProperty().setValue(m.getName());
         familyName.textProperty().setValue(m.getSurname());
         password.textProperty().setValue(m.getPassword());
+        telephoneNumber.textProperty().setValue(m.getTelephone());
         
         passwordMember=newPassword;
     }
@@ -150,7 +154,7 @@ public class ProfileSettingsViewNocardController implements Initializable {
         password.textProperty().setValue(m.getPassword());
         nickname.textProperty().setValue(m.getNickName());
         image.imageProperty().setValue(m.getImage());
-        
+        telephoneNumber.textProperty().setValue(m.getTelephone());
         //PASSWORD MASKING
         
         password.setVisible(false);

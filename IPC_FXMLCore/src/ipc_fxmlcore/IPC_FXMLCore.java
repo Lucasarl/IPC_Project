@@ -30,7 +30,7 @@ private static Scene scene;
         //     - configuracion del stage
         //     - se muestra el stage de manera no modal mediante el metodo show()
         stage.setScene(scene);
-        stage.setMinWidth(700); //Hacer todas las escenas de este tamaño
+        stage.setMinWidth(700); //Hacer todas las escenas de este tamaño min
         stage.setMinHeight(500);
         stage.setTitle("profileSettingsView");
         //stage.setResizable(false);

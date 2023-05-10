@@ -158,7 +158,7 @@ public class AddCardController implements Initializable {
         ProfileSettingsViewNocardController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
         ps.changeImage(m.getImage());
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         IPC_FXMLCore.setRoot(root);
     }
 
@@ -186,10 +186,11 @@ public class AddCardController implements Initializable {
         //NECESARIO SOLO DE MOMENTO
         m.setCreditCard(cardNumber.textProperty().getValue());
         ps.loginInfo(m.getNickName(), m.getPassword());
+        
         ps.changeImage(m.getImage());
         ps.setInvisible();
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);}
     }
     private void checkCreditCard ()  {
