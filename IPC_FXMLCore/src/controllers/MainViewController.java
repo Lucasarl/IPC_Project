@@ -17,10 +17,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -71,17 +73,29 @@ public class MainViewController implements Initializable {
         Image avatar=new Image(new FileInputStream(urlImage));
         // Si usamos, Image avatar=null, muestra default.png;
         Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, -1,null);
-        c.registerBooking(LocalDateTime.now(), a, LocalTime.NOON, false, new Court("court 1"), m);
+        Booking b=c.registerBooking(LocalDateTime.now(), a, LocalTime.NOON, false, c.getCourts().get(0), m);
        
-       //System.out.println(b.getMember().getName());
-       //  ArrayList<Booking> misdatos = (ArrayList<Booking>) c.getForDayBookings(a);
-         //System.out.println(misdatos);
+       System.out.println(b.getMember().getName());
+       List<Booking> misdatos = c.getForDayBookings(a);
+       System.out.println(misdatos.get(0).getMember().getNickName());
          //System.out.println(misdatos.get(0).getMember().getNickName());
-        //datos = FXCollections.observableList(misdatos);
-        //column1.setCellValueFactory(bookingRow->new SimpleStringProperty(bookingRow.getValue().getFromTime().toString()));
-        //column2.setCellValueFactory(bookingRow-> new SimpleStringProperty(bookingRow.getValue().getMember().getNickName()));
-        //court1.setItems(datos);
+        datos = FXCollections.observableList(misdatos);
+        column1.setCellValueFactory(bookingRow->new SimpleStringProperty(bookingRow.getValue().getFromTime().toString()));
+        column2.setCellValueFactory(bookingRow-> new SimpleStringProperty(bookingRow.getValue().getMember().getNickName()));
+        court1.setItems(datos);
         
+        ObservableList<TablePosition> selectedCells = court1.getSelectionModel().getSelectedCells() ;
+        selectedCells.addListener((ListChangeListener.Change<? extends TablePosition> change) -> {
+        if (selectedCells.size() > 0) {
+        TablePosition selectedCell = selectedCells.get(0);
+        TableColumn column = selectedCell.getTableColumn();
+        int rowIndex = selectedCell.getRow();
+        Object data = column.getCellObservableValue(rowIndex).getValue();
+    }
+});
+        
+         System.out.println(courtBookedAtTime(misdatos,LocalTime.NOON));
+         System.out.println(courtBookedAtTime(misdatos,LocalTime.MIDNIGHT));
     }
     
     @Override
@@ -94,5 +108,14 @@ public class MainViewController implements Initializable {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
+    
+    public boolean courtBookedAtTime(List<Booking> bookingsCourtDay, LocalTime h) {
+        for(int i=0; i<bookingsCourtDay.size() ; i++) {
+            if(bookingsCourtDay.get(i).getFromTime().equals(h)) return true;
+        }
+        return false;
+    }
+    
+   
     
 }
