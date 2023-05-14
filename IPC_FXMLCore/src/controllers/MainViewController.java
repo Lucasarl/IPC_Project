@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,13 +20,28 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import model.*;
 import models2.*;
 
@@ -56,33 +72,41 @@ public class MainViewController implements Initializable {
     private TableColumn<Slot, String> column7;
     String nickName;//PARAMETROS PASADOS DEL LOGIN
     String passwordMember;
+    private LocalDate date;
     @FXML
     private TableColumn<Slot, String> column1;
         
     private void inicializaModelo() throws ClubDAOException, IOException {
+        court1.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        court1.getSelectionModel().setCellSelectionEnabled(true);
+        court1.addEventFilter(ScrollEvent.ANY, Event::consume);
+
+       // or if you only want to disable horizontal scrolling
+       court1.addEventFilter(ScrollEvent.ANY, event -> {
+         if (event.getDeltaX() != 0) {
+              event.consume();
+         }
+     });
         
         Club c=Club.getInstance();
-        LocalDate a=LocalDate.ofYearDay(2023, 12);
-       
-        
-        
-       
-        c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
+        date=LocalDate.ofYearDay(2023, 12);
+        // Club c=Club.getInstance();
+        //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
         nickName="Ntonio";
         passwordMember="erewrqdc";
         String urlImage = "src/images/men.PNG"; 
         Image avatar=new Image(new FileInputStream(urlImage));
         // Si usamos, Image avatar=null, muestra default.png;
-        Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, -1,null);
-        Booking b=c.registerBooking(LocalDateTime.now(), a, LocalTime.NOON, false, c.getCourts().get(0), m);
+        //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, -1,null);
+        //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
        
        //System.out.println(b.getMember().getName());
-       List<Booking> misdatosCourt1 = c.getCourtBookings(c.getCourts().get(0).getName(),a);
-       List<Booking> misdatosCourt2 = c.getCourtBookings(c.getCourts().get(1).getName(),a);
-       List<Booking> misdatosCourt3 = c.getCourtBookings(c.getCourts().get(2).getName(),a);
-       List<Booking> misdatosCourt4 = c.getCourtBookings(c.getCourts().get(3).getName(),a);
-       List<Booking> misdatosCourt5 = c.getCourtBookings(c.getCourts().get(4).getName(),a);
-       List<Booking> misdatosCourt6 = c.getCourtBookings(c.getCourts().get(5).getName(),a);
+       List<Booking> misdatosCourt1 = c.getCourtBookings(c.getCourts().get(0).getName(),date);
+       List<Booking> misdatosCourt2 = c.getCourtBookings(c.getCourts().get(1).getName(),date);
+       List<Booking> misdatosCourt3 = c.getCourtBookings(c.getCourts().get(2).getName(),date);
+       List<Booking> misdatosCourt4 = c.getCourtBookings(c.getCourts().get(3).getName(),date);
+       List<Booking> misdatosCourt5 = c.getCourtBookings(c.getCourts().get(4).getName(),date);
+       List<Booking> misdatosCourt6 = c.getCourtBookings(c.getCourts().get(5).getName(),date);
        
        List<String> hours= times();
        List<String> bookings1=slots(misdatosCourt1);
@@ -97,9 +121,9 @@ public class MainViewController implements Initializable {
            misdatos.add(new Slot(hours.get(i), bookings1.get(i), bookings2.get(i),bookings3.get(i), bookings4.get(i), bookings5.get(i), bookings6.get(i)));
        }
        
-       for(int i=0; i<14;i++) {
+      /* for(int i=0; i<14;i++) {
            System.out.println(misdatos.get(i).toString());
-       }
+       }*/
        //System.out.println(misdatos.get(0).getMember().getNickName());
          //System.out.println(misdatos.get(0).getMember().getNickName());
         datos = FXCollections.observableList(misdatos);
@@ -121,10 +145,421 @@ public class MainViewController implements Initializable {
         Object data = column.getCellObservableValue(rowIndex).getValue();
     }
 });*/
-        
+
+column1.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                  
+                   setTextFill(Color.BLACK);
+                   // setStyle("");
+                   /*this.setBorder(new Border(new BorderStroke(Color.BLACK, 
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));*/
+                   setStyle(s);
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   this.selectedProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.BLACK);
+                        setStyle(s);
+                        
+                    } else{
+                        setTextFill(Color.BLACK);
+                        setStyle(s);
+                        
+                    }
+                    });
+                }
+            
+        }
+    };
+
+});
+
+/*court1.setRowFactory(tv -> {
+TableRow<Slot> row = new TableRow<>();
+row.selectedProperty().addListener((obs, oldVal, newVal) -> {
+if (newVal) {
+row.setStyle("-fx-background-color: #22bad9;");
+} else {
+row.setStyle("");
+}
+});
+return row;});*/
+
+// Custom rendering of the table cell.
+column2.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                // Style all dates in March with a different color.
+                if (item.equals("Free")) {
+                    setTextFill(Color.GREEN);
+                    setText("Free");
+                    setAlignment(Pos.CENTER);
+                    
+                    //Member m=c.ge
+                    this.hoverProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.RED);
+                         setStyle("-fx-background-color:  #8cffc6");
+                    } else{
+                        setTextFill(Color.GREEN);
+                        setStyle(s);
+                    }
+                    });
+                    
+                    
+                } else {
+                    setTextFill(Color.BLACK);
+                   // setStyle("");
+                   setStyle("-fx-background-color:  #d6d6d6");
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   
+                   try {
+                        Club c=Club.getInstance();
+                        Member m=c.getMemberByCredentials(nickName, passwordMember);
+                        if(item.equals(m.getNickName())){
+                        if(m.getCreditCard()==null) {
+                            Tooltip a =new Tooltip();
+                            a.textProperty().setValue("unpaid");
+                            setTooltip(a);
+                            setTextFill(Color.RED);
+                        }
+                        else {
+                            //setTextFill(Color.GREEN);
+                            setTextFill(Color.BLUE);
+                        }
+                        }
+                       
+                    } catch (ClubDAOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    };
+
+});
+
+column3.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                // Style all dates in March with a different color.
+                if (item.equals("Free")) {
+                    setTextFill(Color.GREEN);
+                    setText("Free");
+                    setAlignment(Pos.CENTER);
+                    
+                    this.hoverProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.RED);
+                         setStyle("-fx-background-color:  #8cffc6");
+                    } else{
+                        setTextFill(Color.GREEN);
+                        setStyle(s);
+                    }
+                    });
+                    
+                     
+                } else {
+                    setTextFill(Color.BLACK);
+                    setStyle("-fx-background-color:  #d6d6d6");
+                   // setStyle("");
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   
+                   try {
+                        Club c=Club.getInstance();
+                        Member m=c.getMemberByCredentials(nickName, passwordMember);
+                        if(item.equals(m.getNickName())){
+                        if(m.getCreditCard()==null) {
+                            Tooltip a =new Tooltip();
+                            a.textProperty().setValue("unpaid");
+                            setTooltip(a);
+                            setTextFill(Color.RED);
+                        }
+                        else {
+                            //setTextFill(Color.GREEN);
+                            setTextFill(Color.BLUE);
+                        }
+                        }
+                       
+                    } catch (ClubDAOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    };
+
+});
+
+
+
+column4.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                // Style all dates in March with a different color.
+                if (item.equals("Free")) {
+                    setTextFill(Color.GREEN);
+                    setText("Free");
+                    setAlignment(Pos.CENTER);
+                    this.hoverProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.RED);
+                         setStyle("-fx-background-color:  #8cffc6");
+                    } else{
+                        setTextFill(Color.GREEN);
+                        setStyle(s);
+                    }
+                    });
+                } else {
+                    setTextFill(Color.BLACK);
+                    setStyle("-fx-background-color:  #d6d6d6");
+                   // setStyle("");
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   
+                   try {
+                        Club c=Club.getInstance();
+                        Member m=c.getMemberByCredentials(nickName, passwordMember);
+                        if(item.equals(m.getNickName())){
+                        if(m.getCreditCard()==null) {
+                            Tooltip a =new Tooltip();
+                            a.textProperty().setValue("unpaid");
+                            setTooltip(a);
+                            setTextFill(Color.RED);
+                        }
+                        else {
+                            //setTextFill(Color.GREEN);
+                            setTextFill(Color.BLUE);
+                        }
+                        }
+                       
+                    } catch (ClubDAOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    };
+
+});
+
+column5.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                // Style all dates in March with a different color.
+                if (item.equals("Free")) {
+                    setTextFill(Color.GREEN);
+                    setText("Free");
+                    setAlignment(Pos.CENTER);
+                    this.hoverProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.RED);
+                         setStyle("-fx-background-color:  #8cffc6");
+                    } else{
+                        setTextFill(Color.GREEN);
+                        setStyle(s);
+                    }
+                    });
+                } else {
+                    setTextFill(Color.BLACK);
+                    setStyle("-fx-background-color:  #d6d6d6");
+                   // setStyle("");
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   
+                   try {
+                        Club c=Club.getInstance();
+                        Member m=c.getMemberByCredentials(nickName, passwordMember);
+                        if(item.equals(m.getNickName())){
+                        if(m.getCreditCard()==null) {
+                            Tooltip a =new Tooltip();
+                            a.textProperty().setValue("unpaid");
+                            setTooltip(a);
+                            setTextFill(Color.RED);
+                        }
+                        else {
+                            //setTextFill(Color.GREEN);
+                            setTextFill(Color.BLUE);
+                        }
+                        }
+                       
+                    } catch (ClubDAOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    };
+
+});
+
+column6.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                // Style all dates in March with a different color.
+                if (item.equals("Free")) {
+                    setTextFill(Color.GREEN);
+                    setText("Free");
+                    setAlignment(Pos.CENTER);
+                    this.hoverProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.RED);
+                         setStyle("-fx-background-color:  #8cffc6");
+                    } else{
+                        setTextFill(Color.GREEN);
+                        setStyle(s);
+                    }
+                    });
+                } else {
+                    setTextFill(Color.BLACK);
+                    setStyle("-fx-background-color:  #d6d6d6");
+                   // setStyle("");
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   
+                   try {
+                        Club c=Club.getInstance();
+                        Member m=c.getMemberByCredentials(nickName, passwordMember);
+                        if(item.equals(m.getNickName())){
+                        if(m.getCreditCard()==null) {
+                            Tooltip a =new Tooltip();
+                            a.textProperty().setValue("unpaid");
+                            setTooltip(a);
+                            setTextFill(Color.RED);
+                        }
+                        else {
+                            //setTextFill(Color.GREEN);
+                            setTextFill(Color.BLUE);
+                        }
+                        }
+                       
+                    } catch (ClubDAOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    };
+
+});
+
+column7.setCellFactory(column -> {
+    return new TableCell<Slot, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            String s=this.getStyle();
+            if (item == null || empty) {
+              //  setText(null);
+                setStyle("");
+            } else {
+                // Style all dates in March with a different color.
+                if (item.equals("Free")) {
+                    setTextFill(Color.GREEN);
+                    setText("Free");
+                    setAlignment(Pos.CENTER);
+                    this.hoverProperty().addListener((o,oldVal,newVal)->{
+                    if(newVal) {
+                        setTextFill(Color.RED);
+                         setStyle("-fx-background-color:  #8cffc6");
+                    } else{
+                        setTextFill(Color.GREEN);
+                        setStyle(s);
+                    }
+                    });
+                } else {
+                    setTextFill(Color.BLACK);
+                    setStyle("-fx-background-color:  #d6d6d6");
+                   // setStyle("");
+                   setText(item);
+                   setAlignment(Pos.CENTER);
+                   
+                   try {
+                        Club c=Club.getInstance();
+                        Member m=c.getMemberByCredentials(nickName, passwordMember);
+                        if(item.equals(m.getNickName())){
+                        if(m.getCreditCard()==null) {
+                            Tooltip a =new Tooltip();
+                            a.textProperty().setValue("unpaid");
+                            setTooltip(a);
+                            setTextFill(Color.RED);
+                        }
+                        else {
+                            //setTextFill(Color.GREEN);
+                            setTextFill(Color.BLUE);
+                        }
+                        }
+                       
+                    } catch (ClubDAOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    };
+
+});
+
          //System.out.println(courtBookedAtTime(misdatos,LocalTime.NOON));
          //System.out.println(courtBookedAtTime(misdatos,LocalTime.MIDNIGHT));
-         System.out.println();
+         //System.out.println();
          
          
          //List<String> bookings1=slots(misdatos);
@@ -134,16 +569,16 @@ public class MainViewController implements Initializable {
          //List<String> bookings1=slots(misdatos);
          //List<String> bookings1=slots(misdatos);
          //List<String> bookings1=slots(misdatos);
-         System.out.println();
-         System.out.println(bookings1.size());
-         System.out.println();
-         for(int i=0; i<bookings1.size(); i++){
+         //System.out.println();
+         //System.out.println(bookings1.size());
+         //System.out.println();
+         /*for(int i=0; i<bookings1.size(); i++){
              System.out.println(bookings1.get(i));
          }
          System.out.println();
          for(int i=0; i<bookings1.size(); i++){
              System.out.println(bookings2.get(i));
-         }
+         }*/
     }
     
     
@@ -151,6 +586,10 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+             Club c=Club.getInstance();
+             c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
+             Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","1234123412341234", 999,null);
+             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
             inicializaModelo();
         } catch (ClubDAOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,7 +613,7 @@ public class MainViewController implements Initializable {
             l=LocalTime.of(i,0);
             Booking b=courtBookedAtTime(bookingsCourtDay,l);
             if(b==null){
-              res.add("free");
+              res.add("Free");
             } else {
               res.add(b.getMember().getNickName());
             }
@@ -193,4 +632,76 @@ public class MainViewController implements Initializable {
         }
         return res;
     }
+    
+    @FXML
+     public void clickedColumn(MouseEvent event) throws IndexOutOfBoundsException, ClubDAOException, IOException {
+        TablePosition tablePosition=court1.getSelectionModel().getSelectedCells().get(0);
+        int column=tablePosition.getColumn();
+        int row=tablePosition.getRow();
+        if(column>0){
+        Slot item=court1.getItems().get(row);
+        TableColumn tableColumn=tablePosition.getTableColumn();
+        String data= (String) tableColumn.getCellObservableValue(item).getValue();
+        if(data.equals("Free")) {
+        Club c=Club.getInstance();
+        int time=row+9;
+        LocalTime t=LocalTime.of(time, 0);
+        Member m=c.getMemberByCredentials(nickName, passwordMember);
+        List<Booking> b=c.getUserBookings(nickName);
+        
+        //limites de registro de pista
+        boolean avail=true;
+        for(int i=0; i<b.size();i++){
+           Booking n=b.get(i);
+           if(n.getMadeForDay().equals(date) && n.getFromTime().equals(t)) {
+               avail=false;
+                       
+           }
+        }
+        
+        boolean belowMax=true;
+        List<Booking> misdatos = c.getCourtBookings(c.getCourts().get(column-1).getName(),date);
+        List<String> slots= slots(misdatos);
+        if(time==22) {
+                if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time-2-9).equals(m.getNickName())){
+                belowMax=false;}
+            } else if (time==9) {
+                if(slots.get(time+1-9).equals(m.getNickName())&& slots.get(time+2-9).equals(m.getNickName())) {
+                belowMax=false;  
+                }
+            }
+        else if(time+1<23 && time-1>8) {
+            if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time+1-9).equals(m.getNickName())){
+                belowMax=false;
+            }
+        else if(time+2<23 && time-2>8) 
+            {if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time-2-9).equals(m.getNickName())){
+                belowMax=false;
+            }
+            else if(slots.get(time+1-9).equals(m.getNickName())&& slots.get(time+2-9).equals(m.getNickName())) {
+                belowMax=false;
+            } else if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time+1-9).equals(m.getNickName())){
+                belowMax=false;
+            }
+          }
+        }
+         
+        if(avail==true && belowMax==true) {
+        if(m.getCreditCard()!=null){
+            c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
+        } else {
+            c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
+        }} else {
+            System.out.println("error");
+        }
+        inicializaModelo();
+    }}}
 }
+ /*
+.table-view{
+ -fx-selection-bar: #8cffc6; 
+ -fx-text-fill: red;
+
+}
+
+*/
