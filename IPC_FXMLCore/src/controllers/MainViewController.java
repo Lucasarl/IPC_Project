@@ -670,10 +670,6 @@ column7.setCellFactory(column -> {
                 belowMax=false;  
                 }
             }
-        else if(time+1<23 && time-1>8) {
-            if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time+1-9).equals(m.getNickName())){
-                belowMax=false;
-            }
         else if(time+2<23 && time-2>8) 
             {if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time-2-9).equals(m.getNickName())){
                 belowMax=false;
@@ -684,7 +680,23 @@ column7.setCellFactory(column -> {
                 belowMax=false;
             }
           }
+        else if(time+1<23 && time-1>8) {
+            if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time+1-9).equals(m.getNickName())){
+                belowMax=false;
+            }
+            if((time-1)==9){ 
+               if(slots.get(time+1-9).equals(m.getNickName())&& slots.get(time+2-9).equals(m.getNickName())) {
+                  belowMax=false; 
+               }
+            }
+           
+            if((time+1)==22) {
+               if(slots.get(time-1-9).equals(m.getNickName())&& slots.get(time-2-9).equals(m.getNickName())){
+                belowMax=false;
+            }
+            }
         }
+        
          
         if(avail==true && belowMax==true) {
         if(m.getCreditCard()!=null){
