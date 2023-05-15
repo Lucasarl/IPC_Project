@@ -32,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import model.*;
@@ -101,6 +102,31 @@ public class AddCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
         
+        //ENTER SHORTCUTS
+        
+         cardNumber.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+         svc.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );   
+        
         showSvc= new SimpleBooleanProperty();
         showSvc.setValue(Boolean.FALSE);
         showSvc.addListener((observable, oldValue, newValue) -> {
@@ -164,8 +190,14 @@ public class AddCardController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
+        updateInfo();
+    }
+    
+    private void updateInfo() throws IOException {
         if(svc.textProperty().getValue().length()!=3) {
-            manageError(errorSvc,svc,validSvc);}
+            manageError(errorSvc,svc,validSvc);} else {
+            manageCorrect(errorSvc,svc,validSvc);
+        }
         if(validCard.getValue().equals(Boolean.TRUE)&&validSvc.getValue().equals(Boolean.TRUE)) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -193,6 +225,7 @@ public class AddCardController implements Initializable {
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);}
     }
+    
     private void checkCreditCard ()  {
         if(cardNumber.textProperty().getValue().length()!=16) {
             manageError(errorCardNumber, cardNumber, validCard);

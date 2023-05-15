@@ -135,12 +135,73 @@ public class ChangeProfileInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
         
-        // sumamos el atajo de update con enter
-        
-        //KeyCombination kc = new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN);
-        //update.setMnemonicParsing(true);
-        //Mnemonic mn=new Mnemonic(update,kc);
-        //update.getScene().addMnemonic(mn);
+        // sumamos los atajos de update con enter
+         name.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+          familyName.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+           password.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+            telephone.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+             cardNumber.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+         svc.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );     
         
         validPassword = new SimpleBooleanProperty();
         validCreditCard = new SimpleBooleanProperty();   
@@ -251,6 +312,10 @@ public class ChangeProfileInfoController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
+        updateInfo();
+    }
+    
+    private void updateInfo() throws IOException {
         if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible()) &&!telephoneRequired.isVisible()){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -275,8 +340,6 @@ public class ChangeProfileInfoController implements Initializable {
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
-    
-    
     
     private void checkPassword(){
         if(password.textProperty().getValue().length()<6) {

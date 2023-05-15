@@ -11,8 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,11 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -33,6 +40,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Border;
@@ -75,8 +83,11 @@ public class MainViewController implements Initializable {
     private LocalDate date;
     @FXML
     private TableColumn<Slot, String> column1;
+    @FXML
+    private DatePicker dpBookingDay;
         
     private void inicializaModelo() throws ClubDAOException, IOException {
+        
         court1.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         court1.getSelectionModel().setCellSelectionEnabled(true);
         court1.addEventFilter(ScrollEvent.ANY, Event::consume);
@@ -89,7 +100,7 @@ public class MainViewController implements Initializable {
      });
         
         Club c=Club.getInstance();
-        date=LocalDate.ofYearDay(2023, 12);
+       
         // Club c=Club.getInstance();
         //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
         nickName="Ntonio";
@@ -586,11 +597,35 @@ column7.setCellFactory(column -> {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            WeekFields weekFields = WeekFields.of(Locale.getDefault());
+           dpBookingDay.setDayCellFactory((DatePicker picker) -> {
+           return new DateCell() {
+           @Override
+           public void updateItem(LocalDate date, boolean empty) {
+           super.updateItem(date, empty);
+           LocalDate today = LocalDate.now();
+           setDisable(empty || date.compareTo(today) < 0);
+            }
+           };
+          });
+           
              Club c=Club.getInstance();
              c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
              Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","1234123412341234", 999,null);
              //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
             inicializaModelo();
+            date=LocalDate.now();
+            dpBookingDay.setValue(date);
+            dpBookingDay.valueProperty().addListener((o,oldVal,newVal)-> {
+                date=newVal;
+                 try {
+                     inicializaModelo();
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (IOException ex) {
+                     Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+            });
         } catch (ClubDAOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -703,8 +738,49 @@ column7.setCellFactory(column -> {
             c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
         } else {
             c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
-        }} else {
-            System.out.println("error");
+        }
+            // ES NECESARIA ESTA ALERTA?
+            /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+             alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
+             alert.setHeaderText(null);
+             ButtonType buttonTypeOne = new ButtonType("OK");
+             alert.getButtonTypes().setAll(buttonTypeOne);
+             DialogPane dialogPane = alert.getDialogPane();
+             dialogPane.getStylesheets().add(
+           getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+             alert.getDialogPane().getStyleClass().add("myAlert");
+             // ó null si no queremos cabecera
+             alert.setContentText("You have correctly booked the court.");
+             alert.showAndWait();*/
+        } else {
+            if(avail==false) {
+                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("You cannot book two different courts for the same hour.");
+                 alert.showAndWait();
+            } else {
+                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("You can only book a specific court for up to two consecutive hours.");
+                 alert.showAndWait();
+            }
         }
         inicializaModelo();
     }}}

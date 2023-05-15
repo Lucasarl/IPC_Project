@@ -32,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import model.*;
@@ -46,6 +47,9 @@ public class ChangeProfileInfoNocardController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    
+    
     private BooleanProperty validPassword;
     private BooleanProperty validName;
     private BooleanProperty validSurname;
@@ -113,6 +117,53 @@ public class ChangeProfileInfoNocardController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
+        
+        // ENTER SHORTCUTS
+        
+        name.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+          familyName.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+           password.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
+            telephone.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     updateInfo();
+                 } catch (IOException ex) {
+                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+}
+         }
+  
+ );
         
         showPassword = new SimpleBooleanProperty();
         showPassword.setValue(Boolean.FALSE);
@@ -188,6 +239,10 @@ public class ChangeProfileInfoNocardController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
+        updateInfo();
+    }
+    
+    private void updateInfo() throws IOException {
         if((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() && !telephoneRequired.isVisible())){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -213,8 +268,6 @@ public class ChangeProfileInfoNocardController implements Initializable {
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
-    
-    
     
     private void checkPassword(){
         if(password.textProperty().getValue().length()<6) {
