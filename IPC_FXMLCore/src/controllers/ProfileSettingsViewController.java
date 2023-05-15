@@ -119,6 +119,17 @@ public class ProfileSettingsViewController implements Initializable  {
         m.setPassword(newPassword);
         m.setCreditCard(newCreditCard);
         m.setSvc(Integer.parseInt(newSvc));
+        String stringSvc=Integer.toString(m.getSvc());
+        if(m.getSvc()==0){
+            svc.textProperty().setValue("000");
+        } else if(stringSvc.length()==2) {
+            svc.textProperty().setValue("0"+stringSvc);}
+        else if(stringSvc.length()==1) {
+            svc.textProperty().setValue("00"+stringSvc);
+        }
+        else {
+            svc.textProperty().setValue(stringSvc);
+        }
         m.setTelephone(newTelephone);
         name.textProperty().setValue(m.getName());
         familyName.textProperty().setValue(m.getSurname());
@@ -126,8 +137,6 @@ public class ProfileSettingsViewController implements Initializable  {
         password.textProperty().setValue(m.getPassword());
         telephoneNumber.textProperty().setValue(m.getTelephone());
         cardNumber.textProperty().setValue(m.getCreditCard());
-        String stringSvc=Integer.toString(m.getSvc());
-        svc.textProperty().setValue(stringSvc);
         passwordMember=newPassword;
     }
     
@@ -210,10 +219,10 @@ public class ProfileSettingsViewController implements Initializable  {
         }});
         
         makeResizable();
-        //c=Club.getInstance();
+        c=Club.getInstance();
         //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
         //nickName="Ntonio";
-        //asswordMember="erewrqdc";
+        //passwordMember="erewrqdc";
         //String urlImage = "src/images/men.PNG"; 
         //Image avatar=new Image(new FileInputStream(urlImage));
         // Si usamos, Image avatar=null, muestra default.png;
@@ -247,10 +256,27 @@ public class ProfileSettingsViewController implements Initializable  {
     }    
 
     @FXML
-    private void goBack(ActionEvent event) {
+    private void goBack(ActionEvent event) throws ClubDAOException, IOException {
         //back to main screen
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/mainView.fxml"));
+        Parent root=myLoader.load();
+        MainViewController main=myLoader.getController();
+        Club c=Club.getInstance();
+        Member m=c.getMemberByCredentials(nickName,passwordMember);
+        System.out.println(nickName);
+        main.loginInfo(nickName, passwordMember);
+        //main.setImage(m.getImage()); // para luego
+        main.setImage(image.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
     }
 
+    public String  returnNickname(){
+        return nickName;
+    }
+    
+    public String returnPassword() {
+        return passwordMember;
+    }
     @FXML
     private void changeProfileInfo(ActionEvent event) throws IOException, ClubDAOException {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/changeProfileInfo.fxml"));

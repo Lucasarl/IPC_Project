@@ -104,8 +104,17 @@ public class ChangeProfileInfoController implements Initializable {
         familyName.textProperty().setValue(m.getSurname());
         this.password.textProperty().setValue(m.getPassword());
         cardNumber.textProperty().setValue(m.getCreditCard());
-        String svcString=Integer.toString(m.getSvc());
-        svc.textProperty().setValue(svcString);
+        String stringSvc=Integer.toString(m.getSvc());
+        if(m.getSvc()==0){
+            svc.textProperty().setValue("000");
+        } else if(stringSvc.length()==2) {
+            svc.textProperty().setValue("0"+stringSvc);}
+        else if(stringSvc.length()==1) {
+            svc.textProperty().setValue("00"+stringSvc);
+        }
+        else {
+            svc.textProperty().setValue(stringSvc);
+        }
         telephone.textProperty().setValue(m.getTelephone());
     }
     

@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -22,15 +23,19 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -85,6 +90,18 @@ public class MainViewController implements Initializable {
     private TableColumn<Slot, String> column1;
     @FXML
     private DatePicker dpBookingDay;
+    @FXML
+    private ImageView cogwheel;
+    @FXML
+    private ImageView profilePicture;
+    @FXML
+    private Label userName;
+    
+    //UN METODO COMO ESTE EN LOGIN,pero para obtener los valores.
+    public void loginInfo(String nickname, String password) {
+        nickName=nickname;
+        passwordMember=password;  
+    }
         
     private void inicializaModelo() throws ClubDAOException, IOException {
         
@@ -103,6 +120,7 @@ public class MainViewController implements Initializable {
        
         // Club c=Club.getInstance();
         //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
+       
         nickName="Ntonio";
         passwordMember="erewrqdc";
         String urlImage = "src/images/men.PNG"; 
@@ -597,6 +615,10 @@ column7.setCellFactory(column -> {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            //SIEMPRE EMPEZAREMOS POR COGER LOS VALORES DE LOGIN, O NULLPOINTER
+            
+            //POR ESO, DE MOMENTO, SI VAS Y VUELVES NO CAMBIA NADA, DE MOMENTO INICIALIZO AQUI PARA HACER PRUEBAS
+            
             WeekFields weekFields = WeekFields.of(Locale.getDefault());
            dpBookingDay.setDayCellFactory((DatePicker picker) -> {
            return new DateCell() {
@@ -608,11 +630,24 @@ column7.setCellFactory(column -> {
             }
            };
           });
+           Tooltip t=new Tooltip();
+           t.setText("select a date to play in");
+           dpBookingDay.setTooltip(t);
+           
            
              Club c=Club.getInstance();
              c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
              Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","1234123412341234", 999,null);
-             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
+             //ESTO LO CAMBIAREMOS PARA QUE VENGA DE LOGIN
+             //FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
+             //Parent root=myLoader.load();
+             //ProfileSettingsViewController main=myLoader.getController();
+             //nickName=main.returnNickname();
+             //passwordMember=main.returnPassword();
+             //Member m=c.getMemberByCredentials(nickName,passwordMember);
+             profilePicture.imageProperty().setValue(m.getImage());
+             userName.textProperty().setValue(m.getNickName());
+            //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
             inicializaModelo();
             date=LocalDate.now();
             dpBookingDay.setValue(date);
@@ -738,6 +773,20 @@ column7.setCellFactory(column -> {
             c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
         } else {
             c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
+            // ES NECESARIA ESTA ALERTA?
+            /* Alert alert = new Alert(Alert.AlertType.WARNING);
+            // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+             alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
+             alert.setHeaderText(null);
+             ButtonType buttonTypeOne = new ButtonType("OK");
+             alert.getButtonTypes().setAll(buttonTypeOne);
+             DialogPane dialogPane = alert.getDialogPane();
+             dialogPane.getStylesheets().add(
+           getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+             alert.getDialogPane().getStyleClass().add("myAlert");
+             // ó null si no queremos cabecera
+             alert.setContentText("This reservation is unpaid, remember to add a credit card before the day of the reservation");
+             alert.showAndWait();*/
         }
             // ES NECESARIA ESTA ALERTA?
             /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -778,12 +827,57 @@ column7.setCellFactory(column -> {
                getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
                  alert.getDialogPane().getStyleClass().add("myAlert");
                  // ó null si no queremos cabecera
-                 alert.setContentText("You can only book a specific court for up to two consecutive hours.");
+                 alert.setContentText("You can only book a specific court for up to two consecutive hours at a time.");
                  alert.showAndWait();
             }
         }
         inicializaModelo();
     }}}
+
+    @FXML
+    private void logOut(ActionEvent event) {
+        
+    }
+    public void setImage(Image avatar) {
+        profilePicture.imageProperty().setValue(avatar);
+    }
+    @FXML
+    private void toProfileSettings(MouseEvent event) throws IOException, ClubDAOException {
+        Club c=Club.getInstance();
+        Member m=c.getMemberByCredentials(nickName, passwordMember);
+        if(m.getCreditCard()!=null){
+         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewController ps=myLoader.getController();
+        ps.loginInfo(nickName, passwordMember);
+        //NECESARIO SOLO DE MOMENTO
+        //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),m.getCreditCard(),Integer.toString(m.getSvc()));
+        ps.changeImage(m.getImage());
+        IPC_FXMLCore.setRoot(root);
+        }
+        else {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        Parent root=myLoader.load();
+        ProfileSettingsViewNocardController ps=myLoader.getController();
+        ps.loginInfo(nickName, passwordMember);
+        //NECESARIO SOLO DE MOMENTO
+        //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
+        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
+        ps.changeImage(m.getImage());
+        IPC_FXMLCore.setRoot(root);    
+        }
+    
+    }
+
+    @FXML
+    private void toMyBookings(ActionEvent event) {
+    }
+
+    @FXML
+    private void exitApplication(ActionEvent event) {
+        cogwheel.getScene().getWindow().hide();
+    }
 }
  /*
 .table-view{

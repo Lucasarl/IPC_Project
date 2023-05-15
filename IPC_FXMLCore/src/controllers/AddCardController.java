@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -107,7 +110,11 @@ public class AddCardController implements Initializable {
          cardNumber.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
                  try {
-                     updateInfo();
+                     try {
+                         updateInfo();
+                     } catch (ClubDAOException ex) {
+                         Logger.getLogger(AddCardController.class.getName()).log(Level.SEVERE, null, ex);
+                     }
                  } catch (IOException ex) {
                      Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
                  }
@@ -118,7 +125,11 @@ public class AddCardController implements Initializable {
          svc.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
                  try {
-                     updateInfo();
+                     try {
+                         updateInfo();
+                     } catch (ClubDAOException ex) {
+                         Logger.getLogger(AddCardController.class.getName()).log(Level.SEVERE, null, ex);
+                     }
                  } catch (IOException ex) {
                      Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
                  }
@@ -189,16 +200,43 @@ public class AddCardController implements Initializable {
     }
 
     @FXML
-    private void updateInfo(ActionEvent event) throws IOException {
-        updateInfo();
-    }
-    
-    private void updateInfo() throws IOException {
+    private void updateInfo(ActionEvent event) throws IOException, ClubDAOException {
         if(svc.textProperty().getValue().length()!=3) {
             manageError(errorSvc,svc,validSvc);} else {
             manageCorrect(errorSvc,svc,validSvc);
         }
         if(validCard.getValue().equals(Boolean.TRUE)&&validSvc.getValue().equals(Boolean.TRUE)) {
+        Alert alert = new Alert(AlertType.WARNING);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        alert.setTitle("Add a card");
+        alert.setHeaderText("Are you sure you want to add a credit card? You will pay for all of your current bookings automatically.");
+        alert.setContentText(null);
+        ButtonType buttonTypeAdd = new ButtonType("Add Card");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeAdd, buttonTypeCancel);
+        alert.getDialogPane().getChildren().forEach(node -> {
+    if (node instanceof ButtonBar) {
+        ButtonBar buttonBar = (ButtonBar) node;
+        buttonBar.getButtons().forEach(possibleButtons -> {
+            if (possibleButtons instanceof Button) {
+                Button b = (Button) possibleButtons;
+                if (b.getText().equals("Cancel")) {
+                    b.getStyleClass().add("cancel");
+                }
+            }
+        });
+    }
+});
+       Optional<ButtonType> result = alert.showAndWait();
+       if (result.isPresent()) {
+       if (result.get() == buttonTypeAdd){
+        updateInfo();}
+    }}}
+    
+    private void updateInfo() throws IOException, ClubDAOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
         alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
@@ -212,6 +250,13 @@ public class AddCardController implements Initializable {
         // ó null si no queremos cabecera
         alert.setContentText("The credit card has been added.");
         alert.showAndWait();
+        
+        Club c=Club.getInstance();
+        List<Booking> b=c.getUserBookings(m.getNickName());
+        for(int i=0;i<b.size();i++){
+            b.get(i).setPaid(true);
+        }
+        
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
@@ -223,7 +268,7 @@ public class AddCardController implements Initializable {
         ps.setInvisible();
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
-        IPC_FXMLCore.setRoot(root);}
+        IPC_FXMLCore.setRoot(root);
     }
     
     private void checkCreditCard ()  {

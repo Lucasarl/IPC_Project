@@ -170,8 +170,18 @@ public class ProfileSettingsViewNocardController implements Initializable {
     }    
 
     @FXML
-    private void goBack(ActionEvent event) {
+    private void goBack(ActionEvent event) throws IOException, ClubDAOException {
         //back to main screen
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/mainView.fxml"));
+        Parent root=myLoader.load();
+        MainViewController main=myLoader.getController();
+        Club c=Club.getInstance();
+        Member m=c.getMemberByCredentials(nickName,passwordMember);
+        System.out.println(nickName);
+        main.loginInfo(nickName, passwordMember);
+        //main.setImage(m.getImage()); // para luego
+        main.setImage(image.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
     }
 
     @FXML
