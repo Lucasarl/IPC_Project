@@ -23,6 +23,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -96,6 +98,10 @@ public class MainViewController implements Initializable {
     private ImageView profilePicture;
     @FXML
     private Label userName;
+    
+    Service service = new ProcessService();
+    @FXML
+    private Label taskLabel;
     
     //UN METODO COMO ESTE EN LOGIN,pero para obtener los valores.
     public void loginInfo(String nickname, String password) {
@@ -619,6 +625,13 @@ column7.setCellFactory(column -> {
             
             //POR ESO, DE MOMENTO, SI VAS Y VUELVES NO CAMBIA NADA, DE MOMENTO INICIALIZO AQUI PARA HACER PRUEBAS
             
+            
+            service.setOnSucceeded(e -> {
+            taskLabel.setVisible(false);
+            //reset service
+            service.reset();
+        });
+            
             WeekFields weekFields = WeekFields.of(Locale.getDefault());
            dpBookingDay.setDayCellFactory((DatePicker picker) -> {
            return new DateCell() {
@@ -637,7 +650,7 @@ column7.setCellFactory(column -> {
            
              Club c=Club.getInstance();
              c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
-             Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","1234123412341234", 999,null);
+             Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, 999,null);
              //ESTO LO CAMBIAREMOS PARA QUE VENGA DE LOGIN
              //FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
              //Parent root=myLoader.load();
@@ -648,8 +661,8 @@ column7.setCellFactory(column -> {
              profilePicture.imageProperty().setValue(m.getImage());
              userName.textProperty().setValue(m.getNickName());
             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
-            inicializaModelo();
             date=LocalDate.now();
+            inicializaModelo();
             dpBookingDay.setValue(date);
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)-> {
                 date=newVal;
@@ -773,6 +786,11 @@ column7.setCellFactory(column -> {
             c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
         } else {
             c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
+            taskLabel.setVisible(true);
+            // start background computation
+            if(!service.isRunning()) {
+                service.start();
+            }
             // ES NECESARIA ESTA ALERTA?
             /* Alert alert = new Alert(Alert.AlertType.WARNING);
             // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -879,6 +897,23 @@ column7.setCellFactory(column -> {
         cogwheel.getScene().getWindow().hide();
     }
 }
+
+class ProcessService extends Service<Void> {
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    // Computations takes 3 seconds
+                    // Calling Thread.sleep instead of random computation
+                    Thread.sleep(3000);
+                    return null;
+                }
+            };
+        }
+    }
+
  /*
 .table-view{
  -fx-selection-bar: #8cffc6; 

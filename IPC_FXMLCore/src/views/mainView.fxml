@@ -20,7 +20,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0" />
             <HBox minHeight="25.0" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #ffffffff;">
                <children>
-                  <DatePicker fx:id="dpBookingDay" />
+                  <DatePicker fx:id="dpBookingDay" stylesheets="@../styles/datePicker.css" />
                   <Label text="Book a Court">
                      <HBox.margin>
                         <Insets left="120.0" />
@@ -29,6 +29,18 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="295.0">
+                     <children>
+                        <Label fx:id="taskLabel" text="This booking is unpaid" textFill="RED" visible="false">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" minHeight="365.0" prefHeight="365.0" prefWidth="1500.0">

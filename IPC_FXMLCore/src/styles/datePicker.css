@@ -1,0 +1,78 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 16 may. 2023, 19:40:47
+    Author     : USER
+*/
+
+/*-----------------------------------------
+Customize the right button background color
+-------------------------------------------*/
+.date-picker .arrow-button {
+  -fx-background-color: orange;
+  -fx-background-radius: 0;
+}
+ 
+.date-picker .arrow-button:hover {
+  -fx-background-color: orange, white, orange;
+  
+}
+ 
+.date-picker .arrow-button .arrow {
+  -fx-background-color: darkgreen;
+}
+ 
+/*-----------------------------------------
+Customize popup content
+-------------------------------------------*/
+.date-picker .cell {
+  -fx-background-color: white;
+}
+ 
+.date-picker .cell:hover {
+  -fx-background-color: #12cc43;
+}
+ 
+.date-picker .cell:focused {
+  -fx-background-color: #12cc43;
+}
+ 
+/*-----------------------------------------
+Customize the selected cell
+-------------------------------------------*/
+.date-picker .selected {
+  -fx-background-color: #12cc43, white, #12cc43;
+  -fx-text-fill: white;
+}
+ 
+.date-picker .selected:focused {
+  -fx-background-color: #12cc43, white, #12cc43;
+  -fx-text-fill: white;
+}
+ 
+.date-picker-popup {
+  -fx-border-color: transparent;
+}
+ 
+.date-picker-popup .month-year-pane {
+  -fx-background-color: darkgreen;
+}
+ 
+.date-picker-popup .month-year-pane .label {
+  -fx-text-fill: white;
+}
+ 
+.date-picker-popup .week-number-cell {
+  
+  -fx-text-fill: blue;
+}
+ 
+/*-----------------------------------------
+Customize left and right arrow
+-------------------------------------------*/
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+  -fx-background-color: orangered;
+}
