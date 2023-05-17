@@ -447,6 +447,8 @@ public class ProfileSettingsViewController implements Initializable  {
         System.out.println(passwordMember);
         ps.changeInfo(name.textProperty().getValue(), familyName.textProperty().getValue(), passwordMember, telephoneNumber.textProperty().getValue());
         ps.changeImage(image.imageProperty().getValue());
+        Member m=c.getMemberByCredentials(nickName,passwordMember);
+        m.setCreditCard(null);
         IPC_FXMLCore.setRoot(root);
           
        }
