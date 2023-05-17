@@ -36,7 +36,7 @@
       <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginClicked" text="Log In" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
       <Text fx:id="userMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="User or password incorrect" GridPane.rowIndex="4" />
       <Label text="Not registered? Create a profile now!" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button fx:id="registerButtton" mnemonicParsing="false" text="Register" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerClicked" text="Register" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
    </children>
    <padding>
       <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />

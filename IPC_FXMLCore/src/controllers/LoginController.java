@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -43,7 +45,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginButton;
     @FXML
-    private Button registerButtton;
+    private Button registerButton;
 
     /**
      * Initializes the controller class.
@@ -69,21 +71,18 @@ public class LoginController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("The given profile is not registered");
             
-            ButtonType registerButton = new ButtonType("Regsiter");
+            ButtonType regButton = new ButtonType("Register");
             ButtonType retryButton = new ButtonType("Retry");
-            alert.getButtonTypes().setAll(registerButton, retryButton);
+            alert.getButtonTypes().setAll(regButton, retryButton);
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent()){
-                if(result.get() == registerButton){
+                if(result.get() == regButton){
                     FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/register.fxml"));
                     Parent root = myFXMLLoader.load();
                 }
             }
             }else{
-                nickname.getScene().getWindow().hide();
-                FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/mainMenu.fxml"));
-                Parent root = myFXMLLoader.load();
         }
     }
     
@@ -103,6 +102,25 @@ public class LoginController implements Initializable {
     private void hideErrorMessage(Label userMessage)
     {
         userMessage.visibleProperty().set(false);
+    }
+    
+    @FXML
+    private void registerClicked(ActionEvent event) throws IOException{
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/login.fxml"));
+        Parent root = loader.load();
+        //======================================================================
+        // 2- creación de la escena con el nodo raiz del grafo de escena
+        scene = new Scene(root);
+        //======================================================================
+        // 3- asiganación de la escena al Stage que recibe el metodo 
+        //     - configuracion del stage
+        //     - se muestra el stage de manera no modal mediante el metodo show()
+        stage.setScene(scene);
+        stage.setMinWidth(700); //Hacer todas las escenas de este tamaño min
+        stage.setMinHeight(500);
+        stage.setTitle("profileSettingsView");
+        //stage.setResizable(false);
+        stage.show();
     }
 
 }
