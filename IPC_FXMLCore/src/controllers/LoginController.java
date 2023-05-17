@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +55,17 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Club c;
+        try {
+            c = Club.getInstance();
+            //c.setInitialData();
+            //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ptonio","erewrqdc",null,321,null);
+        } catch (ClubDAOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         loginButton.setDisable(true);
         
         nickname.textProperty().addListener((observable, oldValue, newValue) -> {checkFieldsAndEnableButton();});
@@ -83,6 +96,12 @@ public class LoginController implements Initializable {
                 }
             }
             }else{
+            User u=User.getInstance();
+            u.setPassword(password.textProperty().getValue());
+            u.setNickname(nickname.textProperty().getValue());
+            FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/mainView.fxml"));
+            Parent root = loader.load();
+            IPC_FXMLCore.setRoot(root);
         }
     }
     
@@ -106,7 +125,7 @@ public class LoginController implements Initializable {
     
     @FXML
     private void registerClicked(ActionEvent event) throws IOException{
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/login.fxml"));
+        /*FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent root = loader.load();
         //======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena
@@ -121,6 +140,6 @@ public class LoginController implements Initializable {
         stage.setTitle("profileSettingsView");
         //stage.setResizable(false);
         stage.show();
-    }
+    */}
 
 }

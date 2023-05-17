@@ -120,12 +120,15 @@ public class ChangeProfileInfoNocardController implements Initializable {
         
         // ENTER SHORTCUTS
         
+        
         name.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
                  try {
                      updateInfo();
                  } catch (IOException ex) {
                      Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
                  }
 }
          }
@@ -137,6 +140,8 @@ public class ChangeProfileInfoNocardController implements Initializable {
                      updateInfo();
                  } catch (IOException ex) {
                      Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
                  }
 }
          }
@@ -148,6 +153,8 @@ public class ChangeProfileInfoNocardController implements Initializable {
                      updateInfo();
                  } catch (IOException ex) {
                      Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
                  }
 }
          }
@@ -159,6 +166,8 @@ public class ChangeProfileInfoNocardController implements Initializable {
                      updateInfo();
                  } catch (IOException ex) {
                      Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
                  }
 }
          }
@@ -238,11 +247,11 @@ public class ChangeProfileInfoNocardController implements Initializable {
     }
 
     @FXML
-    private void updateInfo(ActionEvent event) throws IOException {
+    private void updateInfo(ActionEvent event) throws IOException, ClubDAOException {
         updateInfo();
     }
     
-    private void updateInfo() throws IOException {
+    private void updateInfo() throws IOException, ClubDAOException {
         if((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() && !telephoneRequired.isVisible())){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -258,14 +267,19 @@ public class ChangeProfileInfoNocardController implements Initializable {
         alert.setContentText("Your profile has been updated");
         alert.showAndWait();
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
+        User u=User.getInstance();
+        Club c=Club.getInstance();
+        Member m=c.getMemberByCredentials(u.getNickname(), u.getPassword());
+        m.setPassword(password.textProperty().getValue());
+        u.setPassword(password.textProperty().getValue());
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
-        ps.loginInfo(m.getNickName(), m.getPassword());
+        //ps.loginInfo(m.getNickName(), m.getPassword());
         //System.out.println(m.getPassword());
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
-        ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),telephone.textProperty().getValue());
-        ps.changeImage(m.getImage());
+        //ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),telephone.textProperty().getValue());
+        //ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
     

@@ -89,7 +89,7 @@ public class ProfileSettingsViewNocardController implements Initializable {
     
     //METODO PARA ACTUALIZAR DATOS
     public void changeInfo(String newName, String newFamilyName,String newPassword, String newTelephone){
-        //System.out.println(newPassword);
+        System.out.println(nickName);
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         m.setName(newName);
         m.setSurname(newFamilyName);
@@ -113,6 +113,9 @@ public class ProfileSettingsViewNocardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO2
+        User u=User.getInstance();
+        passwordMember=u.getPassword();
+        nickName=u.getNickname();
         try {
         
         //PASSWORD MASKING, CARD MASKING, AND SECURITY NUMBER MASKING
@@ -139,16 +142,16 @@ public class ProfileSettingsViewNocardController implements Initializable {
         
         makeResizable();
         c=Club.getInstance();
-        c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
-        nickName="Ntonio";
-        passwordMember="erewrqdc";
-        String urlImage = "src/images/men.PNG"; 
-        Image avatar=new Image(new FileInputStream(urlImage));
+        //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
+       // nickName="Ntonio";
+       // passwordMember="erewrqdc";
+       // String urlImage = "src/images/men.PNG"; 
+       // Image avatar=new Image(new FileInputStream(urlImage));
         // Si usamos, Image avatar=null, muestra default.png;
-        c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, 0,avatar);
-        c=Club.getInstance();
+        //c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, 0,avatar);
+        //c=Club.getInstance();
         Member m=c.getMemberByCredentials(nickName,passwordMember);
-        System.out.println(c.existsLogin("Ntonio"));
+        //System.out.println(c.existsLogin("Ntonio"));
         name.textProperty().setValue(m.getName());
         familyName.textProperty().setValue(m.getSurname());
         password.textProperty().setValue(m.getPassword());
