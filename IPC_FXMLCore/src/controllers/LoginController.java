@@ -106,21 +106,9 @@ public class LoginController implements Initializable {
     
     @FXML
     private void registerClicked(ActionEvent event) throws IOException{
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/login.fxml"));
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/mainView.fxml"));
         Parent root = loader.load();
-        //======================================================================
-        // 2- creación de la escena con el nodo raiz del grafo de escena
-        scene = new Scene(root);
-        //======================================================================
-        // 3- asiganación de la escena al Stage que recibe el metodo 
-        //     - configuracion del stage
-        //     - se muestra el stage de manera no modal mediante el metodo show()
-        stage.setScene(scene);
-        stage.setMinWidth(700); //Hacer todas las escenas de este tamaño min
-        stage.setMinHeight(500);
-        stage.setTitle("profileSettingsView");
-        //stage.setResizable(false);
-        stage.show();
+        IPC_FXMLCore.setRoot(root);
     }
 
 }
