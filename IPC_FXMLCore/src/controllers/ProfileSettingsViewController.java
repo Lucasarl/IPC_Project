@@ -217,7 +217,9 @@ public class ProfileSettingsViewController implements Initializable  {
             maskedSvc.textProperty().setValue(s);
             }
         }});
-        
+        User u=User.getInstance();
+        nickName=u.getNickname();
+        passwordMember=u.getPassword();
         makeResizable();
         c=Club.getInstance();
         //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB

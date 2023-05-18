@@ -58,8 +58,8 @@ public class LoginController implements Initializable {
         Club c;
         try {
             c = Club.getInstance();
-            //c.setInitialData();
-            //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ptonio","erewrqdc",null,321,null);
+            c.setInitialData();
+            Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ptonio","erewrqdc",null,321,null);
         } catch (ClubDAOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
