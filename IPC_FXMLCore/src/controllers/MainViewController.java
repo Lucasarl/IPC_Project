@@ -268,9 +268,8 @@ column2.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                            boolean b=d(this.getIndex());
-                            System.out.println(this.getIndex());
-                        if(m.getCreditCard()==null) {
+                            boolean b=d(this.getIndex());   
+                        if(!b) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -332,7 +331,8 @@ column3.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                        if(m.getCreditCard()==null) {
+                            boolean b=d(this.getIndex()); 
+                        if(!b) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -393,7 +393,8 @@ column4.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                        if(m.getCreditCard()==null) {
+                             boolean b=d(this.getIndex());
+                        if(!b) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -452,7 +453,8 @@ column5.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                        if(m.getCreditCard()==null) {
+                             boolean b=d(this.getIndex());
+                        if(!b) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -511,7 +513,8 @@ column6.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                        if(m.getCreditCard()==null) {
+                             boolean b=d(this.getIndex());
+                        if(!b) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -570,7 +573,8 @@ column7.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                        if(m.getCreditCard()==null) {
+                             boolean b=d(this.getIndex());
+                        if(!b) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -629,8 +633,10 @@ column7.setCellFactory(column -> {
         for(int i=0; i<b.size();i++){
            Booking n=b.get(i);
            if(n.getMadeForDay().equals(date) && n.getFromTime().equals(t)) {
+              // System.out.println(n.getFromTime().toString());
+              System.out.println(n.getPaid()); 
                return n.getPaid();
-                       
+                     
            }
         }
         return false;
@@ -803,10 +809,7 @@ column7.setCellFactory(column -> {
         
          
         if(avail==true && belowMax==true) {
-        if(m.getCreditCard()!=null){
-            c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
-        } else {
-            c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
+        if(m.getCreditCard()==null){
             taskLabel.setVisible(true);
             // start background computation
             if(!service.isRunning()) {
@@ -826,6 +829,12 @@ column7.setCellFactory(column -> {
              // ó null si no queremos cabecera
              alert.setContentText("This reservation is unpaid, remember to add a credit card before the day of the reservation");
              alert.showAndWait();*/
+            //System.out.println("sin pagar");
+            Booking r=c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
+            r.setPaid(false);
+        } else {
+            Booking r=c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
+            r.setPaid(true);
         }
             // ES NECESARIA ESTA ALERTA?
             /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
