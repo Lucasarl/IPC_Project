@@ -127,10 +127,10 @@ public class MainViewController implements Initializable {
         // Club c=Club.getInstance();
         //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
        
-        nickName="Ntonio";
-        passwordMember="erewrqdc";
-        String urlImage = "src/images/men.PNG"; 
-        Image avatar=new Image(new FileInputStream(urlImage));
+        //nickName="Ntonio";
+        //passwordMember="erewrqdc";
+        //String urlImage = "src/images/men.PNG"; 
+        //Image avatar=new Image(new FileInputStream(urlImage));
         // Si usamos, Image avatar=null, muestra default.png;
         //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, -1,null);
         //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
@@ -649,15 +649,18 @@ column7.setCellFactory(column -> {
            
            
              Club c=Club.getInstance();
-             c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
-             Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, 999,null);
+             User u=User.getInstance();
+             nickName=u.getNickname();
+             passwordMember=u.getPassword();
+             //c.setInitialData(); //REINICIA LOS DATOS DEL CLUB
+             //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc",null, 999,null);
              //ESTO LO CAMBIAREMOS PARA QUE VENGA DE LOGIN
              //FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
              //Parent root=myLoader.load();
              //ProfileSettingsViewController main=myLoader.getController();
              //nickName=main.returnNickname();
              //passwordMember=main.returnPassword();
-             //Member m=c.getMemberByCredentials(nickName,passwordMember);
+             Member m=c.getMemberByCredentials(nickName,passwordMember);
              profilePicture.imageProperty().setValue(m.getImage());
              userName.textProperty().setValue(m.getNickName());
             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
@@ -878,11 +881,11 @@ column7.setCellFactory(column -> {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
-        ps.loginInfo(nickName, passwordMember);
+        //ps.loginInfo(nickName, passwordMember);
         //NECESARIO SOLO DE MOMENTO
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
-        ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
-        ps.changeImage(m.getImage());
+        //ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
+        //ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);    
         }
     
