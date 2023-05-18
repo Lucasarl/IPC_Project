@@ -147,66 +147,48 @@ public class ChangeProfileInfoController implements Initializable {
         // sumamos los atajos de update con enter
          name.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkName();
+                 update.fire();
 }
          }
   
  );
           familyName.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkSurname();
+                 update.fire();
 }
          }
   
  );
            password.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkPassword();
+                 update.fire();
 }
          }
   
  );
             telephone.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkTelephone();
+                 update.fire();
 }
          }
   
  );
              cardNumber.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkCreditCard();
+                 update.fire();
 }
          }
   
  );
          svc.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkSvc();
+                 update.fire();
 }
          }
   
@@ -321,10 +303,14 @@ public class ChangeProfileInfoController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException {
-        updateInfo();
+        try {
+            updateInfo();
+        } catch (ClubDAOException ex) {
+            Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    private void updateInfo() throws IOException {
+    private void updateInfo() throws IOException, ClubDAOException {
         if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible()) &&!telephoneRequired.isVisible()){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -340,13 +326,18 @@ public class ChangeProfileInfoController implements Initializable {
         alert.setContentText("Your profile has been updated");
         alert.showAndWait();
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
+        User u=User.getInstance();
+        Club c=Club.getInstance();
+        Member m=c.getMemberByCredentials(u.getNickname(), u.getPassword());
+        m.setPassword(password.textProperty().getValue());
+        u.setPassword(password.textProperty().getValue());
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
-        ps.loginInfo(m.getNickName(), m.getPassword());
+        //ps.loginInfo(m.getNickName(), m.getPassword());
         //NECESARIO SOLO DE MOMENTO
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),telephone.textProperty().getValue(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
-        ps.changeImage(m.getImage());
+        //ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
     

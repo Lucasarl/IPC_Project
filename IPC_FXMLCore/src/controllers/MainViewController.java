@@ -268,6 +268,8 @@ column2.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
+                            boolean b=d(this.getIndex());
+                            System.out.println(this.getIndex());
                         if(m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
@@ -616,7 +618,23 @@ column7.setCellFactory(column -> {
          }*/
     }
     
-    
+    public boolean d (int time) throws ClubDAOException, IOException {
+        Club c=Club.getInstance();
+        time+=9;
+        LocalTime t=LocalTime.of(time, 0);
+        Member m=c.getMemberByCredentials(nickName, passwordMember);
+        List<Booking> b=c.getUserBookings(nickName);
+        
+        //limites de registro de pista
+        for(int i=0; i<b.size();i++){
+           Booking n=b.get(i);
+           if(n.getMadeForDay().equals(date) && n.getFromTime().equals(t)) {
+               return n.getPaid();
+                       
+           }
+        }
+        return false;
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

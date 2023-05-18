@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -109,30 +110,16 @@ public class AddCardController implements Initializable {
         
          cardNumber.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     try {
-                         updateInfo();
-                     } catch (ClubDAOException ex) {
-                         Logger.getLogger(AddCardController.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkCreditCard();
+                 update.fire();
 }
          }
   
  );
          svc.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     try {
-                         updateInfo();
-                     } catch (ClubDAOException ex) {
-                         Logger.getLogger(AddCardController.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkSvc();
+                 update.fire();
 }
          }
   
@@ -258,14 +245,16 @@ public class AddCardController implements Initializable {
         }
         
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
+        User u=User.getInstance();
+        Member m=c.getMemberByCredentials(u.getNickname(), u.getPassword());
+        m.setCreditCard(cardNumber.textProperty().getValue());
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
-        m.setCreditCard(cardNumber.textProperty().getValue());
-        ps.loginInfo(m.getNickName(), m.getPassword());
+        //ps.loginInfo(m.getNickName(), m.getPassword());
         
-        ps.changeImage(m.getImage());
-        ps.setInvisible();
+        //ps.changeImage(m.getImage());
+        //ps.setInvisible();
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);

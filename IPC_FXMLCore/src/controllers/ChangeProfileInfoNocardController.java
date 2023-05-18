@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -123,52 +124,37 @@ public class ChangeProfileInfoNocardController implements Initializable {
         
         name.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 } catch (ClubDAOException ex) {
-                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-}
+                 System.out.println((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() &&!telephoneRequired.isVisible()));
+                 checkName();
+                 update.fire();
+                 
+}                System.out.println((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() &&!telephoneRequired.isVisible()));
          }
   
  );
           familyName.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 } catch (ClubDAOException ex) {
-                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkSurname();
+                 update.fire();
+                
 }
          }
   
  );
            password.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 } catch (ClubDAOException ex) {
-                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                 checkPassword();
+                 update.fire();
+                 
 }
          }
   
  );
             telephone.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 try {
-                     updateInfo();
-                 } catch (IOException ex) {
-                     Logger.getLogger(ChangeProfileInfoController.class.getName()).log(Level.SEVERE, null, ex);
-                 } catch (ClubDAOException ex) {
-                     Logger.getLogger(ChangeProfileInfoNocardController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
+                     checkTelephone();
+                     update.fire();
+                
 }
          }
   
@@ -248,11 +234,12 @@ public class ChangeProfileInfoNocardController implements Initializable {
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException, ClubDAOException {
-        updateInfo();
+         //if((validPassword.getValue().equals(Boolean.TRUE) && validName.getValue().equals(Boolean.TRUE) && validSurname.getValue().equals(Boolean.TRUE) && validTelephone.getValue().equals(Boolean.TRUE))){
+         updateInfo();
     }
     
     private void updateInfo() throws IOException, ClubDAOException {
-        if((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() && !telephoneRequired.isVisible())){
+        if((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible()) &&!telephoneRequired.isVisible()){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
         alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
@@ -278,7 +265,7 @@ public class ChangeProfileInfoNocardController implements Initializable {
         //ps.loginInfo(m.getNickName(), m.getPassword());
         //System.out.println(m.getPassword());
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
-        //ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),telephone.textProperty().getValue());
+        ps.changeInfo(name.textProperty().getValue(),familyName.textProperty().getValue(),password.textProperty().getValue(),telephone.textProperty().getValue());
         //ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);}
     }
