@@ -807,8 +807,12 @@ column7.setCellFactory(column -> {
             }
         }
         
+        boolean goodTime=true;
+        if(LocalTime.now().isAfter(t.plusMinutes(60)) && date.isEqual(LocalDate.now())) {
+            goodTime=false;
+        }
          
-        if(avail==true && belowMax==true) {
+        if(avail==true && belowMax==true && goodTime==true) {
         if(m.getCreditCard()==null){
             taskLabel.setVisible(true);
             // start background computation
@@ -864,7 +868,7 @@ column7.setCellFactory(column -> {
                  // ó null si no queremos cabecera
                  alert.setContentText("You cannot book two different courts for the same hour.");
                  alert.showAndWait();
-            } else {
+            } else if (belowMax==false) {
                  Alert alert = new Alert(Alert.AlertType.ERROR);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
@@ -876,6 +880,19 @@ column7.setCellFactory(column -> {
                  alert.getDialogPane().getStyleClass().add("myAlert");
                  // ó null si no queremos cabecera
                  alert.setContentText("You can only book a specific court for up to two consecutive hours at a time.");
+                 alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("This reservation time has already passed.");
                  alert.showAndWait();
             }
         }
