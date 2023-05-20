@@ -745,6 +745,7 @@ column7.setCellFactory(column -> {
     
     @FXML
      public void clickedColumn(MouseEvent event) throws IndexOutOfBoundsException, ClubDAOException, IOException {
+        try {
         TablePosition tablePosition=court1.getSelectionModel().getSelectedCells().get(0);
         int column=tablePosition.getColumn();
         int row=tablePosition.getRow();
@@ -896,8 +897,9 @@ column7.setCellFactory(column -> {
                  alert.showAndWait();
             }
         }
-        inicializaModelo();
-    }}}
+        inicializaModelo();} 
+    }} catch (IndexOutOfBoundsException e) {
+    }}
 
     @FXML
     private void logOut(ActionEvent event) {
