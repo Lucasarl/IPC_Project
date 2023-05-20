@@ -11,6 +11,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -649,6 +650,23 @@ column7.setCellFactory(column -> {
             
             //POR ESO, DE MOMENTO, SI VAS Y VUELVES NO CAMBIA NADA, DE MOMENTO INICIALIZO AQUI PARA HACER PRUEBAS
             
+            dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
+               if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
+                   dpBookingDay.valueProperty().setValue(oldVal);
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("Please select an earlier date.");
+                 alert.showAndWait();
+               } 
+            });
             
             service.setOnSucceeded(e -> {
             taskLabel.setVisible(false);
@@ -663,7 +681,7 @@ column7.setCellFactory(column -> {
            public void updateItem(LocalDate date, boolean empty) {
            super.updateItem(date, empty);
            LocalDate today = LocalDate.now();
-           setDisable(empty || date.compareTo(today) < 0);
+           setDisable(empty || date.compareTo(today) < 0 || date.isAfter(LocalDate.of(2032, Month.JANUARY, 1)));
             }
            };
           });
