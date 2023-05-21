@@ -17,6 +17,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -505,7 +507,7 @@ column7.setCellFactory(column -> {
             Club c = Club.getInstance();
             //c.setInitialData();
             //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
-            setP();
+            //setP();
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
                if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
                    dpBookingDay.valueProperty().setValue(oldVal);
@@ -614,15 +616,40 @@ column7.setCellFactory(column -> {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
-                 ButtonType buttonTypeOne = new ButtonType("OK");
-                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 ButtonType buttonTypeOne = new ButtonType("OK",ButtonBar.ButtonData.CANCEL_CLOSE);
+                 ButtonType buttonTypeTwo = new ButtonType("Log In");
+                 ButtonType buttonTypeThree = new ButtonType("Sign Up");
+                 alert.getButtonTypes().setAll(buttonTypeTwo, buttonTypeThree, buttonTypeOne);
                  DialogPane dialogPane = alert.getDialogPane();
                  dialogPane.getStylesheets().add(
                getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
                  alert.getDialogPane().getStyleClass().add("myAlert");
                  // ó null si no queremos cabecera
                  alert.setContentText("Please log in to book a court or sign up if you don't have an account.");
-                 alert.showAndWait();
+                 alert.getDialogPane().getChildren().forEach(node -> {
+    if (node instanceof ButtonBar) {
+        ButtonBar buttonBar = (ButtonBar) node;
+        buttonBar.getButtons().forEach(possibleButtons -> {
+            if (possibleButtons instanceof Button) {
+                Button b = (Button) possibleButtons;
+                if (b.getText().equals("Log In") || b.getText().equals("Sign Up") ) {
+                    b.getStyleClass().add("login");
+                }
+            }
+        });
+    }
+});
+                 Optional<ButtonType> res=alert.showAndWait();
+                 if(res.isPresent()) {
+                     if(res.get().equals(buttonTypeTwo)) {
+                         FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/login.fxml"));
+                         Parent root= loader.load();
+                         IPC_FXMLCore.setRoot(root);
+                     } 
+                     else if(res.get().equals(buttonTypeTwo)) {
+                         
+                     }
+                 }
         
         inicializaModelo();} 
     }} catch (IndexOutOfBoundsException e) {
@@ -662,7 +689,7 @@ column7.setCellFactory(column -> {
         for(int i=0; i<b.size();i++){
            Booking n=b.get(i);
              //System.out.println(n.getFromTime().toString());
-              System.out.println(n.getPaid()); 
+              System.out.println(n.getPaid()+" "+n.getFromTime().toString()); 
                
                      
            }
