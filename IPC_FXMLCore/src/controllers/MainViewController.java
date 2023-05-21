@@ -270,7 +270,7 @@ column2.setCellFactory(column -> {
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
                             boolean b=d(this.getIndex());   
-                        if(!b) {
+                        if(!b && m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -333,7 +333,7 @@ column3.setCellFactory(column -> {
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
                             boolean b=d(this.getIndex()); 
-                        if(!b) {
+                        if(!b && m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -395,7 +395,7 @@ column4.setCellFactory(column -> {
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
                              boolean b=d(this.getIndex());
-                        if(!b) {
+                        if(!b && m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -455,7 +455,7 @@ column5.setCellFactory(column -> {
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
                              boolean b=d(this.getIndex());
-                        if(!b) {
+                        if(!b && m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -515,7 +515,7 @@ column6.setCellFactory(column -> {
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
                              boolean b=d(this.getIndex());
-                        if(!b) {
+                        if(!b && m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -575,7 +575,7 @@ column7.setCellFactory(column -> {
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
                              boolean b=d(this.getIndex());
-                        if(!b) {
+                        if(!b && m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -623,7 +623,7 @@ column7.setCellFactory(column -> {
          }*/
     }
     
-    public boolean d (int time) throws ClubDAOException, IOException {
+    public Boolean d (int time) throws ClubDAOException, IOException {
         Club c=Club.getInstance();
         time+=9;
         LocalTime t=LocalTime.of(time, 0);
@@ -635,7 +635,7 @@ column7.setCellFactory(column -> {
            Booking n=b.get(i);
            if(n.getMadeForDay().equals(date) && n.getFromTime().equals(t)) {
               // System.out.println(n.getFromTime().toString());
-              System.out.println(n.getPaid()); 
+              //.out.println(n.getPaid()); 
                return n.getPaid();
                      
            }
@@ -649,7 +649,7 @@ column7.setCellFactory(column -> {
             //SIEMPRE EMPEZAREMOS POR COGER LOS VALORES DE LOGIN, O NULLPOINTER
             
             //POR ESO, DE MOMENTO, SI VAS Y VUELVES NO CAMBIA NADA, DE MOMENTO INICIALIZO AQUI PARA HACER PRUEBAS
-            
+           
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
                if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
                    dpBookingDay.valueProperty().setValue(oldVal);
@@ -702,11 +702,13 @@ column7.setCellFactory(column -> {
              //ProfileSettingsViewController main=myLoader.getController();
              //nickName=main.returnNickname();
              //passwordMember=main.returnPassword();
+             setP();
              Member m=c.getMemberByCredentials(nickName,passwordMember);
              profilePicture.imageProperty().setValue(m.getImage());
              userName.textProperty().setValue(m.getNickName());
             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
             date=LocalDate.now();
+            //setP();
             inicializaModelo();
             dpBookingDay.setValue(date);
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)-> {
@@ -853,11 +855,11 @@ column7.setCellFactory(column -> {
              alert.setContentText("This reservation is unpaid, remember to add a credit card before the day of the reservation");
              alert.showAndWait();*/
             //System.out.println("sin pagar");
-            Booking r=c.registerBooking(LocalDateTime.now(), date, t, false, c.getCourts().get(column-1), m);
-            r.setPaid(false);
+            Booking r=c.registerBooking(LocalDateTime.now(), date, t, Boolean.FALSE, c.getCourts().get(column-1), m);
+            r.setPaid(Boolean.FALSE);
         } else {
-            Booking r=c.registerBooking(LocalDateTime.now(), date, t, true, c.getCourts().get(column-1), m);
-            r.setPaid(true);
+            Booking r=c.registerBooking(LocalDateTime.now(), date, t, Boolean.TRUE, c.getCourts().get(column-1), m);
+            r.setPaid(Boolean.TRUE);
         }
             // ES NECESARIA ESTA ALERTA?
             /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -920,7 +922,10 @@ column7.setCellFactory(column -> {
     }}
 
     @FXML
-    private void logOut(ActionEvent event) {
+    private void logOut(ActionEvent event) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/initialPage.fxml"));
+        Parent root= loader.load();
+        IPC_FXMLCore.setRoot(root);
         
     }
     public void setImage(Image avatar) {
@@ -960,10 +965,30 @@ column7.setCellFactory(column -> {
     }
 
     @FXML
-    private void exitApplication(ActionEvent event) {
+    private void exitApplication(ActionEvent event) throws ClubDAOException, IOException {
+        setP();
         cogwheel.getScene().getWindow().hide();
+       // System.exit(0);
     }
+    
+    private void setP() throws ClubDAOException, IOException {
+         Club c=Club.getInstance();
+        Member m=c.getMemberByCredentials(nickName, passwordMember);
+        List<Booking> b=c.getUserBookings(nickName);
+        
+        //limites de registro de pista
+        for(int i=0; i<b.size();i++){
+           Booking n=b.get(i);
+             //System.out.println(n.getFromTime().toString());
+              System.out.println(n.getPaid()); 
+               
+                     
+           }
+        }
 }
+
+    
+
 
 class ProcessService extends Service<Void> {
 

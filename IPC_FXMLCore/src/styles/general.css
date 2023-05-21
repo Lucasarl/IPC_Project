@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .addCard{
--fx-background-color:orange;
+-fx-background-color:#fd8a0a;
 -fx-text-fill: white;
 -fx-font-family:Helvetica,Arial,sans-serif;
 -fx-font-size: 10pt;
@@ -51,7 +51,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .addCard:hover {
-    -fx-background-color: orange, white, orange;
+    -fx-background-color: #fd8a0a, white, #fd8a0a;
     -fx-font-weight: bold;
     -fx-font-size:9pt;
 }
@@ -72,4 +72,41 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-weight: bold;
     -fx-font-size:9pt;
 }
+
+.signup{
+    -fx-background-color: white;
+    -fx-text-fill: #e37500;
+    -fx-font-family:Helvetica,Arial,sans-serif;
+    -fx-font-size: 10pt;
+    -fx-background-radius: 15px;
+    -fx-pref-width:150px;
+    -fx-pref-height:30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    
+}
+
+.signup:hover {
+    -fx-background-color: white, #e37500, white;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
+}
+
+.login{
+    -fx-background-color: #fd8a0a;
+    -fx-text-fill: white;
+    -fx-font-family:Helvetica,Arial,sans-serif;
+    -fx-font-size: 10pt;
+    -fx-background-radius: 15px;
+    -fx-pref-width:150px;
+    -fx-pref-height:30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    
+}
+
+.login:hover {
+    -fx-background-color: #fd8a0a, white, #fd8a0a;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
+}
+
 

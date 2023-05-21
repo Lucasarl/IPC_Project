@@ -47,13 +47,13 @@
                <children>
                   <TableView fx:id="court1" maxHeight="365.0" minHeight="365.0" onMouseClicked="#clickedColumn" prefHeight="900.0" prefWidth="1500.0" stylesheets="@../styles/tableView.css">
                     <columns>
-                      <TableColumn fx:id="column1" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Hour" />
-                      <TableColumn fx:id="column2" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 1" />
-                        <TableColumn fx:id="column3" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 2" />
-                        <TableColumn fx:id="column4" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 3" />
-                        <TableColumn fx:id="column5" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 4" />
-                        <TableColumn fx:id="column6" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 5" />
-                        <TableColumn fx:id="column7" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 6" />
+                      <TableColumn fx:id="column1" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Hour" />
+                      <TableColumn fx:id="column2" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 1" />
+                        <TableColumn fx:id="column3" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 2" />
+                        <TableColumn fx:id="column4" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 3" />
+                        <TableColumn fx:id="column5" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 4" />
+                        <TableColumn fx:id="column6" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 5" />
+                        <TableColumn fx:id="column7" editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Court 6" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -98,7 +98,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" minWidth="310.0" prefHeight="100.0" prefWidth="460.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#logOut" styleClass="addCard" stylesheets="@../styles/general.css" text="Log out">
+                        <Button mnemonicParsing="false" onAction="#logOut" styleClass="login" stylesheets="@../styles/general.css" text="Log out">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
