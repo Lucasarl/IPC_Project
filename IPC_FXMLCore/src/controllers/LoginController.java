@@ -13,6 +13,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +40,8 @@ import model.Member;
  */
 public class LoginController implements Initializable {
 
-    @FXML
-    private Text userMessage;
+    private BooleanProperty validPassword;
+    
     @FXML
     private PasswordField password;
     @FXML
@@ -48,6 +50,12 @@ public class LoginController implements Initializable {
     private Button loginButton;
     @FXML
     private Button registerButton;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Label unvalidNickname;
+    @FXML
+    private Label unvalidPassword;
 
     /**
      * Initializes the controller class.
@@ -62,7 +70,16 @@ public class LoginController implements Initializable {
         nickname.textProperty().addListener((observable, oldValue, newValue) -> {checkFieldsAndEnableButton();});
         password.textProperty().addListener((observable, oldValue, newValue) -> {checkFieldsAndEnableButton();});
     
-        userMessage.visibleProperty().set(false);
+        unvalidNickname.visibleProperty().set(false);
+        unvalidPassword.visibleProperty().set(false);
+        
+        password.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            checkPassword();
+        }});
+        
+        validPassword = new SimpleBooleanProperty();
+        validPassword.setValue(Boolean.TRUE);
     }    
 
     @FXML
@@ -82,8 +99,9 @@ public class LoginController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent()){
                 if(result.get() == regButton){
-                    FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/register.fxml"));
+                    FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/mainView.fxml"));
                     Parent root = myFXMLLoader.load();
+                    IPC_FXMLCore.setRoot(root);
                 }
             }
             }else{
@@ -120,21 +138,46 @@ public class LoginController implements Initializable {
         Parent root = loader.load();
         IPC_FXMLCore.setRoot(root);
     }
-        /*FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/login.fxml"));
+    
+    @FXML
+    private void backClicked(ActionEvent event) throws IOException{
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/mainView.fxml"));
         Parent root = loader.load();
-        //======================================================================
-        // 2- creación de la escena con el nodo raiz del grafo de escena
-        scene = new Scene(root);
-        //======================================================================
-        // 3- asiganación de la escena al Stage que recibe el metodo 
-        //     - configuracion del stage
-        //     - se muestra el stage de manera no modal mediante el metodo show()
-        stage.setScene(scene);
-        stage.setMinWidth(700); //Hacer todas las escenas de este tamaño min
-        stage.setMinHeight(500);
-        stage.setTitle("profileSettingsView");
-        //stage.setResizable(false);
-        stage.show();
-    */}
+        IPC_FXMLCore.setRoot(root);
+    }
+    
+    private void showErrorMessage(Label errorLabel,TextField textField)
+    {
+        errorLabel.visibleProperty().set(true);
+        textField.styleProperty().setValue("-fx-background-color: #FCE5E0");    
+    }
+    
+    private void hideErrorMessage(Label errorLabel,TextField textField)
+    {
+        errorLabel.visibleProperty().set(false);
+        textField.styleProperty().setValue("");
+    }
+    
+    private void manageError(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.FALSE);
+        showErrorMessage(errorLabel,textField);
+        textField.requestFocus();
+    }
+    
+    private void manageCorrect(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.TRUE);
+        hideErrorMessage(errorLabel,textField);
+    }
+    
+    private void checkPassword(){
+        if(password.textProperty().getValue().length()<6) {
+            manageError(unvalidPassword, password, validPassword);
+        }
+        
+        else {
+            manageCorrect(unvalidPassword, password, validPassword);
+        }
+    }
+}
 
 
