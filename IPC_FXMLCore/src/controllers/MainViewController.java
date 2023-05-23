@@ -708,6 +708,12 @@ column7.setCellFactory(column -> {
              profilePicture.imageProperty().setValue(m.getImage());
              userName.textProperty().setValue(m.getNickName());
             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
+            if(m.getCreditCard()!=null){
+               List<Booking> b=c.getUserBookings(m.getNickName());
+        for(int i=0;i<b.size();i++){
+            b.get(i).setPaid(true);
+        }
+           }
             date=LocalDate.now();
             //setP();
             inicializaModelo();
