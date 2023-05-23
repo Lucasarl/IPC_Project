@@ -24,6 +24,7 @@ import controllers.ChangeProfilePictureController;
 import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -442,6 +443,11 @@ public class ProfileSettingsViewController implements Initializable  {
        Optional<ButtonType> result = alert.showAndWait();
        if (result.isPresent()) {
        if (result.get() == buttonTypeRemove){
+           Member m=c.getMemberByCredentials(nickName,passwordMember);
+           List<Booking> b=c.getUserBookings(m.getNickName());
+        for(int i=0;i<b.size();i++){
+            b.get(i).setPaid(false);
+        }
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
@@ -449,7 +455,6 @@ public class ProfileSettingsViewController implements Initializable  {
         System.out.println(passwordMember);
         ps.changeInfo(name.textProperty().getValue(), familyName.textProperty().getValue(), passwordMember, telephoneNumber.textProperty().getValue());
         ps.changeImage(image.imageProperty().getValue());
-        Member m=c.getMemberByCredentials(nickName,passwordMember);
         m.setCreditCard(null);
         IPC_FXMLCore.setRoot(root);
           

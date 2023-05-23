@@ -272,9 +272,8 @@ column2.setCellFactory(column -> {
                    try {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
-                        if(item.equals(m.getNickName())){
-                           Booking b=d(this.getIndex());    
-                        if(b.getPaid()==false && m.getCreditCard()==null) {
+                        if(item.equals(m.getNickName())){ 
+                        if(m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -283,7 +282,6 @@ column2.setCellFactory(column -> {
                         else {
                             //setTextFill(Color.GREEN);
                             setTextFill(Color.BLUE);
-                            b.setPaid(true);
                         }
                         }
                        
@@ -336,9 +334,8 @@ column3.setCellFactory(column -> {
                    try {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
-                        if(item.equals(m.getNickName())){
-                           Booking b=d(this.getIndex());    
-                        if(b.getPaid()==false && m.getCreditCard()==null) {
+                        if(item.equals(m.getNickName())){  
+                        if( m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -347,7 +344,6 @@ column3.setCellFactory(column -> {
                         else {
                             //setTextFill(Color.GREEN);
                             setTextFill(Color.BLUE);
-                            b.setPaid(true);
                         }
                         }
                        
@@ -399,9 +395,8 @@ column4.setCellFactory(column -> {
                    try {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
-                        if(item.equals(m.getNickName())){
-                           Booking b=d(this.getIndex());    
-                        if(b.getPaid()==false && m.getCreditCard()==null) {
+                        if(item.equals(m.getNickName())){    
+                        if( m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -410,7 +405,6 @@ column4.setCellFactory(column -> {
                         else {
                             //setTextFill(Color.GREEN);
                             setTextFill(Color.BLUE);
-                            b.setPaid(true);
                         }
                         }
                        
@@ -460,9 +454,8 @@ column5.setCellFactory(column -> {
                    try {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
-                        if(item.equals(m.getNickName())){
-                           Booking b=d(this.getIndex());    
-                        if(b.getPaid()==false && m.getCreditCard()==null) {
+                        if(item.equals(m.getNickName())){  
+                        if(m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -471,7 +464,6 @@ column5.setCellFactory(column -> {
                         else {
                             //setTextFill(Color.GREEN);
                             setTextFill(Color.BLUE);
-                            b.setPaid(true);
                         }
                         }
                        
@@ -521,9 +513,8 @@ column6.setCellFactory(column -> {
                    try {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
-                        if(item.equals(m.getNickName())){
-                           Booking b=d(this.getIndex());    
-                        if(b.getPaid()==false && m.getCreditCard()==null) {
+                        if(item.equals(m.getNickName())){    
+                        if(m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -532,7 +523,7 @@ column6.setCellFactory(column -> {
                         else {
                             //setTextFill(Color.GREEN);
                             setTextFill(Color.BLUE);
-                            b.setPaid(true);
+                           
                         }
                         }
                        
@@ -583,8 +574,7 @@ column7.setCellFactory(column -> {
                         Club c=Club.getInstance();
                         Member m=c.getMemberByCredentials(nickName, passwordMember);
                         if(item.equals(m.getNickName())){
-                           Booking b=d(this.getIndex());    
-                        if(b.getPaid()==false && m.getCreditCard()==null) {
+                        if(m.getCreditCard()==null) {
                             Tooltip a =new Tooltip();
                             a.textProperty().setValue("unpaid");
                             setTooltip(a);
@@ -593,7 +583,6 @@ column7.setCellFactory(column -> {
                         else {
                             //setTextFill(Color.GREEN);
                             setTextFill(Color.BLUE);
-                            b.setPaid(true);
                         }
                         }
                        
@@ -866,12 +855,8 @@ column7.setCellFactory(column -> {
              alert.showAndWait();*/
             //System.out.println("sin pagar");
             Booking r=c.registerBooking(LocalDateTime.now(), date, t, Boolean.FALSE, c.getCourts().get(column-1), m);
-            System.out.println(r.getPaid());
-            r.setPaid(Boolean.FALSE);
         } else {
             Booking r=c.registerBooking(LocalDateTime.now(), date, t, Boolean.TRUE, c.getCourts().get(column-1), m);
-            System.out.println(r.getPaid());
-            r.setPaid(Boolean.TRUE);
         }
             // ES NECESARIA ESTA ALERTA?
             /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
