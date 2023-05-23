@@ -7,6 +7,8 @@ package controllers;
 import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -60,7 +62,7 @@ public class MyBookingsController implements Initializable {
     
     private String nickName;
     private String passwordMember;
-    private int counter;
+    private int counter=0;
     private ObservableList <myBooking> data;
     /**
      * Initializes the controller class.
@@ -105,14 +107,24 @@ public class MyBookingsController implements Initializable {
     }
     
     private void inicializarModelo() throws ClubDAOException, IOException {
+        
         Club c=Club.getInstance();
+        List<Booking> b=c.getUserBookings(nickName);
+        for(int i=0; i<b.size(); i++ ) {
+           if(b.get(i).getMadeForDay().isBefore(LocalDate.now())) {
+               counter++;
+           } else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now())) {
+               counter++;
+           } else {break;}
+        }
+        System.out.println(counter);
          List<Booking> misdatosCourt1 = c.getUserBookings(nickName);
          List<String> bookings1=date(misdatosCourt1);
          List<String> bookings2=court(misdatosCourt1);
          List<String> bookings3=time(misdatosCourt1);
          List<String> bookings4=status(misdatosCourt1);
          ArrayList<myBooking> misdatos = new ArrayList<>();
-       for(int i=0; i<14;i++) {
+       for(int i=0; i<bookings1.size();i++) {
            misdatos.add(new myBooking( bookings1.get(i), bookings2.get(i),bookings3.get(i), bookings4.get(i)));
        }
        data = FXCollections.observableList(misdatos);
@@ -125,41 +137,45 @@ public class MyBookingsController implements Initializable {
     
     private List<String> date(List<Booking> b) {
         List<String> res=new ArrayList<>();
-        for(counter=0; counter<counter+10 && counter<b.size(); counter++ ) {
-            res.add(b.get(counter).getMadeForDay().toString());
+        int x=counter+10;
+        for(int i=counter; i<x && i<b.size(); i++ ) {
+            res.add(b.get(i).getMadeForDay().toString());
         }
         
-        counter-=10;
         return res;
     }
     
     private List<String> court(List<Booking> b) {
         List<String> res=new ArrayList<>();
-        for(counter=0; counter<counter+10 && counter<b.size(); counter++ ) {
-            res.add(b.get(counter).getCourt().toString());
+        int x=counter+10;
+        for(int i=counter; i<x && i<b.size(); i++ ) {
+            res.add(b.get(i).getCourt().getName());
         }
-        
-        counter-=10;
+       
         return res;
     }
     
     private List<String> time(List<Booking> b) {
         List<String> res=new ArrayList<>();
-        for(counter=0; counter<counter+10 && counter<b.size(); counter++ ) {
-            res.add(b.get(counter).getFromTime().toString());
+        int x=counter+10;
+        for(int i=counter; i<x && i<b.size(); i++ ) {
+            res.add(b.get(i).getFromTime().toString());
         }
-        
-        counter-=10;
         return res;
     }
     
     private List<String> status(List<Booking> b) {
         List<String> res=new ArrayList<>();
-        for(counter=0; counter<counter+10 && counter<b.size(); counter++ ) {
-            res.add(b.get(counter).getPaid().toString());
+        int x=counter+10;
+        for(int i=counter; i<x && i<b.size(); i++ ) {
+            String s;
+            if(b.get(i).getPaid()) {
+                s="Paid";
+            } else {
+                s="Unpaid";
+            }
+            res.add(s);
         }
-        
-        counter-=10;
         return res;
     }
 }
