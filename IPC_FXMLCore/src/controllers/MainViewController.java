@@ -958,7 +958,11 @@ column7.setCellFactory(column -> {
     }
 
     @FXML
-    private void toMyBookings(ActionEvent event) {
+    private void toMyBookings(ActionEvent event) throws IOException {
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/myBookings.fxml"));
+        Parent root=myLoader.load();
+        //MyBookingsController b=myLoader.getController();
+        IPC_FXMLCore.setRoot(root);  
     }
 
     @FXML
