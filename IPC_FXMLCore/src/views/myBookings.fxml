@@ -69,12 +69,21 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Button>
+                        <Label fx:id="page" text="Pages">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" minHeight="82.5" prefHeight="82.5" prefWidth="100.0">
                      <children>
+                        <Label fx:id="elementsL" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" />
                         <Button mnemonicParsing="false" onAction="#goBack" stylesheets="@../styles/general.css" text="Go Back" />
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </VBox>
                </children>
             </VBox>

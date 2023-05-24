@@ -503,10 +503,16 @@ column7.setCellFactory(column -> {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             
-            
+            column1.setReorderable(false);
+            column2.setReorderable(false);
+            column3.setReorderable(false);
+            column4.setReorderable(false);
+            column5.setReorderable(false);
+            column6.setReorderable(false);
+            column7.setReorderable(false);
             Club c = Club.getInstance();
-            //c.setInitialData();
-            //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
+            c.setInitialData();
+            Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
             //setP();
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
                if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {

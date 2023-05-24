@@ -8,6 +8,7 @@ import ipc_fxmlcore.IPC_FXMLCore;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,9 @@ import models2.myBooking;
  * @author USER
  */
 public class MyBookingsController implements Initializable {
-
+    
+    private int elements;
+    
     @FXML
     private Label unpaidLabel;
     @FXML
@@ -74,24 +77,84 @@ public class MyBookingsController implements Initializable {
     private String nickName;
     private String passwordMember;
     private int counter=0;
+    private int initC;
     private ObservableList <myBooking> data;
     @FXML
     private HBox hBox;
     @FXML
     private HBox hBox2;
+    @FXML
+    private Label page;
+    @FXML
+    private Label elementsL;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       try{
+        Club c=Club.getInstance();
+        previous.setDisable(true);
+        List<Booking> bo=c.getUserBookings(nickName);
+       
        tableView.getSelectionModel().setSelectionMode(
                SelectionMode.MULTIPLE
 );
+       column1.setReorderable(false);
+       column2.setReorderable(false);
+       column3.setReorderable(false);
+       column4.setReorderable(false);
+       cancel.setDisable(true);
+       tableView.getSelectionModel().selectedIndexProperty().addListener((o, oldVal,newVal)-> {
+           if(newVal.intValue()==-1) {
+               cancel.setDisable(true);
+           } else {
+               cancel.setDisable(false);
+           }
+       });
+       
+       
        User u =User.getInstance();
        nickName=u.getNickname();
        passwordMember=u.getPassword();
-       Club c;
-        try {
+        
+            c = Club.getInstance();
+             List<Booking> b=c.getUserBookings(nickName);
+             for(int i=0; i<b.size(); i++ ) {
+           if(b.get(i).getMadeForDay().isBefore(LocalDate.now())) {
+               counter++;
+           } else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60))) {
+               counter++;
+           } else {break;}
+             
+             }
+             
+             initC=counter;
+              elementsL.textProperty().addListener((o,oldVal,newVal)-> {
+          int e=Integer.parseInt(newVal);
+           if(counter-10<initC) {
+              previous.setDisable(true);
+          } else {previous.setDisable(false);}
+           
+           if(e-10<=0) {
+              next.setDisable(true);
+              /*if(data.isEmpty()) {
+                  if(counter>initC) {
+                      counter-=10;
+                      try {
+                          inicializarModelo();
+                      } catch (ClubDAOException ex) {
+                          Logger.getLogger(MyBookingsController.class.getName()).log(Level.SEVERE, null, ex);
+                      } catch (IOException ex) {
+                          Logger.getLogger(MyBookingsController.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+                      next.setDisable(false);
+                  */
+              
+          } else {
+               next.setDisable(false);
+           }
+       });
             c = Club.getInstance();
             Member m=c.getMemberByCredentials(nickName, passwordMember);
             if(m.getCreditCard()!=null) {
@@ -118,6 +181,19 @@ public class MyBookingsController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MyBookingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        /*elementsL.textProperty().addListener((o,oldVal,newVal)-> {
+         if(elements>0 && data.isEmpty()) {
+             counter-=10;
+             try {
+                 inicializarModelo();
+             } catch (ClubDAOException ex) {
+                 Logger.getLogger(MyBookingsController.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (IOException ex) {
+                 Logger.getLogger(MyBookingsController.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
+        });*/
+       
     }    
 
     @FXML
@@ -131,15 +207,50 @@ public class MyBookingsController implements Initializable {
     }
 
     @FXML
-    private void cancel(ActionEvent event) {
+    private void cancel(ActionEvent event) throws ClubDAOException, IOException {
+        List <myBooking> l=tableView.getSelectionModel().getSelectedItems();
+        Club c=Club.getInstance();
+        int d=0;
+        List <Booking> b=c.getUserBookings(nickName);
+        for(int i=0;i<l.size();i++) {
+            myBooking m=l.get(i);
+            for(int j=0;j<b.size();j++) {
+                Booking nb=b.get(j);
+                if(m.getCourt().equals(nb.getCourt().getName())
+                   && m.getDate().equals(nb.getMadeForDay().toString()) &&
+                           m.getTime().equals(nb.getFromTime().toString())){
+                    if(LocalDateTime.now().isBefore(LocalDateTime.of(nb.getMadeForDay(), nb.getFromTime()).minusHours(24))) {
+                    c.removeBooking(nb);
+                } else {
+                    d+=1;
+                }}
+                        
+            }
+        }
+        System.out.println(d);
+        int e=elements;
+        inicializarModelo();
+        System.out.println(data.isEmpty() && e>0);
+        if (data.isEmpty() && e>0){
+            try{
+            counter-=10;
+            inicializarModelo();
+            } catch (IndexOutOfBoundsException u) {
+                
+            }
+        }
     }
 
     @FXML
-    private void next(ActionEvent event) {
+    private void next(ActionEvent event) throws ClubDAOException, IOException {
+        counter+=10;
+        inicializarModelo();
     }
 
     @FXML
-    private void previous(ActionEvent event) {
+    private void previous(ActionEvent event) throws ClubDAOException, IOException {
+        counter-=10;
+        inicializarModelo();
     }
 
     @FXML
@@ -153,17 +264,14 @@ public class MyBookingsController implements Initializable {
     private void inicializarModelo() throws ClubDAOException, IOException {
         
         Club c=Club.getInstance();
-        List<Booking> b=c.getUserBookings(nickName);
-        for(int i=0; i<b.size(); i++ ) {
-           if(b.get(i).getMadeForDay().isBefore(LocalDate.now())) {
-               counter++;
-           } else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now())) {
-               counter++;
-           } else {break;}
-        }
+        
         System.out.println(counter);
          List<Booking> misdatosCourt1 = c.getUserBookings(nickName);
+         
+         System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
+         elements=misdatosCourt1.size()-counter;
+         elementsL.setText(Integer.toString(elements));
          List<String> bookings2=court(misdatosCourt1);
          List<String> bookings3=time(misdatosCourt1);
          List<String> bookings4=status(misdatosCourt1);
@@ -355,7 +463,7 @@ column4.setCellFactory(column -> {
                getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
                  alert.getDialogPane().getStyleClass().add("myAlert");
                  // ó null si no queremos cabecera
-                 alert.setContentText("Use Ctrl+Left Click if you want to select multiple rows to cancel.");
+                 alert.setContentText("Use Ctrl+Left Click if you want to select multiple bookings to cancel.");
                  alert.showAndWait();
     }
 }

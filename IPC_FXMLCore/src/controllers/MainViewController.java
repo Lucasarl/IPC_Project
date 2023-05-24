@@ -657,7 +657,13 @@ List<Booking> b=c.getUserBookings(m.getNickName());
             //SIEMPRE EMPEZAREMOS POR COGER LOS VALORES DE LOGIN, O NULLPOINTER
             
             //POR ESO, DE MOMENTO, SI VAS Y VUELVES NO CAMBIA NADA, DE MOMENTO INICIALIZO AQUI PARA HACER PRUEBAS
-           
+           column1.setReorderable(false);
+            column2.setReorderable(false);
+            column3.setReorderable(false);
+            column4.setReorderable(false);
+            column5.setReorderable(false);
+            column6.setReorderable(false);
+            column7.setReorderable(false);
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
                if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
                    dpBookingDay.valueProperty().setValue(oldVal);
