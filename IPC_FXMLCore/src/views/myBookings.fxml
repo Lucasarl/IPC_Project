@@ -110,7 +110,7 @@
               <columns>
                 <TableColumn fx:id="column1" editable="false" minWidth="115.0" prefWidth="-1.0" sortable="false" text="Date" />
                   <TableColumn fx:id="column2" editable="false" minWidth="115.0" prefWidth="-1.0" sortable="false" text="Court" />
-                <TableColumn fx:id="column3" editable="false" minWidth="115.0" prefWidth="-1.0" sortable="false" text="Time" />
+                <TableColumn fx:id="column3" editable="false" minWidth="115.0" prefWidth="-1.0" sortable="false" text="Hour" />
                   <TableColumn fx:id="column4" editable="false" minWidth="115.0" prefWidth="-1.0" sortable="false" text="Status" />
               </columns>
                <columnResizePolicy>

@@ -679,7 +679,21 @@ List<Booking> b=c.getUserBookings(m.getNickName());
                  // ó null si no queremos cabecera
                  alert.setContentText("Please select an earlier date.");
                  alert.showAndWait();
-               } 
+               } else if(newVal.isBefore(LocalDate.now())) {
+                   dpBookingDay.valueProperty().setValue(oldVal);
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("Please select a later date.");
+                 alert.showAndWait();
+               }
             });
             
             service.setOnSucceeded(e -> {
@@ -776,10 +790,11 @@ List<Booking> b=c.getUserBookings(m.getNickName());
     
     public List<String> times() {
         List<String> res = new ArrayList<>();
-        for(int i=9;i<23;i++)
+        for(int i=9;i<22;i++)
         {
-            res.add(i+"h");
+            res.add(LocalTime.of(i,0).toString()+ " - "+LocalTime.of(i+1,0) );
         }
+        res.add(LocalTime.of(22,0).toString()+ " - "+LocalTime.of(22,45).toString());
         return res;
     }
     
@@ -852,7 +867,9 @@ List<Booking> b=c.getUserBookings(m.getNickName());
         if(LocalTime.now().isAfter(t.plusMinutes(60)) && date.isEqual(LocalDate.now())) {
             goodTime=false;
         }
-         
+        if(t.equals(LocalTime.of(22,0)) && LocalTime.now().isAfter(t.plusMinutes(45)) && date.isEqual(LocalDate.now())) {
+             goodTime=false;
+        }
         if(avail==true && belowMax==true && goodTime==true) {
         if(m.getCreditCard()==null){
             taskLabel.setVisible(true);
@@ -1035,4 +1052,11 @@ class ProcessService extends Service<Void> {
 
 }
 
+
+.table-view .column-header{
+    -fx-background-color: #8cffc6;
+    -fx-border-color: black;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
+}
 */
+

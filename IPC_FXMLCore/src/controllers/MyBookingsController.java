@@ -101,7 +101,9 @@ public class MyBookingsController implements Initializable {
        
        tableView.getSelectionModel().setSelectionMode(
                SelectionMode.MULTIPLE
+               
 );
+       tableView.setPlaceholder(new Label("You have no bookings."));
        column1.setReorderable(false);
        column2.setReorderable(false);
        column3.setReorderable(false);
@@ -114,6 +116,8 @@ public class MyBookingsController implements Initializable {
                cancel.setDisable(false);
            }
        });
+       
+       
        
        
        User u =User.getInstance();
@@ -254,7 +258,7 @@ public class MyBookingsController implements Initializable {
                getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
                  alert.getDialogPane().getStyleClass().add("myAlert");
                  // ó null si no queremos cabecera
-                 alert.setContentText("("+d+")"+" of the selected bookings haven`t been removed, because bookings can only be removed more than 24 hours in advance.");
+                 alert.setContentText("("+d+")"+" of the selected bookings haven`t been removed, because bookings can only be canceled more than 24 hours in advance.");
                  alert.showAndWait();
         }
     }
@@ -282,7 +286,7 @@ public class MyBookingsController implements Initializable {
     private void inicializarModelo() throws ClubDAOException, IOException {
         
         Club c=Club.getInstance();
-        
+        Member m=c.getMemberByCredentials(nickName,passwordMember);
         //System.out.println(counter);
          List<Booking> misdatosCourt1 = c.getUserBookings(nickName);
          past=0;
@@ -293,6 +297,19 @@ public class MyBookingsController implements Initializable {
          }
          //System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
+         if(bookings1.isEmpty() || m.getCreditCard()!=null) {
+             unpaidLabel.setVisible(false);
+                addACard.setVisible(false);
+                addACard.setDisable(true);
+                hBox.setPrefHeight(30);
+                hBox2.setPrefHeight(30);
+         } else {
+             unpaidLabel.setVisible(true);
+                addACard.setVisible(true);
+                addACard.setDisable(false);
+                hBox.setPrefHeight(100);
+                hBox2.setPrefHeight(100);
+         }
          elements=misdatosCourt1.size()-counter;
          elementsL.setText(Integer.toString(elements));
          List<String> bookings2=court(misdatosCourt1);
@@ -306,8 +323,12 @@ public class MyBookingsController implements Initializable {
          } else {
               numPages=misdatosCourt1.size()/10+1;
          }
+         try{
         page.textProperty().setValue("Page "+Integer.toString(((counter-past)%misdatosCourt1.size()+10)/10)+" of "+Integer.toString(numPages));
-       
+        page.setVisible(true);
+         } catch (java.lang.ArithmeticException e) {
+             page.setVisible(false);
+         }
        for(int i=0; i<bookings1.size();i++) {
            misdatos.add(new myBooking( bookings1.get(i), bookings2.get(i),bookings3.get(i), bookings4.get(i)));
        }

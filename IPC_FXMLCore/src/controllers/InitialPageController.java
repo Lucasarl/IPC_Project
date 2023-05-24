@@ -601,10 +601,11 @@ column7.setCellFactory(column -> {
     
     public List<String> times() {
         List<String> res = new ArrayList<>();
-        for(int i=9;i<23;i++)
+        for(int i=9;i<22;i++)
         {
-            res.add(i+"h");
+            res.add(LocalTime.of(i,0).toString()+ " - "+LocalTime.of(i+1,0) );
         }
+        res.add(LocalTime.of(22,0).toString()+ " - "+LocalTime.of(22,45).toString());
         return res;
     }
     
