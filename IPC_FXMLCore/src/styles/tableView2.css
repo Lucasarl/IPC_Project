@@ -7,10 +7,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : USER
 */
 
-
 .table-view .table-cell{
     -fx-border-color: transparent;
     -fx-padding: 2 0 2 10px;
+}
+
+
+    
+
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: #8cffc6;
+    -fx-border-color: transparent;
 }
 
 .table-view .scroll-bar * {
@@ -24,6 +31,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 .table-view{
  -fx-selection-bar: #8cffc6; 
- 
-
 }

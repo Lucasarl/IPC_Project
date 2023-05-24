@@ -74,10 +74,15 @@ public class AddCardController implements Initializable {
     @FXML
     private ImageView eyeSvc;
     
+    private boolean fromProfile;
     //LOADS PROFILE DETAILS
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
         Club c=Club.getInstance();
         m=c.getMemberByCredentials(nickName, password);
+    }
+    
+    public void setFromProfile(boolean b) {
+        fromProfile=b;
     }
     
     private void manageError(Label errorLabel,TextField textField, BooleanProperty boolProp ){
@@ -183,7 +188,14 @@ public class AddCardController implements Initializable {
         //NECESARIO SOLO DE MOMENTO
         ps.changeImage(m.getImage());
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
+        if(fromProfile) {
+        IPC_FXMLCore.setRoot(root);} else {
+         myLoader=new FXMLLoader(getClass().getResource("/views/myBookings.fxml"));
+         root=myLoader.load();
+        //MyBookingsController b=myLoader.getController();
+        //NECESARIO SOLO DE MOMENTO
         IPC_FXMLCore.setRoot(root);
+        }
     }
 
     @FXML
@@ -244,10 +256,13 @@ public class AddCardController implements Initializable {
             b.get(i).setPaid(true);
         }
         
-        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
+        
+        
         User u=User.getInstance();
         Member m=c.getMemberByCredentials(u.getNickname(), u.getPassword());
         m.setCreditCard(cardNumber.textProperty().getValue());
+        
+        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
@@ -257,7 +272,21 @@ public class AddCardController implements Initializable {
         //ps.setInvisible();
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
+        if(fromProfile) {
+        IPC_FXMLCore.setRoot(root);} else {
+        myLoader=new FXMLLoader(getClass().getResource("/views/myBookings.fxml"));
+        root=myLoader.load();
+        MyBookingsController bo=myLoader.getController();
+        //NECESARIO SOLO DE MOMENTO
+        //ps.loginInfo(m.getNickName(), m.getPassword());
+        
+        //ps.changeImage(m.getImage());
+        //ps.setInvisible();
+        //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
+        //ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);
+            
+        }
     }
     
     private void checkCreditCard ()  {

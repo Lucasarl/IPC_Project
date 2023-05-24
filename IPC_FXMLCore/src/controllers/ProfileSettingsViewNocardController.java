@@ -289,6 +289,7 @@ public class ProfileSettingsViewNocardController implements Initializable {
         Parent root=myLoader.load();
         AddCardController a=myLoader.getController();
         a.initMember(nickName,passwordMember);
+        a.setFromProfile(true);
         IPC_FXMLCore.setRoot(root);
     }
 

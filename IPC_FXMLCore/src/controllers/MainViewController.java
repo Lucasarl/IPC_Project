@@ -600,6 +600,13 @@ column7.setCellFactory(column -> {
 
 });
 
+
+Member m=c.getMemberByCredentials(nickName, passwordMember);
+if(m.getCreditCard()==null){
+List<Booking> b=c.getUserBookings(m.getNickName());
+        for(int i=0;i<b.size();i++){
+            b.get(i).setPaid(false);
+        }}
          //System.out.println(courtBookedAtTime(misdatos,LocalTime.NOON));
          //System.out.println(courtBookedAtTime(misdatos,LocalTime.MIDNIGHT));
          //System.out.println();
