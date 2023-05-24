@@ -87,6 +87,8 @@ public class MyBookingsController implements Initializable {
     private Label page;
     @FXML
     private Label elementsL;
+    
+    private int past;
     /**
      * Initializes the controller class.
      */
@@ -227,9 +229,10 @@ public class MyBookingsController implements Initializable {
                         
             }
         }
-        System.out.println(d);
+        //System.out.println(d);
         int e=elements;
         inicializarModelo();
+        
         System.out.println(data.isEmpty() && e>0);
         if (data.isEmpty() && e>0){
             try{
@@ -238,6 +241,21 @@ public class MyBookingsController implements Initializable {
             } catch (IndexOutOfBoundsException u) {
                 
             }
+        }
+        
+        if(d>0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("("+d+")"+" of the selected bookings haven`t been removed, because bookings can only be removed more than 24 hours in advance.");
+                 alert.showAndWait();
         }
     }
 
@@ -265,10 +283,15 @@ public class MyBookingsController implements Initializable {
         
         Club c=Club.getInstance();
         
-        System.out.println(counter);
+        //System.out.println(counter);
          List<Booking> misdatosCourt1 = c.getUserBookings(nickName);
-         
-         System.out.println(elementsL.getText());
+         past=0;
+         for (int i=0;i<misdatosCourt1.size();i++){
+             if(misdatosCourt1.get(i).getMadeForDay().isBefore(LocalDate.now()) || misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && misdatosCourt1.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60)) ) {
+                past+=1; 
+             }
+         }
+         //System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
          elements=misdatosCourt1.size()-counter;
          elementsL.setText(Integer.toString(elements));
@@ -276,6 +299,15 @@ public class MyBookingsController implements Initializable {
          List<String> bookings3=time(misdatosCourt1);
          List<String> bookings4=status(misdatosCourt1);
          ArrayList<myBooking> misdatos = new ArrayList<>();
+         
+         int numPages;
+         if(misdatosCourt1.size()%10==0){
+             numPages=misdatosCourt1.size()/10;
+         } else {
+              numPages=misdatosCourt1.size()/10+1;
+         }
+        page.textProperty().setValue("Page "+Integer.toString(((counter-past)%misdatosCourt1.size()+10)/10)+" of "+Integer.toString(numPages));
+       
        for(int i=0; i<bookings1.size();i++) {
            misdatos.add(new myBooking( bookings1.get(i), bookings2.get(i),bookings3.get(i), bookings4.get(i)));
        }
