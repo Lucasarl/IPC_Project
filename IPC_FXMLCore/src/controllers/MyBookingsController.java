@@ -22,13 +22,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import model.Booking;
@@ -79,7 +84,9 @@ public class MyBookingsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       tableView.getSelectionModel().setSelectionMode(
+               SelectionMode.MULTIPLE
+);
        User u =User.getInstance();
        nickName=u.getNickname();
        passwordMember=u.getPassword();
@@ -170,6 +177,8 @@ public class MyBookingsController implements Initializable {
         column3.setCellValueFactory(new PropertyValueFactory<myBooking, String>("time"));
         column4.setCellValueFactory(new PropertyValueFactory<myBooking, String>("status"));
         tableView.setItems(data);
+        
+        
         column1.setCellFactory(column -> {
     return new TableCell<myBooking, String>() {
         @Override
@@ -332,5 +341,21 @@ column4.setCellFactory(column -> {
             res.add(s);
         }
         return res;
+    }
+
+    @FXML
+    private void info(MouseEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("Use Ctrl+Left Click if you want to select multiple rows to cancel.");
+                 alert.showAndWait();
     }
 }
