@@ -129,7 +129,13 @@ public class MyBookingsController implements Initializable {
              for(int i=0; i<b.size(); i++ ) {
            if(b.get(i).getMadeForDay().isBefore(LocalDate.now())) {
                counter++;
-           } else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60))) {
+           }
+           else if(b.get(i).getFromTime().equals(LocalTime.of(22,0))) {
+               if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(45))) {
+                   counter++;
+               }
+           }
+           else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60))) {
                counter++;
            } else {break;}
              
@@ -224,7 +230,7 @@ public class MyBookingsController implements Initializable {
                 Booking nb=b.get(j);
                 if(m.getCourt().equals(nb.getCourt().getName())
                    && m.getDate().equals(nb.getMadeForDay().toString()) &&
-                           m.getTime().equals(nb.getFromTime().toString())){
+                           m.getTime().substring(0, 5).equals(nb.getFromTime().toString())){
                     if(LocalDateTime.now().isBefore(LocalDateTime.of(nb.getMadeForDay(), nb.getFromTime()).minusHours(24))) {
                     c.removeBooking(nb);
                 } else {
@@ -318,10 +324,10 @@ public class MyBookingsController implements Initializable {
          ArrayList<myBooking> misdatos = new ArrayList<>();
          
          int numPages;
-         if(misdatosCourt1.size()%10==0){
-             numPages=misdatosCourt1.size()/10;
+         if((misdatosCourt1.size()-past)%10==0){
+             numPages=(misdatosCourt1.size()-past)/10;
          } else {
-              numPages=misdatosCourt1.size()/10+1;
+              numPages=(misdatosCourt1.size()-past)/10+1;
          }
          try{
         page.textProperty().setValue("Page "+Integer.toString(((counter-past)%misdatosCourt1.size()+10)/10)+" of "+Integer.toString(numPages));
@@ -484,7 +490,13 @@ column4.setCellFactory(column -> {
         List<String> res=new ArrayList<>();
         int x=counter+10;
         for(int i=counter; i<x && i<b.size(); i++ ) {
-            res.add(b.get(i).getFromTime().toString());
+            if(b.get(i).getFromTime().equals(LocalTime.of(22,0))) {
+                 res.add(b.get(i).getFromTime().toString()+ " - "+ b.get(i).getFromTime().plusMinutes(45).toString());
+            }
+            else {
+                          res.add(b.get(i).getFromTime().toString()+ " - "+ b.get(i).getFromTime().plusMinutes(60).toString());  
+            }
+
         }
         return res;
     }
