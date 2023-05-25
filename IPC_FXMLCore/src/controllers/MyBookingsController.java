@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableNumberValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
@@ -89,6 +93,9 @@ public class MyBookingsController implements Initializable {
     private Label elementsL;
     
     private int past;
+    
+   //ChangeListener <Number> listenerTable=this::listenerTable; 
+
     /**
      * Initializes the controller class.
      */
@@ -103,6 +110,9 @@ public class MyBookingsController implements Initializable {
                SelectionMode.MULTIPLE
                
 );
+       
+      
+       
        tableView.setPlaceholder(new Label("You have no bookings."));
        column1.setReorderable(false);
        column2.setReorderable(false);
@@ -131,19 +141,26 @@ public class MyBookingsController implements Initializable {
                counter++;
            }
            else if(b.get(i).getFromTime().equals(LocalTime.of(22,0))) {
-               if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(45))) {
+               if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(45)))  && LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
+                    
                    counter++;
                }
            }
-           else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && b.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60))) {
+           
+           else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
+                   
+               
+              if(LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(60)))) {
+                //System.out.println("h");
                counter++;
-           } else {break;}
+           }} else {break;}
              
              }
              
              initC=counter;
               elementsL.textProperty().addListener((o,oldVal,newVal)-> {
           int e=Integer.parseInt(newVal);
+        
            if(counter-10<initC) {
               previous.setDisable(true);
           } else {previous.setDisable(false);}
@@ -195,9 +212,38 @@ public class MyBookingsController implements Initializable {
              }
          }
         });*/
+        /*
+        selectAll.selectedProperty().addListener((o,oldVal,newVal)->{
+           if(newVal) 
+           {
+               System.out.println(data.size());
+              for(int i=0; i<data.size(); i++) {
+                  System.out.println(i);
+                  tableView.getSelectionModel().select(i);
+              }
+              tableView.getSelectionModel().selectedIndexProperty().addListener(listenerTable);
+           }
+           else {
+               tableView.getSelectionModel().selectedIndexProperty().removeListener(listenerTable);
+               tableView.getSelectionModel().select(-1);
+               tableView.setDisable(false);
+           }
+        });
         
+        */
        
-    }    
+    } 
+    /*
+    private void listenerTable (ObservableValue<? extends Number> valProp, Number oldProp, Number newProp) {
+            if(selectAll.isSelected()) {
+                for(int i=0; i<data.size(); i++) {
+                  System.out.println(i);
+                  tableView.getSelectionModel().select(i);
+              
+            }
+        }
+    }
+    */
 
     @FXML
     private void addCard(ActionEvent event) throws IOException, ClubDAOException {
@@ -213,7 +259,7 @@ public class MyBookingsController implements Initializable {
     private void cancel(ActionEvent event) throws ClubDAOException, IOException {
         List <myBooking> l=tableView.getSelectionModel().getSelectedItems();
         Club c=Club.getInstance();
-        int d=0;
+        int d=0; int v=0;
         List <Booking> b=c.getUserBookings(nickName);
         for(int i=0;i<l.size();i++) {
             myBooking m=l.get(i);
@@ -223,18 +269,22 @@ public class MyBookingsController implements Initializable {
                    && m.getDate().equals(nb.getMadeForDay().toString()) &&
                            m.getTime().substring(0, 5).equals(nb.getFromTime().toString())){
                     if(LocalDateTime.now().isBefore(LocalDateTime.of(nb.getMadeForDay(), nb.getFromTime()).minusHours(24))) {
-                    c.removeBooking(nb);
+                    c.removeBooking(nb); v++;
                 } else {
                     d+=1;
                 }}
                         
             }
         }
+        
+        int index=0;
+        if(v==1) {
+        index=tableView.getSelectionModel().getSelectedIndex(); }
         //System.out.println(d);
         int e=elements;
         inicializarModelo();
         
-        System.out.println(data.isEmpty() && e>0);
+       // System.out.println(data.isEmpty() && e>0);
         if (data.isEmpty() && e>0){
             try{
             counter-=10;
@@ -242,6 +292,10 @@ public class MyBookingsController implements Initializable {
             } catch (IndexOutOfBoundsException u) {
                 
             }
+        }
+        
+        if(v==1) {
+            tableView.getSelectionModel().select(index);
         }
         
         if(d>0) {
@@ -288,9 +342,10 @@ public class MyBookingsController implements Initializable {
          List<Booking> misdatosCourt1 = c.getUserBookings(nickName);
          past=0;
          for (int i=0;i<misdatosCourt1.size();i++){
-             if(misdatosCourt1.get(i).getMadeForDay().isBefore(LocalDate.now()) || misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && misdatosCourt1.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60)) ) {
+             if(misdatosCourt1.get(i).getMadeForDay().isBefore(LocalDate.now()) || (misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && misdatosCourt1.get(i).getFromTime().isBefore(LocalTime.now().plusMinutes(60))&& LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) || (misdatosCourt1.get(i).getFromTime().equals(LocalTime.of(22,0))&& misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalDateTime.of(LocalDate.now(), misdatosCourt1.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(45)))  && LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0)))) {
                 past+=1; 
              }
+             
          }
          //System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
@@ -300,7 +355,7 @@ public class MyBookingsController implements Initializable {
                  f=true;
              }
          }
-         System.out.println(f);
+         //System.out.println(f);
          if(f) {
              unpaidLabel.setVisible(true);
                 addACard.setVisible(true);
@@ -328,6 +383,8 @@ public class MyBookingsController implements Initializable {
                 hBox.setPrefHeight(30);
                 hBox2.setPrefHeight(30);
          }
+         
+         
          elements=misdatosCourt1.size()-counter;
          elementsL.setText(Integer.toString(elements));
          List<String> bookings2=court(misdatosCourt1);
@@ -336,6 +393,7 @@ public class MyBookingsController implements Initializable {
          ArrayList<myBooking> misdatos = new ArrayList<>();
          
          int numPages;
+         System.out.println(counter);
          if((misdatosCourt1.size()-past)%10==0){
              numPages=(misdatosCourt1.size()-past)/10;
          } else {
@@ -474,6 +532,12 @@ column4.setCellFactory(column -> {
     };
 
 });
+    
+    if(data.isEmpty()) {
+             page.setVisible(false);
+         } else {
+             page.setVisible(true);
+         }
     }
     
     
