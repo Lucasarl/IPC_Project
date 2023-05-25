@@ -671,7 +671,7 @@ column7.setCellFactory(column -> {
 
     @FXML
     private void exitApplication(ActionEvent event) {
-        cogwheel.getScene().getWindow().hide();
+        signUp.getScene().getWindow().hide();
     }
 
     @FXML

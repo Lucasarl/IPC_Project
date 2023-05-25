@@ -169,16 +169,6 @@ public class MyBookingsController implements Initializable {
        });
             c = Club.getInstance();
             Member m=c.getMemberByCredentials(nickName, passwordMember);
-            if(m.getCreditCard()!=null) {
-                unpaidLabel.setVisible(false);
-                addACard.setVisible(false);
-                addACard.setDisable(true);
-                hBox.setPrefHeight(30);
-                hBox2.setPrefHeight(30);
-            } else {
-               /*for(int i=0;i<b.size();i++){
-            .get(i).setPaid(true);*/
-        } 
             
         } catch (ClubDAOException ex) {
             Logger.getLogger(MyBookingsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,6 +195,7 @@ public class MyBookingsController implements Initializable {
              }
          }
         });*/
+        
        
     }    
 
@@ -303,18 +294,39 @@ public class MyBookingsController implements Initializable {
          }
          //System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
-         if(bookings1.isEmpty() || m.getCreditCard()!=null) {
-             unpaidLabel.setVisible(false);
-                addACard.setVisible(false);
-                addACard.setDisable(true);
-                hBox.setPrefHeight(30);
-                hBox2.setPrefHeight(30);
-         } else {
+         boolean f=false;
+         for(int i=past; i<misdatosCourt1.size();i++){
+             if(misdatosCourt1.get(i).getPaid()==false) {
+                 f=true;
+             }
+         }
+         System.out.println(f);
+         if(f) {
              unpaidLabel.setVisible(true);
                 addACard.setVisible(true);
                 addACard.setDisable(false);
                 hBox.setPrefHeight(100);
                 hBox2.setPrefHeight(100);
+         } else if(bookings1.isEmpty()) {
+            unpaidLabel.setVisible(false);
+                addACard.setVisible(false);
+                addACard.setDisable(true);
+                hBox.setPrefHeight(30);
+                hBox2.setPrefHeight(30);
+         } else {
+             unpaidLabel.setVisible(false);
+                addACard.setVisible(false);
+                addACard.setDisable(true);
+                hBox.setPrefHeight(30);
+                hBox2.setPrefHeight(30);
+         }
+         
+         if(m.getCreditCard()!=null && !f) {
+              unpaidLabel.setVisible(false);
+                addACard.setVisible(false);
+                addACard.setDisable(true);
+                hBox.setPrefHeight(30);
+                hBox2.setPrefHeight(30);
          }
          elements=misdatosCourt1.size()-counter;
          elementsL.setText(Integer.toString(elements));

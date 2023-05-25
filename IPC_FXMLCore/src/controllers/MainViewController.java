@@ -662,6 +662,8 @@ List<Booking> b=c.getUserBookings(m.getNickName());
         try {
             //SIEMPRE EMPEZAREMOS POR COGER LOS VALORES DE LOGIN, O NULLPOINTER
             
+            
+            
             //POR ESO, DE MOMENTO, SI VAS Y VUELVES NO CAMBIA NADA, DE MOMENTO INICIALIZO AQUI PARA HACER PRUEBAS
            column1.setReorderable(false);
             column2.setReorderable(false);
@@ -740,6 +742,11 @@ List<Booking> b=c.getUserBookings(m.getNickName());
              Member m=c.getMemberByCredentials(nickName,passwordMember);
              profilePicture.imageProperty().setValue(m.getImage());
              userName.textProperty().setValue(m.getNickName());
+             List<Booking> b=c.getUserBookings(nickName);
+             if(m.getCreditCard()!=null){
+             for(int i=0;i<b.size();i++){
+            b.get(i).setPaid(true);
+        }}
             //Booking b=c.registerBooking(LocalDateTime.now(), date, LocalTime.NOON, false, c.getCourts().get(0), m);
             /*if(m.getCreditCard()!=null){
                List<Booking> b=c.getUserBookings(m.getNickName());

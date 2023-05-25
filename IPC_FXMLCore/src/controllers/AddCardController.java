@@ -285,7 +285,8 @@ public class AddCardController implements Initializable {
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         //ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);
-            
+        
+        
         }
     }
     
