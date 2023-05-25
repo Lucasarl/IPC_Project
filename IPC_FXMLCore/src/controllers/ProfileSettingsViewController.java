@@ -445,9 +445,6 @@ public class ProfileSettingsViewController implements Initializable  {
        if (result.get() == buttonTypeRemove){
            Member m=c.getMemberByCredentials(nickName,passwordMember);
            List<Booking> b=c.getUserBookings(m.getNickName());
-        for(int i=0;i<b.size();i++){
-            b.get(i).setPaid(false);
-        }
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
