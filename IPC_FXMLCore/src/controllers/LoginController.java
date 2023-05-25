@@ -6,6 +6,8 @@
 package controllers;
 
 import ipc_fxmlcore.IPC_FXMLCore;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -19,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -28,7 +31,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import model.Club;
 import model.ClubDAOException;
 import model.Member;
@@ -43,7 +51,7 @@ public class LoginController implements Initializable {
     private BooleanProperty validPassword;
     
     @FXML
-    private PasswordField password;
+    private TextField password;
     @FXML
     private TextField nickname;
     @FXML
@@ -56,6 +64,10 @@ public class LoginController implements Initializable {
     private Label unvalidNickname;
     @FXML
     private Label unvalidPassword;
+    @FXML
+    private ImageView eyePassword;
+    private BooleanProperty showPassword;
+    private Tooltip tooltip;
 
     /**
      * Initializes the controller class.
@@ -80,21 +92,59 @@ public class LoginController implements Initializable {
         
         validPassword = new SimpleBooleanProperty();
         validPassword.setValue(Boolean.TRUE);
+        
+        showPassword= new SimpleBooleanProperty();
+        showPassword.setValue(Boolean.FALSE);
+        showPassword.addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                showPassword();
+            }else{
+                hidePassword();
+            }
+        });
+        
+        password.setOnKeyTyped(e-> {
+                if(showPassword.get()) {
+                showPassword();
+                }
+                });
+        
+        tooltip = new Tooltip();
+        tooltip.setShowDelay(Duration.ZERO);
+        tooltip.setAutoHide(false);
+        tooltip.setMinWidth(50);
     }    
 
     @FXML
     private void loginClicked(ActionEvent event) throws ClubDAOException, IOException {
         Club club = Club.getInstance();
         Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
-        if(member == null){
+        if(!club.existsLogin(nickname.getText())){
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning dialog");
             alert.setHeaderText(null);
-            alert.setContentText("The given profile is not registered");
+            alert.setContentText("The given nickname is not registered");
             
             ButtonType regButton = new ButtonType("Register");
-            ButtonType retryButton = new ButtonType("Retry");
-            alert.getButtonTypes().setAll(regButton, retryButton);
+            alert.getButtonTypes().setAll(regButton);
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent()){
+                if(result.get() == regButton){
+                    FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/mainView.fxml"));
+                    Parent root = myFXMLLoader.load();
+                    IPC_FXMLCore.setRoot(root);
+                }
+            }
+        }
+        else if(member == null){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Incorrect password");
+            
+            ButtonType regButton = new ButtonType("Register");
+            alert.getButtonTypes().setAll(regButton);
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent()){
@@ -176,6 +226,38 @@ public class LoginController implements Initializable {
         
         else {
             manageCorrect(unvalidPassword, password, validPassword);
+        }
+    }
+
+    
+    private void showPassword() {
+        Point2D p = password.localToScene(password.getBoundsInLocal().getMaxX(), password.getBoundsInLocal().getMaxY());
+            tooltip.setText(password.getText());
+            tooltip.show(password,
+                p.getX() + password.getScene().getX() + password.getScene().getWindow().getX(),
+                p.getY() + password.getScene().getY() + password.getScene().getWindow().getY());
+    }
+    
+    private void hidePassword() {
+        tooltip.setText("");
+        tooltip.hide();
+    }
+    
+    @FXML
+    private void visibilityPassword(MouseEvent event) throws FileNotFoundException{
+        if(showPassword.getValue().equals(Boolean.FALSE)) {
+           showPassword.setValue(Boolean.TRUE);
+           String showEyeURL = "src/images/eye2.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+            return;
+        }
+        else {
+            String showEyeURL = "src/images/eye1.png"; 
+            Image showEye=new Image(new FileInputStream(showEyeURL));
+            eyePassword.imageProperty().setValue(showEye);
+           showPassword.setValue(Boolean.FALSE);
+           
         }
     }
 }
