@@ -459,7 +459,7 @@ column4.setCellFactory(column -> {
                 try {
                     Club c=Club.getInstance();
                     Member m=c.getMemberByCredentials(nickName, passwordMember);
-                    if(m.getCreditCard()==null) {
+                    if(item.equals("Unpaid")) {
                         setTextFill(Color.RED);
                     } else {
                         setTextFill(Color.DARKGREEN);
