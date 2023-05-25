@@ -511,8 +511,8 @@ column7.setCellFactory(column -> {
             column6.setReorderable(false);
             column7.setReorderable(false);
             Club c = Club.getInstance();
-            //c.setInitialData();
-            //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
+            c.setInitialData();
+            Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
             //setP();
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
                if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
