@@ -422,7 +422,7 @@ public class ProfileSettingsViewController implements Initializable  {
       getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("myAlert");
         alert.setTitle("Remove credit card");
-        alert.setHeaderText("Are you sure you want to remove your credit card? You will receive a refund for all of your bookings.");
+        alert.setHeaderText("Are you sure you want to remove your credit card?");
         alert.setContentText(null);
         ButtonType buttonTypeRemove = new ButtonType("Remove Card");
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);

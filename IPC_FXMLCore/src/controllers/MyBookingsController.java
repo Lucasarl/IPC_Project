@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
@@ -93,8 +95,10 @@ public class MyBookingsController implements Initializable {
     private Label elementsL;
     
     private int past;
+    @FXML
+    private CheckBox selectAll;
     
-   //ChangeListener <Number> listenerTable=this::listenerTable; 
+   ChangeListener <Number> listenerTable=this::listenerTable; 
 
     /**
      * Initializes the controller class.
@@ -141,17 +145,17 @@ public class MyBookingsController implements Initializable {
                counter++;
            }
            else if(b.get(i).getFromTime().equals(LocalTime.of(22,0))) {
-               if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(45)))  && LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
+               if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(45)))  && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
                     
                    counter++;
                }
            }
            
-           else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
+           else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
                    
-               
-              if(LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(60)))) {
-                //System.out.println("h");
+               System.out.println("h");
+              if(LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(60)))) {
+                
                counter++;
            }} else {break;}
              
@@ -212,38 +216,39 @@ public class MyBookingsController implements Initializable {
              }
          }
         });*/
-        /*
+        
         selectAll.selectedProperty().addListener((o,oldVal,newVal)->{
            if(newVal) 
            {
                System.out.println(data.size());
-              for(int i=0; i<data.size(); i++) {
-                  System.out.println(i);
-                  tableView.getSelectionModel().select(i);
-              }
+              tableView.getSelectionModel().selectRange(0,data.size());
               tableView.getSelectionModel().selectedIndexProperty().addListener(listenerTable);
            }
            else {
                tableView.getSelectionModel().selectedIndexProperty().removeListener(listenerTable);
-               tableView.getSelectionModel().select(-1);
+               tableView.getSelectionModel().clearSelection();
                tableView.setDisable(false);
            }
         });
         
-        */
+        
        
     } 
-    /*
+    
     private void listenerTable (ObservableValue<? extends Number> valProp, Number oldProp, Number newProp) {
             if(selectAll.isSelected()) {
-                for(int i=0; i<data.size(); i++) {
-                  System.out.println(i);
-                  tableView.getSelectionModel().select(i);
-              
-            }
+               tableView.getSelectionModel().selectRange(0,data.size());
         }
+           /* if(tableView.getSelectionModel().getFocusedIndex()==(data.size()-1)) {
+                 tableView.getSelectionModel().selectRange(0,data.size());
+                 
+            }*/
+            /*if(selectAll.isSelected() && newProp.intValue()==data.size()-1) {
+                tableView.getSelectionModel().selectRange(0,data.size());
+                System.out.println("Hlo");
+            }*/
     }
-    */
+    
 
     @FXML
     private void addCard(ActionEvent event) throws IOException, ClubDAOException {
@@ -257,6 +262,7 @@ public class MyBookingsController implements Initializable {
 
     @FXML
     private void cancel(ActionEvent event) throws ClubDAOException, IOException {
+        if(!selectAll.isSelected()) {
         List <myBooking> l=tableView.getSelectionModel().getSelectedItems();
         Club c=Club.getInstance();
         int d=0; int v=0;
@@ -311,8 +317,88 @@ public class MyBookingsController implements Initializable {
                  // ó null si no queremos cabecera
                  alert.setContentText("("+d+")"+" of the selected bookings haven`t been removed, because bookings can only be canceled more than 24 hours in advance.");
                  alert.showAndWait();
-        }
+        } }
+        
+        else {
+            
+            int e=elements;
+            Club c=Club.getInstance();
+            List <Booking> b=c.getUserBookings(nickName);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+        //Cambia el icono por uno propio
+        //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        alert.setTitle("Remove credit card");
+        alert.setHeaderText("Are you sure you want to cancel all of your bookings?");
+        alert.setContentText(null);
+        ButtonType buttonTypeRemove = new ButtonType("Cancel All");
+        ButtonType buttonTypeCancel = new ButtonType("Go Back", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeRemove, buttonTypeCancel);
+        alert.getDialogPane().getChildren().forEach(node -> {
+    if (node instanceof ButtonBar) {
+        ButtonBar buttonBar = (ButtonBar) node;
+        buttonBar.getButtons().forEach(possibleButtons -> {
+            if (possibleButtons instanceof Button) {
+                Button bu = (Button) possibleButtons;
+                if (bu.getText().equals("Cancel All")) {
+                    bu.getStyleClass().add("cancel");
+                }
+            }
+        });
     }
+});
+       Optional<ButtonType> result = alert.showAndWait();
+       int d=0;
+       if (result.isPresent()) {
+       if (result.get() == buttonTypeRemove){
+           for(int i=past;i<b.size();i++) {
+            Booking nb=b.get(i);
+                    if(LocalDateTime.now().isBefore(LocalDateTime.of(nb.getMadeForDay(), nb.getFromTime()).minusHours(24))) {
+                   c.removeBooking(nb);
+                } else {
+                    d+=1;
+                }}
+         inicializarModelo();
+         List<Booking> l=c.getUserBookings(nickName);
+         while(data.isEmpty() && e>0){
+             if(l.size()==past) {
+                 break;
+             }
+            try{
+            counter-=10;
+            inicializarModelo();
+            } catch (IndexOutOfBoundsException u) {
+                
+            }
+            
+        }
+         
+         selectAll.setSelected(false);
+         if(d>0) {
+            Alert aler = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 aler.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 aler.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPan = aler.getDialogPane();
+                 dialogPan.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 aler.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 aler.setContentText("("+d+")"+" of the selected bookings haven`t been removed, because bookings can only be canceled more than 24 hours in advance.");
+                 aler.showAndWait();
+         }    
+            }
+       
+        }
+       }
+}
+        
 
     @FXML
     private void next(ActionEvent event) throws ClubDAOException, IOException {
@@ -342,11 +428,13 @@ public class MyBookingsController implements Initializable {
          List<Booking> misdatosCourt1 = c.getUserBookings(nickName);
          past=0;
          for (int i=0;i<misdatosCourt1.size();i++){
-             if(misdatosCourt1.get(i).getMadeForDay().isBefore(LocalDate.now()) || (misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && misdatosCourt1.get(i).getFromTime().isBefore(LocalTime.now().plusMinutes(60))&& LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) || (misdatosCourt1.get(i).getFromTime().equals(LocalTime.of(22,0))&& misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalDateTime.of(LocalDate.now(), misdatosCourt1.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(45)))  && LocalTime.now().isBefore(LocalTime.of(0, 0)) && LocalTime.now().isAfter(LocalTime.of(9, 0)))) {
-                past+=1; 
+             if(misdatosCourt1.get(i).getMadeForDay().isBefore(LocalDate.now()) || (misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && misdatosCourt1.get(i).getFromTime().isBefore(LocalTime.now().minusMinutes(60)) && LocalTime.now().isAfter(LocalTime.of(9, 0))) || (misdatosCourt1.get(i).getFromTime().equals(LocalTime.of(22,0))&& misdatosCourt1.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalDateTime.of(LocalDate.now(), misdatosCourt1.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(45)))  && LocalTime.now().isAfter(LocalTime.of(9, 0)))) {
+               
+                 past+=1; 
              }
              
          }
+          System.out.println(past);
          //System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
          boolean f=false;
@@ -393,7 +481,7 @@ public class MyBookingsController implements Initializable {
          ArrayList<myBooking> misdatos = new ArrayList<>();
          
          int numPages;
-         System.out.println(counter);
+         //System.out.println(counter);
          if((misdatosCourt1.size()-past)%10==0){
              numPages=(misdatosCourt1.size()-past)/10;
          } else {
@@ -538,6 +626,15 @@ column4.setCellFactory(column -> {
          } else {
              page.setVisible(true);
          }
+    
+    if(bookings2.size()==0) {
+                 selectAll.setDisable(true);
+                  selectAll.setVisible(false);
+             }
+    else {
+                 selectAll.setDisable(false);
+                  selectAll.setVisible(true);
+    }
     }
     
     
