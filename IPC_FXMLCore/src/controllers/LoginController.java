@@ -49,9 +49,10 @@ import model.Member;
 public class LoginController implements Initializable {
 
     private BooleanProperty validPassword;
+    private BooleanProperty validNickname;
     
     @FXML
-    private TextField password;
+    private PasswordField password;
     @FXML
     private TextField nickname;
     @FXML
@@ -90,8 +91,22 @@ public class LoginController implements Initializable {
             checkPassword();
         }});
         
+        nickname.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
+        if(!newVal){
+            try {
+                checkNickname();
+            } catch (ClubDAOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }});
+        
         validPassword = new SimpleBooleanProperty();
         validPassword.setValue(Boolean.TRUE);
+        
+        validNickname = new SimpleBooleanProperty();
+        validNickname.setValue(Boolean.TRUE);
         
         showPassword= new SimpleBooleanProperty();
         showPassword.setValue(Boolean.FALSE);
@@ -119,41 +134,14 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) throws ClubDAOException, IOException {
         Club club = Club.getInstance();
         Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
-        if(!club.existsLogin(nickname.getText())){
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("The given nickname is not registered");
-            
-            ButtonType regButton = new ButtonType("Register");
-            alert.getButtonTypes().setAll(regButton);
-            
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent()){
-                if(result.get() == regButton){
-                    FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/mainView.fxml"));
-                    Parent root = myFXMLLoader.load();
-                    IPC_FXMLCore.setRoot(root);
-                }
-            }
-        }
-        else if(member == null){
+        if(member == null){
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning dialog");
             alert.setHeaderText(null);
             alert.setContentText("Incorrect password");
             
-            ButtonType regButton = new ButtonType("Register");
-            alert.getButtonTypes().setAll(regButton);
+            alert.showAndWait();
             
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent()){
-                if(result.get() == regButton){
-                    FXMLLoader myFXMLLoader = new FXMLLoader(getClass().getResource("/view/mainView.fxml"));
-                    Parent root = myFXMLLoader.load();
-                    IPC_FXMLCore.setRoot(root);
-                }
-            }
             }else{
             User u=User.getInstance();
             u.setPassword(password.textProperty().getValue());
@@ -258,6 +246,17 @@ public class LoginController implements Initializable {
             eyePassword.imageProperty().setValue(showEye);
            showPassword.setValue(Boolean.FALSE);
            
+        }
+    }
+    
+    private void checkNickname() throws ClubDAOException, IOException {
+        Club club = Club.getInstance();
+        if(!club.existsLogin(nickname.getText())) {
+            manageError(unvalidNickname, nickname, validNickname);
+        }
+        
+        else {
+            manageCorrect(unvalidNickname, nickname, validNickname);
         }
     }
 }
