@@ -67,6 +67,7 @@ public class LoginController implements Initializable {
     private Label unvalidPassword;
     @FXML
     private ImageView eyePassword;
+    
     private BooleanProperty showPassword;
     private Tooltip tooltip;
 

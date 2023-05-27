@@ -7,50 +7,118 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<GridPane hgap="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-  </rowConstraints>
-   <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Log in" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
-      <Label text="Nickname:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-      <Label text="Password:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-      <TextField fx:id="nickname" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginClicked" text="Log In" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-      <Label text="Not registered? Create a profile!" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-      <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerClicked" text="Register" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backClicked" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Label fx:id="unvalidNickname" text="Not registered nickname" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Label fx:id="unvalidPassword" text="Unvalid password" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <ImageView fx:id="eyePassword" fitHeight="36.0" fitWidth="61.0" onMouseClicked="#visibilityPassword" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-         <image>
-            <Image url="@../images/eye1.png" />
-         </image>
-      </ImageView>
-      <PasswordField fx:id="password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
-   </padding>
-</GridPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+   <top>
+      <HBox minHeight="58.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: darkgreen;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Black" size="40.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" top="12.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="81.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="backButton" minWidth="118.0" mnemonicParsing="false" onAction="#backClicked" stylesheets="@../styles/general.css" text="Go Back">
+               <HBox.margin>
+                  <Insets left="30.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="loginButton" minWidth="118.0" mnemonicParsing="false" onAction="#loginClicked" stylesheets="@../styles/general.css" text="Login">
+               <HBox.margin>
+                  <Insets left="45.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffffff;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
+               <children>
+                  <Label text="Nickname">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="nickname" stylesheets="@../styles/general.css">
+                     <HBox.margin>
+                        <Insets left="60.0" top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="unvalidNickname" text="The given nickname is not registered" textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
+               <children>
+                  <Label text="Password">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="43.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <PasswordField fx:id="password">
+                     <HBox.margin>
+                        <Insets left="60.0" top="20.0" />
+                     </HBox.margin>
+                  </PasswordField>
+                  <ImageView fx:id="eyePassword" fitHeight="52.0" fitWidth="47.0" onMouseClicked="#visibilityPassword" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/eye1.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="unvalidPassword" text="Unvalid password" textFill="RED" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
+               <children>
+                  <Label text="New user? Create an account!">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerClicked" stylesheets="@../styles/general.css" text="Register">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
