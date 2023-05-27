@@ -89,7 +89,13 @@ public class LoginController implements Initializable {
         
         password.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
         if(!newVal){
-            checkPassword();
+            try {
+                checkPassword();
+            } catch (ClubDAOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }});
         
         nickname.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
@@ -135,22 +141,14 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) throws ClubDAOException, IOException {
         Club club = Club.getInstance();
         Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
-        if(member == null){
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Incorrect password");
-            
-            alert.showAndWait();
-            
-            }else{
+        
             User u=User.getInstance();
             u.setPassword(password.textProperty().getValue());
             u.setNickname(nickname.textProperty().getValue());
             FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/mainView.fxml"));
             Parent root = loader.load();
             IPC_FXMLCore.setRoot(root);
-        }
+        
     }
     
     private void checkFieldsAndEnableButton() {
@@ -208,9 +206,20 @@ public class LoginController implements Initializable {
         hideErrorMessage(errorLabel,textField);
     }
     
-    private void checkPassword(){
+    private void checkPassword() throws ClubDAOException, IOException{
+        Club club = Club.getInstance();
+        Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
         if(password.textProperty().getValue().length()<6) {
-            manageError(unvalidPassword, password, validPassword);
+            validPassword.setValue(Boolean.FALSE);
+            unvalidPassword.setText("The minimum length a password is 6 characters");
+            showErrorMessage(unvalidPassword,password);
+            password.requestFocus();
+        }
+        else if(member == null){
+            validPassword.setValue(Boolean.FALSE);
+            unvalidPassword.setText("Incorrect password");
+            showErrorMessage(unvalidPassword,password);
+            password.requestFocus();
         }
         
         else {
