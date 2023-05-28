@@ -199,7 +199,7 @@ public class LoginController implements Initializable {
     
     @FXML
     private void registerClicked(ActionEvent event) throws IOException{
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/initialPage.fxml"));
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root = loader.load();
         IPC_FXMLCore.setRoot(root);
     }
