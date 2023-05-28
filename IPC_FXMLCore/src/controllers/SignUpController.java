@@ -266,8 +266,8 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void handleSignUp(ActionEvent event) throws ClubDAOException, IOException{
-        Club club = Club.getInstance();
         
+        Club club = Club.getInstance();
         if(cscTF.textProperty().getValue().equals("")){
             cscTF.textProperty().setValue("000");
         
@@ -275,12 +275,14 @@ public class SignUpController implements Initializable {
         club.registerMember(
                 firstNameTF.textProperty().getValue(),
                 lastNameTF.textProperty().getValue(),
-                nickNameTF.textProperty().getValue(),
                 phoneNumberTF.textProperty().getValue(),
+                nickNameTF.textProperty().getValue(),
                 passwordTF.textProperty().getValue(),
-                creditCardTF.textProperty().getValue(),
-                Integer.parseInt(cscTF.textProperty().getValue()),
+                 null,
+                000,
                 (Image)null);
+        
+        System.out.println(club.existsLogin(nickNameTF.textProperty().getValue()));
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent root= loader.load();
         IPC_FXMLCore.setRoot(root);

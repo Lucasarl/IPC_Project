@@ -81,7 +81,14 @@ public class LoginController implements Initializable {
         nickname.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
                  try {
-                     checkNickname();
+                     Club c=Club.getInstance();
+                 Member m=c.getMemberByCredentials(nickname.textProperty().getValue(), password.textProperty().getValue());
+                 if(m!=null) {
+                     manageCorrect(unvalidPassword, password, validPassword);
+                 }
+                 checkNickname();
+                     
+                     
                  } catch (ClubDAOException ex) {
                      Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                  } catch (IOException ex) {
@@ -118,7 +125,8 @@ public class LoginController implements Initializable {
         password.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
         if(!newVal){
             try {
-                checkPassword();
+               
+                     checkPassword();
             } catch (ClubDAOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -129,7 +137,13 @@ public class LoginController implements Initializable {
         nickname.focusedProperty().addListener((observableValue,oldVal,newVal)-> {
         if(!newVal){
             try {
-                checkNickname();
+                 Club c=Club.getInstance();
+                 Member m=c.getMemberByCredentials(nickname.textProperty().getValue(), password.textProperty().getValue());
+                 if(m!=null) {
+                     manageCorrect(unvalidPassword, password, validPassword);
+                 }
+                 checkNickname();
+                     
             } catch (ClubDAOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -169,7 +183,7 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) throws ClubDAOException, IOException {
         Club club = Club.getInstance();
         Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
-        if(!unvalidPassword.isVisible() && !unvalidNickname.isVisible() ) {
+        if(validPassword.getValue().equals(true) && validNickname.getValue().equals(true)) {
             User u=User.getInstance();
             u.setPassword(password.textProperty().getValue());
             u.setNickname(nickname.textProperty().getValue());
@@ -229,6 +243,8 @@ public class LoginController implements Initializable {
         textField.requestFocus();
     }
     
+    
+    
     private void manageCorrect(Label errorLabel,TextField textField, BooleanProperty boolProp ){
         boolProp.setValue(Boolean.TRUE);
         hideErrorMessage(errorLabel,textField);
@@ -239,15 +255,15 @@ public class LoginController implements Initializable {
         Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
         if(password.textProperty().getValue().length()<6) {
             validPassword.setValue(Boolean.FALSE);
-            unvalidPassword.setText("The minimum length a password is 6 characters");
+            unvalidPassword.setText("The minimum length of a password is 6 characters");
             showErrorMessage(unvalidPassword,password);
-            password.requestFocus();
+            //password.requestFocus();
         }
         else if(member == null){
             validPassword.setValue(Boolean.FALSE);
             unvalidPassword.setText("Incorrect password");
             showErrorMessage(unvalidPassword,password);
-            password.requestFocus();
+            //password.requestFocus();
         }
         
         else {
