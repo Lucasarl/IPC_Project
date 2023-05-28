@@ -682,7 +682,10 @@ column7.setCellFactory(column -> {
     }
 
     @FXML
-    private void signUp(ActionEvent event) {
+    private void signUp(ActionEvent event) throws IOException{
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root= loader.load();
+        IPC_FXMLCore.setRoot(root);
     }
     
     private void setP() throws ClubDAOException, IOException {

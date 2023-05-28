@@ -1,0 +1,72 @@
+#title{
+    -fx-background-color: darkgreen;
+}
+
+
+#signUpButton{
+    -fx-background-radius: 15px;
+    -fx-background-color: #ebe8e8;
+    -fx-border-color: green;
+    -fx-border-radius:15px;
+    -fx-highlight-fill:dodgerblue;
+    -fx-display-caret:true;
+}
+
+#signUpButton:focused{
+    -fx-border-color: blue;
+    -fx-border-radius:15px;
+}
+
+#cancelButton{
+  -fx-background-color: #dd0000;
+    -fx-text-fill: white;
+    -fx-font-family:Helvetica,Arial,sans-serif;
+    -fx-font-size: 10pt;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+#cancelButton:hover {
+    -fx-background-color: #dd0000, white, #dd0000;
+    -fx-font-weight: bold;
+    -fx-font-size:9pt;
+}
+
+.textField{
+    -fx-background-radius: 15px;
+    -fx-background-color: #ebe8e8;
+    -fx-border-color: green;
+    -fx-border-radius:15px;
+    -fx-highlight-fill:dodgerblue;
+    -fx-display-caret:true;
+   
+   
+}
+
+.textField:focused{
+    -fx-border-color: blue;
+    -fx-border-radius:15px;
+}
+.names{
+  -fx-background-image:url('imgs/user.png');
+}
+
+#nickNameTF{
+  -fx-background-image:url('imgs/nickName.png');
+}
+
+#phoneNumberTF{
+  -fx-background-image:url('imgs/phone.png');
+}
+
+#passwordTF{
+  -fx-background-image:url('imgs/password.png');
+}
+
+#passwordConfirmationTF{
+  -fx-background-image:url('imgs/passwordCheck.png');
+}
+
+#creditCardTF{
+  -fx-background-image:url('imgs/creditCard.png');
+}
