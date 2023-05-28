@@ -653,8 +653,10 @@ column7.setCellFactory(column -> {
                          Parent root= loader.load();
                          IPC_FXMLCore.setRoot(root);
                      } 
-                     else if(res.get().equals(buttonTypeTwo)) {
-                         
+                     else if(res.get().equals(buttonTypeThree)) {
+                         FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+                         Parent root= loader.load();
+                         IPC_FXMLCore.setRoot(root);
                      }
                  }
         

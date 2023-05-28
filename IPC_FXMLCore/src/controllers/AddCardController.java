@@ -91,6 +91,12 @@ public class AddCardController implements Initializable {
         textField.requestFocus();
     }
     
+    private void manageErrorSvc(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.FALSE);
+        showErrorMessage(errorLabel,textField);
+        //textField.requestFocus();
+    }
+    
     private void manageCorrect(Label errorLabel,TextField textField, BooleanProperty boolProp ){
         boolProp.setValue(Boolean.TRUE);
         hideErrorMessage(errorLabel,textField);
@@ -304,7 +310,7 @@ public class AddCardController implements Initializable {
     
      private void checkSvc(){
         if(svc.textProperty().getValue().length()!=3) {
-            manageError(errorSvc,svc,validSvc);}
+            manageErrorSvc(errorSvc,svc,validSvc);}
            
         else {
             manageCorrect(errorSvc,svc,validSvc);
