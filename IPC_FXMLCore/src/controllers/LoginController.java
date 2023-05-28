@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -77,7 +78,34 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+        nickname.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     checkNickname();
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (IOException ex) {
+                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                 loginButton.fire();
+}
+         }
+  
+ );
+         password.setOnKeyPressed( event -> {
+             if(event.getCode()==KeyCode.ENTER){
+                 try {
+                     checkPassword();
+                 } catch (ClubDAOException ex) {
+                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (IOException ex) {
+                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                 loginButton.fire();
+}
+         }
+  
+ );   
         
         loginButton.setDisable(true);
         
