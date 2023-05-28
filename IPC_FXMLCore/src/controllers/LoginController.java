@@ -141,14 +141,14 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent event) throws ClubDAOException, IOException {
         Club club = Club.getInstance();
         Member member = club.getMemberByCredentials(nickname.getText(), password.getText());
-        
+        if(!unvalidPassword.isVisible() && !unvalidNickname.isVisible() ) {
             User u=User.getInstance();
             u.setPassword(password.textProperty().getValue());
             u.setNickname(nickname.textProperty().getValue());
             FXMLLoader loader= new  FXMLLoader(getClass().getResource("/views/mainView.fxml"));
             Parent root = loader.load();
             IPC_FXMLCore.setRoot(root);
-        
+        }
     }
     
     private void checkFieldsAndEnableButton() {
