@@ -394,7 +394,7 @@ public class ChangeProfileInfoController implements Initializable {
     }
     
     private void checkTelephone(){
-        if(telephone.textProperty().getValue().length()==0) {
+        if(telephone.textProperty().getValue().length()!=9) {
             manageError(telephoneRequired, telephone, validTelephone);
         }
         

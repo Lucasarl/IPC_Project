@@ -512,7 +512,11 @@ column7.setCellFactory(column -> {
             column6.setReorderable(false);
             column7.setReorderable(false);
             Club c = Club.getInstance();
+           // c.addSimpleData();
+            //
+            
             //c.setInitialData();
+            //
             //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
             //setP();
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
