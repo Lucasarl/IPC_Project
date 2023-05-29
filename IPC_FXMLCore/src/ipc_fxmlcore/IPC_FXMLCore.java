@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -32,7 +33,8 @@ private static Scene scene;
         stage.setScene(scene);
         stage.setMinWidth(700); //Hacer todas las escenas de este tamaño min
         stage.setMinHeight(500);
-        stage.setTitle("profileSettingsView");
+        stage.setTitle("Greenball");
+        stage.getIcons().add(new Image("/images/Logo.png"));
         //stage.setResizable(false);
         stage.show();
     }
