@@ -16,6 +16,14 @@
    <top>
       <HBox minHeight="58.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: darkgreen;" stylesheets="@../styles/general.css" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="20.0" top="12.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../images/Logo.png" />
+               </image>
+            </ImageView>
             <Label text="Update your profile info" textFill="WHITE">
                <HBox.margin>
                   <Insets left="40.0" top="12.0" />

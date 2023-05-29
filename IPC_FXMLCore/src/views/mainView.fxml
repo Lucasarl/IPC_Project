@@ -86,9 +86,17 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="900.0">
                      <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/Logo.png" />
+                           </image>
+                        </ImageView>
                         <Label text="Greenball" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="40.0" top="8.0" />
+                              <Insets left="40.0" top="7.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Segoe UI Black" size="40.0" />

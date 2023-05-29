@@ -17,11 +17,19 @@
    <top>
       <HBox maxHeight="70.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: darkgreen;" BorderPane.alignment="CENTER">
          <children>
-            <HBox minWidth="300.0" prefWidth="300.0">
+            <HBox minWidth="400.0" prefWidth="300.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/Logo.png" />
+                     </image>
+                  </ImageView>
                   <Label text="My Bookings" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Black" size="40.0" />
