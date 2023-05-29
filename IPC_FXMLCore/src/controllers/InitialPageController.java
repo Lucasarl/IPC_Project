@@ -515,7 +515,7 @@ column7.setCellFactory(column -> {
             //Member m=c.registerMember("Pedro","Antonio Palillo","643213454","Ftonio","erewrqdc",null,321,null);
             //setP();
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
-               if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
+               if(newVal.isAfter(LocalDate.of(2023, Month.DECEMBER, 31))) {
                    dpBookingDay.valueProperty().setValue(oldVal);
                    Alert alert = new Alert(Alert.AlertType.ERROR);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -529,7 +529,21 @@ column7.setCellFactory(column -> {
                  // ó null si no queremos cabecera
                  alert.setContentText("Please select an earlier date.");
                  alert.showAndWait();
-               } 
+               } else if(newVal.isBefore(LocalDate.now())) {
+                   dpBookingDay.valueProperty().setValue(oldVal);
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                 alert.setHeaderText(null);
+                 ButtonType buttonTypeOne = new ButtonType("OK");
+                 alert.getButtonTypes().setAll(buttonTypeOne);
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.getStylesheets().add(
+               getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+                 alert.getDialogPane().getStyleClass().add("myAlert");
+                 // ó null si no queremos cabecera
+                 alert.setContentText("Please select a later date.");
+                 alert.showAndWait();
+               }
             });
             
             service.setOnSucceeded(e -> {
@@ -545,7 +559,7 @@ column7.setCellFactory(column -> {
            public void updateItem(LocalDate date, boolean empty) {
            super.updateItem(date, empty);
            LocalDate today = LocalDate.now();
-           setDisable(empty || date.compareTo(today) < 0 || date.isAfter(LocalDate.of(2032, Month.JANUARY, 1)));
+           setDisable(empty || date.compareTo(today) < 0 || date.isAfter(LocalDate.of(2023, Month.DECEMBER, 31)));
             }
            };
           });

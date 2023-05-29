@@ -673,7 +673,7 @@ List<Booking> b=c.getUserBookings(m.getNickName());
             column6.setReorderable(false);
             column7.setReorderable(false);
             dpBookingDay.valueProperty().addListener((o,oldVal,newVal)->{
-               if(newVal.isAfter(LocalDate.of(2032, Month.JANUARY, 1))) {
+               if(newVal.isAfter(LocalDate.of(2023, Month.DECEMBER, 31))) {
                    dpBookingDay.valueProperty().setValue(oldVal);
                    Alert alert = new Alert(Alert.AlertType.ERROR);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -717,7 +717,7 @@ List<Booking> b=c.getUserBookings(m.getNickName());
            public void updateItem(LocalDate date, boolean empty) {
            super.updateItem(date, empty);
            LocalDate today = LocalDate.now();
-           setDisable(empty || date.compareTo(today) < 0 || date.isAfter(LocalDate.of(2032, Month.JANUARY, 1)));
+           setDisable(empty || date.compareTo(today) < 0 || date.isAfter(LocalDate.of(2023, Month.DECEMBER, 31)));
             }
            };
           });
