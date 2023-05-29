@@ -38,6 +38,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.Mnemonic;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.*;
 
@@ -313,6 +314,8 @@ public class ChangeProfileInfoController implements Initializable {
     private void updateInfo() throws IOException, ClubDAOException {
         if((!errorPassword.isVisible() && !errorCardNumber.isVisible() && !errorSvc.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible()) &&!telephoneRequired.isVisible()){
         Alert alert = new Alert(AlertType.CONFIRMATION);
+         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+          stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
         alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
         alert.setHeaderText(null);

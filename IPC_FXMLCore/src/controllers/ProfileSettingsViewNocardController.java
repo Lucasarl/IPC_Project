@@ -31,6 +31,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Club;
 import model.ClubDAOException;
 import model.Member;
@@ -199,6 +200,8 @@ public class ProfileSettingsViewNocardController implements Initializable {
     @FXML
     private void changeProfilePicture(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
         //Cambia el icono por uno propio
         //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));

@@ -43,6 +43,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -292,6 +293,8 @@ public class ProfileSettingsViewController implements Initializable  {
     @FXML
     private void changeProfilePicture(ActionEvent event) throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
+         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
         //Cambia el icono por uno propio
         //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));
@@ -413,6 +416,8 @@ public class ProfileSettingsViewController implements Initializable  {
     @FXML
     private void removeCard(ActionEvent event) throws IOException {
         Alert alert = new Alert(AlertType.WARNING);
+         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
         //Cambia el icono por uno propio
         //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));

@@ -58,6 +58,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import model.*;
 import models2.*;
 
@@ -676,6 +677,8 @@ List<Booking> b=c.getUserBookings(m.getNickName());
                if(newVal.isAfter(LocalDate.of(2023, Month.DECEMBER, 31))) {
                    dpBookingDay.valueProperty().setValue(oldVal);
                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
@@ -690,6 +693,8 @@ List<Booking> b=c.getUserBookings(m.getNickName());
                } else if(newVal.isBefore(LocalDate.now())) {
                    dpBookingDay.valueProperty().setValue(oldVal);
                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
@@ -928,6 +933,8 @@ List<Booking> b=c.getUserBookings(m.getNickName());
         } else {
             if(avail==false) {
                  Alert alert = new Alert(Alert.AlertType.ERROR);
+                  Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
@@ -941,6 +948,8 @@ List<Booking> b=c.getUserBookings(m.getNickName());
                  alert.showAndWait();
             } else if (belowMax==false) {
                  Alert alert = new Alert(Alert.AlertType.ERROR);
+                  Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
@@ -954,6 +963,8 @@ List<Booking> b=c.getUserBookings(m.getNickName());
                  alert.showAndWait();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                 Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");

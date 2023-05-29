@@ -61,6 +61,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import model.*;
 import models2.*;
 
@@ -637,6 +638,9 @@ column7.setCellFactory(column -> {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
+                 Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
+                 
                  ButtonType buttonTypeOne = new ButtonType("OK",ButtonBar.ButtonData.CANCEL_CLOSE);
                  ButtonType buttonTypeTwo = new ButtonType("Log In");
                  ButtonType buttonTypeThree = new ButtonType("Sign Up");

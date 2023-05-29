@@ -40,9 +40,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.Booking;
 import model.Club;
 import model.ClubDAOException;
@@ -306,6 +308,8 @@ public class MyBookingsController implements Initializable {
         
         if(d>0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
@@ -325,6 +329,8 @@ public class MyBookingsController implements Initializable {
             Club c=Club.getInstance();
             List <Booking> b=c.getUserBookings(nickName);
             Alert alert = new Alert(Alert.AlertType.WARNING);
+             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
         //Cambia el icono por uno propio
         //Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         //stage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/icon.png")));
@@ -381,6 +387,8 @@ public class MyBookingsController implements Initializable {
          selectAll.setSelected(false);
          if(d>0) {
             Alert aler = new Alert(Alert.AlertType.ERROR);
+             stage = (Stage) aler.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  aler.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
@@ -692,6 +700,8 @@ column4.setCellFactory(column -> {
     @FXML
     private void info(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                  alert.setHeaderText(null);
                  ButtonType buttonTypeOne = new ButtonType("OK");
