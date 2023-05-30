@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import model.Club;
 import model.ClubDAOException;
@@ -86,6 +87,10 @@ public class SignUpController implements Initializable {
     private Label firstNameError;
     @FXML
     private Label lastNameError;
+    @FXML
+    private ImageView image;
+    
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,6 +114,8 @@ public class SignUpController implements Initializable {
         validPasswordConfirmation = new SimpleBooleanProperty(); validPasswordConfirmation.setValue(Boolean.FALSE);
         
         signUpButton.setDisable(true);
+        
+        
         
         firstNameTF.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue && firstNameTF.textProperty().getValue().equals("")){
@@ -280,12 +287,25 @@ public class SignUpController implements Initializable {
                 passwordTF.textProperty().getValue(),
                  null,
                 000,
-                (Image)null);
+                image.imageProperty().getValue());
         
        // System.out.println(club.existsLogin(nickNameTF.textProperty().getValue()));
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent root= loader.load();
         IPC_FXMLCore.setRoot(root);
+    }
+
+    @FXML
+    private void changeProfilePicture(ActionEvent event) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/changeProfilePicture.fxml"));
+        Parent root= loader.load();
+        ChangeProfilePictureController c=loader.getController();
+        c.setFromSignup(true);
+        IPC_FXMLCore.setRoot(root);
+    }
+    
+    public void setImage (Image i) {
+        image.imageProperty().setValue(i);
     }
     
 }

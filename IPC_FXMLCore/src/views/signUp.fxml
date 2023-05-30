@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="background" stylesheets="@../styles/signUp.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController">
    <center>
-      <HBox prefHeight="400.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <HBox minWidth="500.0" prefHeight="400.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="400.0" prefWidth="550.0" HBox.hgrow="NEVER">
+            <VBox minWidth="450.0" prefHeight="400.0" prefWidth="550.0" HBox.hgrow="NEVER">
                <children>
                   <HBox prefHeight="148.0" prefWidth="450.0">
                      <children>
@@ -27,7 +27,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="firstNameTF" prefHeight="40.0" prefWidth="192.0" promptText="Name" styleClass="textField">
+                              <TextField fx:id="firstNameTF" prefHeight="40.0" prefWidth="192.0" promptText="Name" styleClass="textField" stylesheets="@../styles/general.css">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -47,7 +47,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="lastNameTF" prefHeight="40.0" prefWidth="210.0" promptText="Last Name" styleClass="textField">
+                              <TextField fx:id="lastNameTF" prefHeight="40.0" prefWidth="210.0" promptText="Last Name" styleClass="textField" stylesheets="@../styles/general.css">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -77,7 +77,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="nickNameTF" prefHeight="40.0" prefWidth="192.0" promptText="Nickname" styleClass="textField">
+                              <TextField fx:id="nickNameTF" prefHeight="40.0" prefWidth="192.0" promptText="Nickname" styleClass="textField" stylesheets="@../styles/general.css">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -97,7 +97,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="phoneNumberTF" prefHeight="40.0" prefWidth="210.0" promptText="Phone Number" styleClass="textField">
+                              <TextField fx:id="phoneNumberTF" prefHeight="40.0" prefWidth="210.0" promptText="Phone Number" styleClass="textField" stylesheets="@../styles/general.css">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -127,7 +127,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <PasswordField fx:id="passwordTF" prefHeight="40.0" prefWidth="210.0" promptText="Password" styleClass="textField">
+                              <PasswordField fx:id="passwordTF" prefHeight="40.0" prefWidth="210.0" promptText="Password" styleClass="textField" stylesheets="@../styles/general.css">
                                  <padding>
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
@@ -144,7 +144,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <PasswordField fx:id="passwordConfirmationTF" prefHeight="40.0" prefWidth="210.0" promptText="Password Confirmation" styleClass="textField">
+                              <PasswordField fx:id="passwordConfirmationTF" prefHeight="40.0" prefWidth="210.0" promptText="Password Confirmation" styleClass="textField" stylesheets="@../styles/general.css">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -171,7 +171,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="creditCardTF" prefHeight="40.0" prefWidth="217.0" promptText="Credit Card (Optional)" styleClass="textField">
+                              <TextField fx:id="creditCardTF" prefHeight="40.0" prefWidth="217.0" promptText="Credit Card (Optional)" styleClass="textField" stylesheets="@../styles/general.css">
                                  <padding>
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
@@ -191,7 +191,7 @@
                                     <Insets right="10.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="cscTF" prefHeight="40.0" prefWidth="210.0" promptText="CVC" styleClass="textField">
+                              <TextField fx:id="cscTF" prefHeight="40.0" prefWidth="210.0" promptText="CVC" styleClass="textField" stylesheets="@../styles/general.css">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -217,54 +217,35 @@
                   <Insets bottom="10.0" />
                </HBox.margin>
             </VBox>
-         </children>
-      </HBox>
-   </center>
-   <top>
-      <HBox fx:id="title" minHeight="-Infinity" minWidth="-Infinity" prefHeight="132.0" prefWidth="700.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-         <children>
-            <ImageView fitHeight="70.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-               <image>
-                  <Image url="@../images/Logo.png" />
-               </image>
-               <HBox.margin>
-                  <Insets right="10.0" top="10.0" />
-               </HBox.margin>
-            </ImageView>
-            <Label prefHeight="87.0" prefWidth="195.0" text="Sign Up" textFill="WHITE" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font name="Corbel" size="60.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-   </top>
-   <right>
-      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="250.0">
-         <children>
-            <VBox prefHeight="374.0" prefWidth="232.0" VBox.vgrow="ALWAYS">
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="252.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <HBox prefHeight="86.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" minHeight="280.0" prefHeight="420.0">
                      <children>
-                        <Button fx:id="cancelButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCancel" prefHeight="36.0" prefWidth="81.0" text="Cancel" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="image" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/default.png" />
+                           </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#changeProfilePicture" stylesheets="@../styles/general.css" text="Change Profile Picture">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" minHeight="74.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="cancelButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCancel" prefHeight="36.0" prefWidth="200.0" styleClass="cancel" stylesheets="@../styles/general.css" text="Cancel" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                              <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="40.0" prefWidth="90.0" text="Sign Up" HBox.hgrow="ALWAYS">
+                        <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="40.0" prefWidth="200.0" stylesheets="@../styles/general.css" text="Sign Up" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                              <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -273,14 +254,33 @@
                      </VBox.margin>
                   </HBox>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+               </padding>
             </VBox>
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-         </padding>
-      </VBox>
-   </right>
+      </HBox>
+   </center>
+   <top>
+      <HBox fx:id="title" minHeight="86.0" minWidth="-Infinity" prefHeight="86.0" prefWidth="700.0" style="-fx-background-color: darkgreen;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+               <image>
+                  <Image url="@../images/Logo.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" top="12.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label prefHeight="87.0" prefWidth="195.0" text="Sign Up" textFill="WHITE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Segoe UI Black" size="40.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="40.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

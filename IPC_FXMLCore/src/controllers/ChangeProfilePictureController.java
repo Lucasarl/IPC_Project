@@ -60,7 +60,14 @@ public class ChangeProfilePictureController implements Initializable {
     private StackPane stackPane;
     /**
      * Initializes the controller class.
+     * 
+     * 
      */
+    private boolean fromSignUp;
+    
+    public void setFromSignup(boolean b) {
+        fromSignUp=b;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        try{
@@ -138,6 +145,13 @@ public class ChangeProfilePictureController implements Initializable {
                 }
     @FXML
     private void defaultSelected(MouseEvent event) throws IOException {
+        if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(def.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null){
        FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -154,11 +168,18 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(), m.getTelephone());
         ps.changeImage(def.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
-        }
+        }}
     }
 
     @FXML
     private void men1Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(men1.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -176,10 +197,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(men1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void men2Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(men2.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
        if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -197,10 +225,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(men2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void men3Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(men3.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -217,10 +252,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
-        }    }
+        } }   }
 
     @FXML
     private void men4Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(men4.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -237,11 +279,18 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
-        }
+        }}
     }
 
     @FXML
     private void men5Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(men5.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -258,11 +307,18 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(men5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
-        }
+        }}
     }
 
     @FXML
     private void woman1Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(woman1.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -280,10 +336,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(woman1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void woman2Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(woman2.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -301,10 +364,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(woman2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void woman3Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(woman3.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -322,10 +392,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(woman3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void woman4Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(woman4.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -342,11 +419,18 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
         ps.changeImage(woman4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
-        }
+        }}
     }
 
     @FXML
     private void woman5Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(woman5.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -364,10 +448,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(woman5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void woman6Selected(MouseEvent event) throws IOException {
+         if(fromSignUp) {
+             FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+        Parent root=myLoader.load();
+        SignUpController s=myLoader.getController();
+        s.setImage(woman6.imageProperty().getValue());
+        IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -385,11 +476,17 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(woman6.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);    
         }
-    }
+    }}
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         //DE MOMENTO IR HACIA ATRAS VUELVE A REGISTRAR EL USUARIO Y LOS CAMBIOS PUEDEN NO GUARDARSE POR ELLO
+        if(fromSignUp) {
+              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
+              Parent root=myLoader.load();
+             // m.setImage(image);
+              IPC_FXMLCore.setRoot(root);
+        } else {
         if(m.getCreditCard()!=null) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsView.fxml"));
         Parent root=myLoader.load();
@@ -409,6 +506,6 @@ public class ChangeProfilePictureController implements Initializable {
         ps.changeImage(m.getImage());
         IPC_FXMLCore.setRoot(root);
         }
-    
+        }
     }
 }

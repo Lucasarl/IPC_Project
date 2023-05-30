@@ -346,6 +346,7 @@ public class ProfileSettingsViewController implements Initializable  {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/changeProfilePicture.fxml"));
         Parent root=myLoader.load();
         ChangeProfilePictureController cp=myLoader.getController();
+        cp.setFromSignup(false);
         cp.initMember(nickName,passwordMember);
         IPC_FXMLCore.setRoot(root);
         
