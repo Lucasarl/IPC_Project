@@ -119,7 +119,7 @@
                         <Insets left="40.0" top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerClicked" stylesheets="@../styles/general.css" text="Sign Up">
+                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerClicked" styleClass="login" stylesheets="@../styles/general.css" text="Sign Up">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
