@@ -90,7 +90,7 @@ public class ProfileSettingsViewNocardController implements Initializable {
     
     //METODO PARA ACTUALIZAR DATOS
     public void changeInfo(String newName, String newFamilyName,String newPassword, String newTelephone){
-        System.out.println(nickName);
+       // System.out.println(nickName);
         Member m=c.getMemberByCredentials(nickName,passwordMember);
         m.setName(newName);
         m.setSurname(newFamilyName);
@@ -181,7 +181,7 @@ public class ProfileSettingsViewNocardController implements Initializable {
         MainViewController main=myLoader.getController();
         Club c=Club.getInstance();
         Member m=c.getMemberByCredentials(nickName,passwordMember);
-        System.out.println(nickName);
+        //System.out.println(nickName);
         main.loginInfo(nickName, passwordMember);
         //main.setImage(m.getImage()); // para luego
         main.setImage(image.imageProperty().getValue());
@@ -257,8 +257,10 @@ public class ProfileSettingsViewNocardController implements Initializable {
         IPC_FXMLCore.setRoot(root);
         
        }
-       else
-       System.out.println("Cancel");
+       else{
+           
+       }
+       //System.out.println("Cancel");
 }
     }
     

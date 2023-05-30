@@ -125,11 +125,11 @@ public class ChangeProfileInfoNocardController implements Initializable {
         
         name.setOnKeyPressed( event -> {
              if(event.getCode()==KeyCode.ENTER){
-                 System.out.println((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() &&!telephoneRequired.isVisible()));
+                 //System.out.println((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() &&!telephoneRequired.isVisible()));
                  checkName();
                  update.fire();
                  
-}                System.out.println((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() &&!telephoneRequired.isVisible()));
+}                //System.out.println((!errorPassword.isVisible() && !nameRequired.isVisible() && !surnameRequired.isVisible() &&!telephoneRequired.isVisible()));
          }
   
  );

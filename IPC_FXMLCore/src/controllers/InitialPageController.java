@@ -723,7 +723,7 @@ column7.setCellFactory(column -> {
         for(int i=0; i<b.size();i++){
            Booking n=b.get(i);
              //System.out.println(n.getFromTime().toString());
-              System.out.println(n.getPaid()+" "+n.getFromTime().toString()); 
+              //System.out.println(n.getPaid()+" "+n.getFromTime().toString()); 
                
                      
            }

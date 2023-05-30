@@ -282,7 +282,7 @@ public class SignUpController implements Initializable {
                 000,
                 (Image)null);
         
-        System.out.println(club.existsLogin(nickNameTF.textProperty().getValue()));
+       // System.out.println(club.existsLogin(nickNameTF.textProperty().getValue()));
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent root= loader.load();
         IPC_FXMLCore.setRoot(root);

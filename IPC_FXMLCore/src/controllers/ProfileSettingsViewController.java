@@ -233,7 +233,7 @@ public class ProfileSettingsViewController implements Initializable  {
         //c.registerMember("Pedro","Antonio Palillo","643213454","Ntonio","erewrqdc","5402123478659807",321,avatar);
         //registerMember debería usarse solo una vez en signup (si no various usuarios tendran el mismo nombre de usuario, yo solo lo uso aqui como prueba )
         Member m=c.getMemberByCredentials(nickName,passwordMember);
-        System.out.println(c.existsLogin("Ntonio"));
+        //System.out.println(c.existsLogin("Ntonio"));
         name.textProperty().setValue(m.getName());
         familyName.textProperty().setValue(m.getSurname());
         password.textProperty().setValue(m.getPassword());
@@ -267,7 +267,7 @@ public class ProfileSettingsViewController implements Initializable  {
         MainViewController main=myLoader.getController();
         Club c=Club.getInstance();
         Member m=c.getMemberByCredentials(nickName,passwordMember);
-        System.out.println(nickName);
+       // System.out.println(nickName);
         main.loginInfo(nickName, passwordMember);
         //main.setImage(m.getImage()); // para luego
         main.setImage(image.imageProperty().getValue());
@@ -350,8 +350,10 @@ public class ProfileSettingsViewController implements Initializable  {
         IPC_FXMLCore.setRoot(root);
         
        }
-       else
-       System.out.println("Cancel");
+       else {
+           
+       }
+       
 }
     }
     
@@ -454,7 +456,7 @@ public class ProfileSettingsViewController implements Initializable  {
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         ps.loginInfo(nickName,passwordMember);
-        System.out.println(passwordMember);
+        //System.out.println(passwordMember);
         ps.changeInfo(name.textProperty().getValue(), familyName.textProperty().getValue(), passwordMember, telephoneNumber.textProperty().getValue());
         ps.changeImage(image.imageProperty().getValue());
         m.setCreditCard(null);

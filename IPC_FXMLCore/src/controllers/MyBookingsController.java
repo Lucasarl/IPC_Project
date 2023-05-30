@@ -155,7 +155,7 @@ public class MyBookingsController implements Initializable {
            
            else if(b.get(i).getMadeForDay().isEqual(LocalDate.now()) && LocalTime.now().isAfter(LocalTime.of(9, 0))) {
                    
-               System.out.println("h");
+               //System.out.println("h");
               if(LocalDateTime.of(LocalDate.now(), b.get(i).getFromTime()).isBefore( LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(60)))) {
                 
                counter++;
@@ -222,7 +222,7 @@ public class MyBookingsController implements Initializable {
         selectAll.selectedProperty().addListener((o,oldVal,newVal)->{
            if(newVal) 
            {
-               System.out.println(data.size());
+               //System.out.println(data.size());
               tableView.getSelectionModel().selectRange(0,data.size());
               tableView.getSelectionModel().selectedIndexProperty().addListener(listenerTable);
            }
@@ -442,7 +442,7 @@ public class MyBookingsController implements Initializable {
              }
              
          }
-          System.out.println(past);
+         // System.out.println(past);
          //System.out.println(elementsL.getText());
          List<String> bookings1=date(misdatosCourt1);
          boolean f=false;
