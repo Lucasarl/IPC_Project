@@ -46,12 +46,12 @@
          <children>
             <Button minWidth="118.0" mnemonicParsing="false" onAction="#goBack" stylesheets="@../styles/general.css" text="Go Back" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="30.0" />
+                  <Insets left="30.0" top="10.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="changeProf" minWidth="118.0" mnemonicParsing="false" onAction="#changeProfileInfo" stylesheets="@../styles/general.css" text="Change Profile Info" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="45.0" />
+                  <Insets left="45.0" top="10.0" />
                </HBox.margin>
             </Button>
          </children></HBox>

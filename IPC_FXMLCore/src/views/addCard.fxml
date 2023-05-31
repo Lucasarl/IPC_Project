@@ -65,7 +65,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
-                  <Label text="SVC">
+                  <Label text="CSC">
                      <HBox.margin>
                         <Insets left="145.0" top="20.0" />
                      </HBox.margin>

@@ -100,7 +100,7 @@
                         <Insets left="60.0" top="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label fx:id="telephoneRequired" text="Your phone number must be 9 characters long" textFill="RED" visible="false">
+                  <Label fx:id="telephoneRequired" text="Your phone number must be 9 digits long." textFill="RED" visible="false">
                      <HBox.margin>
                         <Insets left="10.0" top="20.0" />
                      </HBox.margin>
@@ -164,7 +164,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffffff;" stylesheets="@../styles/general.css">
                <children>
-                  <Label text="SVC">
+                  <Label text="CSC">
                      <HBox.margin>
                         <Insets left="120.0" top="20.0" />
                      </HBox.margin>

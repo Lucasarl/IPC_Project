@@ -296,6 +296,11 @@ public class ChangeProfileInfoNocardController implements Initializable {
     
     private void checkTelephone(){
         if(telephone.textProperty().getValue().length()!=9) {
+            telephoneRequired.textProperty().setValue("Your phone number must be 9 digits long.");
+            manageError(telephoneRequired, telephone, validTelephone);
+            
+        } else if(containsLetter(telephone.textProperty().getValue())) {
+            telephoneRequired.textProperty().setValue("Your phone number must not contain letters.");
             manageError(telephoneRequired, telephone, validTelephone);
         }
         
@@ -345,6 +350,13 @@ public class ChangeProfileInfoNocardController implements Initializable {
         tooltip.hide();
     }
     
-    
+    private boolean containsLetter(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

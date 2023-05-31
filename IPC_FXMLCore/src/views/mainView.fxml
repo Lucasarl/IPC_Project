@@ -116,7 +116,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                            <children>
-                              <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                                  <VBox.margin>
                                     <Insets top="3.0" />
                                  </VBox.margin>

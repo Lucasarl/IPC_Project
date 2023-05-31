@@ -366,8 +366,12 @@ public class ChangeProfileInfoController implements Initializable {
     
      private void checkSvc(){
         if(svc.textProperty().getValue().length()!=3) {
+            errorSvc.setText("CSC must be 3 characters long.");
             manageError(errorSvc,svc,validSvc);}
-           
+        else if(containsLetter(svc.textProperty().getValue())) {
+             errorSvc.setText("CSC must not contain letters.");
+            manageError(errorSvc,svc,validSvc);
+        }
         else {
             manageCorrect(errorSvc,svc,validSvc);
         }
@@ -395,6 +399,11 @@ public class ChangeProfileInfoController implements Initializable {
     
     private void checkTelephone(){
         if(telephone.textProperty().getValue().length()!=9) {
+            telephoneRequired.textProperty().setValue("Your phone number must be 9 digits long.");
+            manageError(telephoneRequired, telephone, validTelephone);
+            
+        } else if(containsLetter(telephone.textProperty().getValue())) {
+            telephoneRequired.textProperty().setValue("Your phone number must not contain letters.");
             manageError(telephoneRequired, telephone, validTelephone);
         }
         
@@ -466,4 +475,12 @@ public class ChangeProfileInfoController implements Initializable {
         }
     }
     
+     private boolean containsLetter(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

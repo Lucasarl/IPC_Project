@@ -65,6 +65,25 @@ public class ChangeProfilePictureController implements Initializable {
      */
     private boolean fromSignUp;
     
+    public String nameS;
+    public String surnameS;
+    public String nickS;
+    public String telS;
+    public String passwordS;
+    public String passwordRS;
+    public String creditCS;
+    public String svcS;
+    
+    public void setSignupData (String name, String surname, String nick, String tel, String password, String passwordR) {
+        nameS=name;
+        surnameS=surname;
+        nickS=nick;
+        telS=tel;
+        passwordS=password;
+        passwordRS=passwordR;
+        
+    }
+    
     public void setFromSignup(boolean b) {
         fromSignUp=b;
     }
@@ -149,6 +168,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(def.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -177,6 +197,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(men1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -205,6 +226,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(men2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -233,6 +255,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(men3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -260,6 +283,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(men4.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -288,6 +312,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(men5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -316,6 +341,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(woman1.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -344,6 +370,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(woman2.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -372,6 +399,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(woman3.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -401,6 +429,7 @@ public class ChangeProfilePictureController implements Initializable {
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
         s.setImage(woman4.imageProperty().getValue());
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         IPC_FXMLCore.setRoot(root);
         } else {
         if(m.getCreditCard()!=null) {
@@ -428,6 +457,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(woman5.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -456,6 +486,7 @@ public class ChangeProfilePictureController implements Initializable {
              FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
         Parent root=myLoader.load();
         SignUpController s=myLoader.getController();
+        s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
         s.setImage(woman6.imageProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         } else {
@@ -485,6 +516,8 @@ public class ChangeProfilePictureController implements Initializable {
               FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/signUp.fxml"));
               Parent root=myLoader.load();
              // m.setImage(image);
+              SignUpController s=myLoader.getController();
+              s.setData(nickS, nameS, surnameS, telS, passwordS, passwordRS);
               IPC_FXMLCore.setRoot(root);
         } else {
         if(m.getCreditCard()!=null) {

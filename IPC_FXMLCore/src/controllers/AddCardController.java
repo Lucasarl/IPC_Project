@@ -76,12 +76,16 @@ public class AddCardController implements Initializable {
     private ImageView eyeSvc;
     
     private boolean fromProfile;
-    //LOADS PROFILE DETAILS
+    private boolean signUp;
+  
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
         Club c=Club.getInstance();
         m=c.getMemberByCredentials(nickName, password);
     }
     
+    public void setSignup (boolean b) {
+        signUp=b;
+    }
     public void setFromProfile(boolean b) {
         fromProfile=b;
     }
@@ -188,13 +192,14 @@ public class AddCardController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        
+        if(!signUp) {
         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/profileSettingsViewNocard.fxml"));
         Parent root=myLoader.load();
         ProfileSettingsViewNocardController ps=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
         ps.changeImage(m.getImage());
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone());
+        
         if(fromProfile) {
         IPC_FXMLCore.setRoot(root);} else {
          myLoader=new FXMLLoader(getClass().getResource("/views/myBookings.fxml"));
@@ -202,15 +207,43 @@ public class AddCardController implements Initializable {
         //MyBookingsController b=myLoader.getController();
         //NECESARIO SOLO DE MOMENTO
         IPC_FXMLCore.setRoot(root);
+        }} else {
+         Alert alert = new Alert(AlertType.CONFIRMATION);
+         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+         stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
+        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+        alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
+        alert.setHeaderText(null);
+        ButtonType buttonTypeOne = new ButtonType("OK");
+        alert.getButtonTypes().setAll(buttonTypeOne);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        // ó null si no queremos cabecera
+        alert.setContentText("Your account has been created. Please log in.");
+        alert.showAndWait();
+         FXMLLoader myLoader=new FXMLLoader(getClass().getResource("/views/login.fxml"));
+        Parent root=myLoader.load();
+        //LoginController s=myLoader.getController();
+        
+        IPC_FXMLCore.setRoot(root);
         }
+        
     }
 
     @FXML
     private void updateInfo(ActionEvent event) throws IOException, ClubDAOException {
-        if(svc.textProperty().getValue().length()!=3) {
-            manageError(errorSvc,svc,validSvc);} else {
+        
+         if(containsLetter(svc.textProperty().getValue())) {
+            manageError(errorSvc,svc,validSvc);}
+         
+        else if(svc.textProperty().getValue().length()!=3) {
+            manageError(errorSvc,svc,validSvc);}
+        else {
             manageCorrect(errorSvc,svc,validSvc);
         }
+        
         if(validCard.getValue().equals(Boolean.TRUE)&&validSvc.getValue().equals(Boolean.TRUE)) {
         Alert alert = new Alert(AlertType.WARNING);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -245,6 +278,7 @@ public class AddCardController implements Initializable {
     }}}
     
     private void updateInfo() throws IOException, ClubDAOException {
+        
         Alert alert = new Alert(AlertType.CONFIRMATION);
          Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
          stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
@@ -260,14 +294,14 @@ public class AddCardController implements Initializable {
         // ó null si no queremos cabecera
         alert.setContentText("The credit card has been added.");
         alert.showAndWait();
-        
+        if(!signUp) {
         Club c=Club.getInstance();
         List<Booking> b=c.getUserBookings(m.getNickName());
         for(int i=0;i<b.size();i++){
             b.get(i).setPaid(true);
         }
-        
-        
+        }
+        Club c=Club.getInstance();
         
         User u=User.getInstance();
         Member m=c.getMemberByCredentials(u.getNickname(), u.getPassword());
@@ -283,8 +317,8 @@ public class AddCardController implements Initializable {
         //ps.setInvisible();
         //SI CAMBIAS LA CONTRASEÑA PETA PORQUE ESTOY USANDO UN USUARIO EJEMPLO "A LA FUERZA"
         ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
-        if(fromProfile) {
-        IPC_FXMLCore.setRoot(root);} else {
+        if(fromProfile && !signUp) {
+        IPC_FXMLCore.setRoot(root);} else if(!signUp) {
         myLoader=new FXMLLoader(getClass().getResource("/views/myBookings.fxml"));
         root=myLoader.load();
         MyBookingsController bo=myLoader.getController();
@@ -297,9 +331,29 @@ public class AddCardController implements Initializable {
         //ps.changeInfo(m.getName(),m.getSurname(),m.getPassword(),m.getTelephone(),cardNumber.textProperty().getValue(),svc.textProperty().getValue());
         IPC_FXMLCore.setRoot(root);
         
-        
+        } else {
+                alert = new Alert(AlertType.CONFIRMATION);
+         stage = (Stage) alert.getDialogPane().getScene().getWindow();
+         stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
+        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+        alert.setGraphic(new ImageView(this.getClass().getResource("/images/confirmation.png").toString()));
+        alert.setHeaderText(null);
+        buttonTypeOne = new ButtonType("OK");
+        alert.getButtonTypes().setAll(buttonTypeOne);
+         dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+      getClass().getResource("/styles/dialogBoxes.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("myAlert");
+        // ó null si no queremos cabecera
+        alert.setContentText("Your account has been created. Please log in.");
+        alert.showAndWait();
+                myLoader=new FXMLLoader(getClass().getResource("/views/login.fxml"));
+                root=myLoader.load();
+                LoginController l =myLoader.getController();
+                IPC_FXMLCore.setRoot(root);
+                }
         }
-    }
+    
     
     private void checkCreditCard ()  {
         if(cardNumber.textProperty().getValue().length()!=16) {
@@ -314,9 +368,13 @@ public class AddCardController implements Initializable {
     }
     
      private void checkSvc(){
-        if(svc.textProperty().getValue().length()!=3) {
-            manageErrorSvc(errorSvc,svc,validSvc);}
-           
+       if(svc.textProperty().getValue().length()!=3) {
+            errorSvc.setText("CSC must be 3 characters long.");
+            manageError(errorSvc,svc,validSvc);}
+        else if(containsLetter(svc.textProperty().getValue())) {
+             errorSvc.setText("CSC must not contain letters.");
+            manageError(errorSvc,svc,validSvc);
+        }
         else {
             manageCorrect(errorSvc,svc,validSvc);
         }
@@ -351,5 +409,13 @@ public class AddCardController implements Initializable {
            showSvc.setValue(Boolean.FALSE);
            
         }
+    }
+    private boolean containsLetter(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
