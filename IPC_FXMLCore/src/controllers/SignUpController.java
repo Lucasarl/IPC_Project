@@ -136,6 +136,10 @@ public class SignUpController implements Initializable {
                 validName.setValue(Boolean.FALSE);
                 signUpButton.setDisable(true);
                 firstNameError.setText("You must fill this part");
+            } else if(containsDigit(firstNameTF.textProperty().getValue())){
+                validName.setValue(Boolean.FALSE);
+                //signUpButton.setDisable(true);
+                firstNameError.setText("This field must only contain letters.");
             }
             else{
                 validName.setValue(Boolean.TRUE);
@@ -156,6 +160,11 @@ public class SignUpController implements Initializable {
                 validSurname.setValue(Boolean.FALSE);
                 signUpButton.setDisable(true);
                 lastNameError.setText("You must fill this part");
+            }
+            else if(containsDigit(lastNameTF.textProperty().getValue())){
+                validSurname.setValue(Boolean.FALSE);
+                //signUpButton.setDisable(true);
+                lastNameError.setText("This field must only contain letters.");
             }
             else{
                 validSurname.setValue(Boolean.TRUE);
@@ -275,6 +284,10 @@ public class SignUpController implements Initializable {
                 validName.setValue(Boolean.FALSE);
                 signUpButton.setDisable(true);
                 firstNameError.setText("You must fill this part");
+            } else if(!newValue && containsDigit(firstNameTF.textProperty().getValue())){
+                validName.setValue(Boolean.FALSE);
+                //signUpButton.setDisable(true);
+                firstNameError.setText("This field must only contain letters.");
             }
             else{
                 validName.setValue(Boolean.TRUE);
@@ -287,6 +300,11 @@ public class SignUpController implements Initializable {
                 validSurname.setValue(Boolean.FALSE);
                 signUpButton.setDisable(true);
                 lastNameError.setText("You must fill this part");
+            }
+             else if(containsDigit(lastNameTF.textProperty().getValue())){
+                validSurname.setValue(Boolean.FALSE);
+                //signUpButton.setDisable(true);
+                lastNameError.setText("This field must only contain letters.");
             }
             else{
                 validSurname.setValue(Boolean.TRUE);
@@ -452,6 +470,15 @@ public class SignUpController implements Initializable {
         }
         return false;
     }
+    
+    private boolean containsDigit(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isLetter(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     
     private void checkFieldsAndEnableButton() {
@@ -479,8 +506,19 @@ public class SignUpController implements Initializable {
                 validPasswordConfirmation.setValue(Boolean.FALSE);
                 //signUpButton.setDisable(true);
                 passwordConfirmationError.setText("Passwords must be equal");
-                passwordConfirmationTF.requestFocus();
-            }  else {
+               // passwordConfirmationTF.requestFocus();
+            }  
+        else if(containsDigit(firstNameTF.textProperty().getValue())) {
+               validName.setValue(Boolean.FALSE);
+                //signUpButton.setDisable(true);
+                firstNameError.setText("The field must only contain letters.");
+        }  
+        else if(containsDigit(lastNameTF.textProperty().getValue())){
+                validSurname.setValue(Boolean.FALSE);
+                //signUpButton.setDisable(true);
+                lastNameError.setText("This field must only contain letters.");
+            }
+        else {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
@@ -735,7 +773,7 @@ public class SignUpController implements Initializable {
             }
             else if( !passwordConfirmationTF.textProperty().getValue().equals(passwordTF.textProperty().getValue())){
                 validPasswordConfirmation.setValue(Boolean.FALSE);
-                signUpButton.setDisable(true);
+                //signUpButton.setDisable(true);
                 passwordConfirmationError.setText("Passwords must be equal");
                 passwordConfirmationTF.requestFocus();
             }
