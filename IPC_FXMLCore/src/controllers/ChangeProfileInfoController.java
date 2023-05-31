@@ -382,10 +382,15 @@ public class ChangeProfileInfoController implements Initializable {
     }
      
     private void checkName(){
-        if(name.textProperty().getValue().length()==0) {
+         if(name.textProperty().getValue().length()==0) {
+            nameRequired.setText("This field is required.");
             manageError(nameRequired, name, validName);
         }
-        
+        else if(containsDigit(name.textProperty().getValue())) {
+                //signUpButton.setDisable(true);
+                nameRequired.setText("The field must only contain letters.");
+                manageError(nameRequired, name, validName);
+        }  
         else {
             manageCorrect(nameRequired, name, validName);
         }
@@ -393,13 +398,20 @@ public class ChangeProfileInfoController implements Initializable {
     
     private void checkSurname ()  {
         if(familyName.textProperty().getValue().length()==0) {
+            surnameRequired.setText("This field is required.");
             manageError(surnameRequired, familyName, validSurname);
         }
-        
+        else if(containsDigit(familyName.textProperty().getValue())) {
+                //signUpButton.setDisable(true);
+                surnameRequired.setText("The field must only contain letters.");
+                manageError(surnameRequired, familyName, validSurname);
+        } 
         else {
             manageCorrect(surnameRequired, familyName, validSurname);
         }
     }
+    
+    
     
     private void checkTelephone(){
         if(telephone.textProperty().getValue().length()!=9) {
@@ -482,6 +494,14 @@ public class ChangeProfileInfoController implements Initializable {
      private boolean containsLetter(String s) {
         for (int i = 0; i < s.length(); i++) {
             if (!Character.isDigit(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+      private boolean containsDigit(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isLetter(s.charAt(i))) {
                 return true;
             }
         }
