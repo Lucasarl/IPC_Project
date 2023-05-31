@@ -356,7 +356,11 @@ public class ChangeProfileInfoController implements Initializable {
     
     private void checkCreditCard ()  {
         if(cardNumber.textProperty().getValue().length()!=16) {
+            errorCardNumber.textProperty().setValue("The card number must be 16 digits long.");
             manageError(errorCardNumber, cardNumber, validCreditCard);
+        } else if(containsLetter(cardNumber.textProperty().getValue())) {
+             errorCardNumber.textProperty().setValue("The card number must not contain letters.");
+             manageError(errorCardNumber, cardNumber, validCreditCard);
         }
         
         else {
