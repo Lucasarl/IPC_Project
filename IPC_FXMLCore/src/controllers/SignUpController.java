@@ -247,6 +247,7 @@ public class SignUpController implements Initializable {
   
  );
         passwordConfirmationTF.setOnKeyPressed( event -> {
+            if(event.getCode()==KeyCode.ENTER){
             if(passwordConfirmationTF.textProperty().getValue().equals("")){
                 validPasswordConfirmation.setValue(Boolean.FALSE);
                 signUpButton.setDisable(true);
@@ -263,7 +264,7 @@ public class SignUpController implements Initializable {
                 checkFieldsAndEnableButton();
                 signUpButton.fire();
             }
-         }
+         }}
   
  );
         

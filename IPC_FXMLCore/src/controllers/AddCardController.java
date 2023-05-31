@@ -77,6 +77,8 @@ public class AddCardController implements Initializable {
     
     private boolean fromProfile;
     private boolean signUp;
+    @FXML
+    private Button goBack;
   
     public void initMember(String nickName, String password) throws ClubDAOException, IOException {
         Club c=Club.getInstance();
@@ -85,6 +87,10 @@ public class AddCardController implements Initializable {
     
     public void setSignup (boolean b) {
         signUp=b;
+        if (signUp) {
+            goBack.textProperty().setValue("Cancel for now");
+            goBack.getStyleClass().add("cancel");
+        }
     }
     public void setFromProfile(boolean b) {
         fromProfile=b;
@@ -235,6 +241,7 @@ public class AddCardController implements Initializable {
     @FXML
     private void updateInfo(ActionEvent event) throws IOException, ClubDAOException {
         
+        
          if(containsLetter(svc.textProperty().getValue())) {
             manageError(errorSvc,svc,validSvc);}
          
@@ -245,6 +252,7 @@ public class AddCardController implements Initializable {
         }
         
         if(validCard.getValue().equals(Boolean.TRUE)&&validSvc.getValue().equals(Boolean.TRUE)) {
+        if(!signUp){
         Alert alert = new Alert(AlertType.WARNING);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(this.getClass().getResource("/images/Logo.png").toString()));
@@ -275,7 +283,11 @@ public class AddCardController implements Initializable {
        if (result.isPresent()) {
        if (result.get() == buttonTypeAdd){
         updateInfo();}
-    }}}
+    }} else {
+          updateInfo();  
+        }
+        
+        }}
     
     private void updateInfo() throws IOException, ClubDAOException {
         
